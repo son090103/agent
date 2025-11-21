@@ -1,0 +1,17 @@
+ruleId: CIS-NGINX-2.1.0-4.1.9
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure upstream server traffic is authenticated with a client certificate to establish mutual authentication between the client and server."
+severity: "High"
+type: "config_check"
+target:
+  config_path: "{config_path}"
+assertion:
+  directive: "proxy_ssl_certificate"
+  condition: "exists"
+  value: ""
+assertion2:
+  directive: "proxy_ssl_certificate_key"
+  condition: "exists"
+  value: ""
+rationale: "Client certificate authentication for upstream traffic ensures the identity of the client is verified, preventing unauthorized access to backend servers."
+remediation: "Configure client certificate authentication in the location block: proxy_ssl_certificate /etc/ssl/certs/client.crt; proxy_ssl_certificate_key /etc/ssl/private/client.key; and ensure the certificate and key are valid."

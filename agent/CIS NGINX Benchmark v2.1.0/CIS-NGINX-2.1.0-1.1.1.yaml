@@ -1,0 +1,36 @@
+ruleId: CIS-NGINX-2.1.0-1.1.1
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure NGINX is installed using the vendor-provided or trusted package repository."
+severity: "High"
+type: "package_check"
+target:
+  package: "nginx"
+  expected_status: "installed"
+assertion:
+  condition: "is_installed"
+  value: true
+rationale: |
+  Installing NGINX from your vendor’s trusted repository ensures that all dependencies,
+  maintenance patches, and security updates are properly managed. Vendor-provided packages
+  are thoroughly tested and verified, which reduces the risk of introducing insecure or
+  incompatible builds into your environment.
+remediation: |
+  To install NGINX from the vendor’s trusted repository, run the following commands:
+
+      sudo su
+      dnf update -y && dnf install dnf-utils -y
+
+      cat << EOF > /etc/yum.repos.d/nginx.repo
+      [nginx-stable]
+      name=nginx stable repo
+      baseurl=http://nginx.org/packages/rhel/8/\$basearch/
+      gpgcheck=1
+      enabled=1
+      gpgkey=https://nginx.org/keys/nginx_signing.key
+      module_hotfixes=true
+      EOF
+
+      dnf install nginx -y
+
+  After installation, verify it by running:
+      nginx -v

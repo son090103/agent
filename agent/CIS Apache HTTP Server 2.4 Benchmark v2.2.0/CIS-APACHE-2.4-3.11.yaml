@@ -1,0 +1,23 @@
+ruleId: CIS-APACHE-2.4-3.11
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure group write permissions on Apache directories and files are properly restricted to prevent unauthorized modifications."
+severity: "Medium"
+type: "file_permission_check"
+target:
+  path: "/etc/apache2"
+  recursive: true
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "no_group_write"
+rationale: "Restricting group write access to Apache configuration, binary, and log directories helps prevent unauthorized or accidental modification of critical files that could lead to compromise or service disruption. Only controlled web content directories should allow group write access for legitimate updates."
+remediation: |
+  Remove group write permissions from all Apache directories and files:
+      # find -L $APACHE_PREFIX ! -type l -perm /g=w -exec chmod g-w {} \;
+  For example, on most systems:
+      # find -L /etc/apache2 ! -type l -perm /g=w -exec chmod g-w {} \;
+      # find -L /usr/lib/apache2 ! -type l -perm /g=w -exec chmod g-w {} \;
+      # find -L /var/log/apache2 ! -type l -perm /g=w -exec chmod g-w {} \;
+  Exclude web content directories that require controlled group write access:
+      # chmod -R g+w /var/www/html

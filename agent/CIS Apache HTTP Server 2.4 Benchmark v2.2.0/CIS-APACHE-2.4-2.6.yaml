@@ -1,0 +1,51 @@
+ruleId: CIS-APACHE-2.4-2.6
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure all Proxy modules are disabled if the server is not intended to function as a proxy."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directives:
+    - "LoadModule proxy_module modules/mod_proxy.so"
+    - "LoadModule proxy_connect_module modules/mod_proxy_connect.so"
+    - "LoadModule proxy_ftp_module modules/mod_proxy_ftp.so"
+    - "LoadModule proxy_http_module modules/mod_proxy_http.so"
+    - "LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so"
+    - "LoadModule proxy_scgi_module modules/mod_proxy_scgi.so"
+    - "LoadModule proxy_ajp_module modules/mod_proxy_ajp.so"
+    - "LoadModule proxy_balancer_module modules/mod_proxy_balancer.so"
+    - "LoadModule proxy_express_module modules/mod_proxy_express.so"
+    - "LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so"
+    - "LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so"
+assertion:
+  condition: "not_contains_any"
+  value:
+    - "proxy_module"
+    - "proxy_connect_module"
+    - "proxy_ftp_module"
+    - "proxy_http_module"
+    - "proxy_fcgi_module"
+    - "proxy_scgi_module"
+    - "proxy_ajp_module"
+    - "proxy_balancer_module"
+    - "proxy_express_module"
+    - "proxy_wstunnel_module"
+    - "proxy_fdpass_module"
+rationale: "If the web server is not intended to act as a proxy, disabling all proxy-related modules reduces the attack surface and prevents abuse for anonymizing or relaying malicious traffic."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache without including mod_proxy and related modules:
+      $ cd $DOWNLOAD_HTTPD
+      $ ./configure
+  • For dynamically loaded modules, comment out or remove the following directives in httpd.conf or associated configuration files:
+      ##LoadModule proxy_module modules/mod_proxy.so
+      ##LoadModule proxy_connect_module modules/mod_proxy_connect.so
+      ##LoadModule proxy_ftp_module modules/mod_proxy_ftp.so
+      ##LoadModule proxy_http_module modules/mod_proxy_http.so
+      ##LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
+      ##LoadModule proxy_scgi_module modules/mod_proxy_scgi.so
+      ##LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
+      ##LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+      ##LoadModule proxy_express_module modules/mod_proxy_express.so
+      ##LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so
+      ##LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so

@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-5.5
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the default CGI script 'printenv' is removed from all configured cgi-bin directories."
+severity: "High"
+type: "file_check"
+target:
+  paths:
+    - "/usr/lib/cgi-bin/printenv"
+    - "/usr/local/apache2/cgi-bin/printenv"
+    - "/var/www/cgi-bin/printenv"
+assertion:
+  condition: "not_exists"
+rationale: "Default CGI scripts such as 'printenv' disclose sensitive environment variables and system paths. Removing this file prevents information disclosure and reduces attack surface by eliminating unnecessary CGI programs."
+remediation: |
+  Remove the 'printenv' script from all cgi-bin directories configured in Apache:
+      # rm -f /usr/lib/cgi-bin/printenv
+      # rm -f /usr/local/apache2/cgi-bin/printenv
+      # rm -f /var/www/cgi-bin/printenv
+  If additional CGI directories are defined using ScriptAlias or ScriptAliasMatch directives, verify and remove any instances of 'printenv' within those paths.

@@ -1,0 +1,36 @@
+ruleId: CIS-APACHE-2.4-7.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the mod_ssl and/or mod_nss module is installed and enabled to provide SSL/TLS support for secure communications."
+severity: "High"
+type: "module_check"
+target:
+  modules:
+    - "ssl_module"
+    - "nss_module"
+assertion:
+  condition: "enabled_any"
+  value: true
+rationale: "TLS ensures the confidentiality and integrity of data transmitted between clients and the web server. Enabling mod_ssl or mod_nss provides encryption and authentication capabilities essential for protecting sensitive user data and preventing man-in-the-middle attacks."
+remediation: |
+  Perform one of the following actions to ensure SSL/TLS support is available:
+
+  **For systems using package-based installations (e.g., Debian/Ubuntu, RHEL/CentOS):**
+  1. Install the SSL/TLS module if not already present:
+         # Debian/Ubuntu
+         sudo apt install libapache2-mod-ssl
+
+         # Red Hat/CentOS
+         sudo yum install mod_ssl
+         sudo yum install mod_nss  # optional alternative
+  2. Enable the SSL module and restart Apache:
+         sudo a2enmod ssl
+         sudo systemctl restart apache2
+
+  **For source-based Apache installations:**
+  1. Rebuild Apache with SSL support enabled:
+         ./configure --with-included-apr --with-ssl=$OPENSSL_DIR --enable-ssl
+         make && sudo make install
+  2. Verify that either ssl_module or nss_module is loaded:
+         httpd -M | egrep 'ssl_module|nss_module'
+  3. Restart Apache to activate the changes:
+         sudo systemctl restart apache2

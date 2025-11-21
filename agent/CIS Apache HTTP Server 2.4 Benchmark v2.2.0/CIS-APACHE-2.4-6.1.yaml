@@ -1,0 +1,22 @@
+ruleId: CIS-APACHE-2.4-6.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the ErrorLog filename and LogLevel severity are configured correctly."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "LogLevel"
+assertion:
+  condition: "contains"
+  value: "notice core:info"
+rationale: "Error logs are essential for identifying and investigating anomalous server behavior. Configuring LogLevel to 'notice core:info' ensures that not found and unauthorized errors are recorded, improving visibility for intrusion detection and forensic analysis."
+remediation: |
+  Perform the following steps to configure the ErrorLog filename and severity level correctly:
+  1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).
+  2. Add or modify the following directive to set the appropriate log level:
+         LogLevel notice core:info
+  3. Ensure the ErrorLog directive points to a valid log file or syslog facility:
+         ErrorLog "logs/error_log"
+  4. If multiple virtual hosts exist, add a dedicated ErrorLog directive within each <VirtualHost> section so that each site maintains separate error logs.
+  5. Save the configuration and restart Apache to apply the changes:
+         $ sudo systemctl restart apache2

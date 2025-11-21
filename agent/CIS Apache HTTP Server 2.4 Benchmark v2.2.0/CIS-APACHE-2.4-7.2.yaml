@@ -1,0 +1,51 @@
+ruleId: CIS-APACHE-2.4-7.2
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure a valid, trusted SSL/TLS certificate signed by a recognized Certificate Authority (CA) is installed and configured."
+severity: "High"
+type: "config_check"
+target:
+  file: "sites-available/default-ssl.conf"
+  directives:
+    - "SSLCertificateFile"
+    - "SSLCertificateKeyFile"
+assertion:
+  condition: "valid_certificate"
+  value: true
+rationale: "A trusted SSL/TLS certificate ensures the authenticity of the web server and the confidentiality of communications. Self-signed or expired certificates can lead to browser warnings and enable man-in-the-middle attacks."
+remediation: |
+  Perform the following steps to install and configure a valid, trusted SSL/TLS certificate:
+
+  1. **Generate a private key** (recommended size: 2048 bits):
+         sudo mkdir -p /etc/ssl/private
+         cd /etc/ssl/private
+         sudo openssl genrsa -aes128 2048 > example.com.key
+
+  2. **Create a Certificate Signing Request (CSR)** ensuring the Common Name (CN) matches your web server hostname:
+         sudo openssl req -new -key example.com.key -out example.com.csr
+
+  3. **Submit the CSR** to a trusted Certificate Authority (CA) to obtain a signed certificate.
+     - Ensure the CA uses a strong hash algorithm (SHA-256 or higher).
+     - Avoid weak algorithms such as MD5 or SHA-1.
+
+  4. **Install the signed certificate** and any required intermediate CA certificates:
+         sudo cp example.com.crt /etc/ssl/certs/
+         sudo cp intermediate-ca.crt /etc/ssl/certs/
+
+  5. **Update your Apache SSL configuration** (typically in `/etc/apache2/sites-available/default-ssl.conf`):
+         SSLCertificateFile /etc/ssl/certs/example.com.crt
+         SSLCertificateKeyFile /etc/ssl/private/example.com.key
+         SSLCertificateChainFile /etc/ssl/certs/intermediate-ca.crt
+
+     For Apache 2.4.8 and newer, you may concatenate intermediate certificates into the server certificate file instead of using `SSLCertificateChainFile`.
+
+  6. **Ensure proper file permissions**:
+         sudo chmod 600 /etc/ssl/private/example.com.key
+         sudo chmod 644 /etc/ssl/certs/example.com.crt
+
+  7. **Restart Apache** to apply changes:
+         sudo a2enmod ssl
+         sudo systemctl restart apache2
+
+  8. **Verify certificate validity**:
+         openssl verify -CAfile /etc/ssl/certs/ca-bundle.crt -purpose sslserver /etc/ssl/certs/example.com.crt
+         # The output should return: OK

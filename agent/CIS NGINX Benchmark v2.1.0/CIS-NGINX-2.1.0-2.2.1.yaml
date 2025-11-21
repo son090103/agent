@@ -1,0 +1,29 @@
+ruleId: CIS-NGINX-2.1.0-2.2.1
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure that NGINX is run using a non-privileged, dedicated service account."
+severity: "High"
+type: "account_check"
+target:
+  directive: "user"
+  file: "/etc/nginx/nginx.conf"
+  expected_user: "nginx"
+assertion:
+  condition: "non_privileged_user"
+  value:
+    user_exists: true
+    has_no_sudo: true
+    primary_group_only: true
+rationale: |
+  Running NGINX under a non-privileged, dedicated user account limits the potential damage
+  an attacker could cause if the web service is compromised. Using a unique, restricted account
+  helps prevent privilege escalation and lateral movement across other system processes.
+remediation: |
+  Step 1: Create a dedicated, non-privileged system user for NGINX:
+      useradd nginx -r -g nginx -d /var/cache/nginx -s /sbin/nologin
+
+  Step 2: Configure NGINX to run under this user by adding or updating the 'user' directive in /etc/nginx/nginx.conf:
+      user nginx;
+
+  Step 3: Verify that the NGINX user does not have sudo privileges and belongs only to its primary group:
+      sudo -l -U nginx
+      groups nginx

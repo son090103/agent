@@ -1,0 +1,24 @@
+ruleId: CIS-APACHE-2.4-3.7
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the CoreDumpDirectory is owned by root, assigned to the Apache group, and not accessible by other users."
+severity: "High"
+type: "file_permission_check"
+target:
+  directive: "CoreDumpDirectory"
+  file: "httpd.conf"
+  expected_owner: "root"
+  expected_group: "apache"
+  disallow_other_access: true
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "secure_directory"
+rationale: "Core dumps may contain sensitive data and should only be accessible by authorized users. Ensuring that the CoreDumpDirectory is owned by root, assigned to the Apache group, and not accessible by others prevents exposure of sensitive memory contents."
+remediation: |
+  Either remove the CoreDumpDirectory directive from all Apache configuration files, or ensure the configured directory meets the following:
+    • It is not located within the web document root (e.g., $APACHE_PREFIX/htdocs)
+    • It is owned by root and belongs to the Apache group:
+        # chown root:apache /var/log/httpd
+    • It has no read, write, or execute permissions for other users:
+        # chmod o-rwx /var/log/httpd

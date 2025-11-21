@@ -1,0 +1,275 @@
+[
+  {
+    "rule_id": "CIS-NGINX-2.1.0-1.1.1",
+    "description": "Ensure NGINX is installed using the vendor-provided or trusted package repository.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "✅ nginx package is installed (trusted vendor source assumed)"
+    ],
+    "remediation": "To install NGINX from the vendor’s trusted repository, run the following commands:\n\n    sudo su\n    dnf update -y && dnf install dnf-utils -y\n\n    cat << EOF > /etc/yum.repos.d/nginx.repo\n    [nginx-stable]\n    name=nginx stable repo\n    baseurl=http://nginx.org/packages/rhel/8/\\$basearch/\n    gpgcheck=1\n    enabled=1\n    gpgkey=https://nginx.org/keys/nginx_signing.key\n    module_hotfixes=true\n    EOF\n\n    dnf install nginx -y\n\nAfter installation, verify it by running:\n    nginx -v\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.1.4",
+    "description": "Ensure the autoindex module is disabled to prevent directory listing.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "autoindex on found in /etc/nginx/nginx.conf, expected off",
+      "autoindex on found in /etc/nginx/nginx.conf, expected off"
+    ],
+    "remediation": "Step 1: Search for any autoindex directives in your NGINX configuration:\n    egrep -i '^\\s*autoindex\\s+' /etc/nginx/nginx.conf\n    egrep -i '^\\s*autoindex\\s+' /etc/nginx/conf.d/*\n\nStep 2: Set the value of all autoindex directives to 'off' or remove them entirely. Example:\n    location / {\n        autoindex off;\n    }\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.2.1",
+    "description": "Ensure that NGINX is run using a non-privileged, dedicated service account.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "user=www-data (expected {'user_exists': true, 'has_no_sudo': true, 'primary_group_only': true})"
+    ],
+    "remediation": "Step 1: Create a dedicated, non-privileged system user for NGINX:\n    useradd nginx -r -g nginx -d /var/cache/nginx -s /sbin/nologin\n\nStep 2: Configure NGINX to run under this user by adding or updating the 'user' directive in /etc/nginx/nginx.conf:\n    user nginx;\n\nStep 3: Verify that the NGINX user does not have sudo privileges and belongs only to its primary group:\n    sudo -l -U nginx\n    groups nginx\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.2.3",
+    "description": "Ensure the NGINX service account has an invalid shell.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "Shell is set to '/usr/sbin/nologin' (invalid login shell)"
+    ],
+    "remediation": "Change the login shell for the nginx account to /sbin/nologin by running:\n    usermod -s /sbin/nologin nginx\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.3.1",
+    "description": "Ensure NGINX directories and files are owned by root.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "All files under /etc/nginx are owned by root:root"
+    ],
+    "remediation": "Run the following command to set ownership and group ownership to root:\n    chown -R root:root /etc/nginx\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.3.1",
+    "description": "Ensure NGINX directories and files are owned by root.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "All files under /etc/nginx are owned by root:root"
+    ],
+    "remediation": "Run the following command to set ownership and group ownership to root:\n    chown -R root:root /etc/nginx\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.3.2",
+    "description": "Ensure access to NGINX directories and files is restricted.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "All files under /etc/nginx are owned by root:root"
+    ],
+    "remediation": "Run the following commands to set appropriate restrictive permissions:\n    find /etc/nginx -type d -exec chmod go-w {} +\n    find /etc/nginx -type f -exec chmod ug-x,o-rwx {} +\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.3.3",
+    "description": "Ensure the NGINX process ID (PID) file is secured.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "All files under /var/run/nginx.pid are owned by root:root"
+    ],
+    "remediation": "Run the following commands to secure the NGINX PID file:\n    chown root:root /var/run/nginx.pid\n    chmod u-x,go-wx /var/run/nginx.pid\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.4.2",
+    "description": "Ensure requests for unknown host names are rejected.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "server_name example.com found in /etc/nginx/sites-enabled/default, expected {'has_default_block': true, 'has_defined_server_names': true}"
+    ],
+    "remediation": "Ensure your NGINX configuration includes a default server block to reject unknown hostnames:\n    server {\n        return 404;\n    }\n\nThen confirm that each server block explicitly defines the server_name directive, for example:\n    server {\n        listen       443;\n        server_name  example.com;\n        ...\n    }\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.4.3",
+    "description": "Ensure keepalive_timeout is 10 seconds or less, but not 0.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "keepalive_timeout=10 (expected {'min': 1, 'max': 10})"
+    ],
+    "remediation": "In your NGINX configuration (typically within the 'http' or 'server' block), set the keepalive_timeout directive to 10 seconds or less, but not 0. For example:\n    keepalive_timeout 10;\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.4.4",
+    "description": "Ensure send_timeout is set to 10 seconds or less, but not 0.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "send_timeout=10 (expected {'min': 1, 'max': 10})"
+    ],
+    "remediation": "In your NGINX configuration (within the 'http' or 'server' block), add or update the send_timeout directive to 10 seconds or less, but not 0. For example:\n    send_timeout 10;\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.5.1",
+    "description": "Ensure server_tokens directive is set to 'off'.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "server_tokens off (match in /etc/nginx/nginx.conf)"
+    ],
+    "remediation": "In your NGINX configuration (either in the 'http' block or within each 'server' block), set the directive as follows:\n    server_tokens off;\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.5.2",
+    "description": "Ensure default error and index.html pages do not reference NGINX.",
+    "severity": "Medium",
+    "status": "Insufficient data to conclude",
+    "found_value": [
+      "/usr/share/nginx/html/index.html not found",
+      "/usr/share/nginx/html/50x.html not found",
+      "Default HTML files not found, unable to verify content."
+    ],
+    "remediation": "Edit the following files and remove any references to 'nginx' or 'NGINX':\n    /usr/share/nginx/html/index.html\n    /usr/share/nginx/html/50x.html\nExample command:\n    sed -i '/nginx/Id' /usr/share/nginx/html/index.html /usr/share/nginx/html/50x.html\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-2.5.4",
+    "description": "Ensure the NGINX reverse proxy does not enable information disclosure by configuring headers to avoid leaking backend server details.",
+    "severity": "Medium",
+    "status": "Insufficient data to conclude",
+    "found_value": [
+      "No proxy_set_header or proxy_hide_header directives found."
+    ],
+    "remediation": "Configure the nginx reverse proxy to avoid disclosing backend details, for example: proxy_set_header Server \"Custom-Web-Server\"; and use internal naming or variables for proxy_pass, e.g., proxy_pass http://backend;"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-3.3",
+    "description": "Ensure error logging is enabled and set to the info logging level.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "error_log=/var/log/nginx/error.log (expected info)"
+    ],
+    "remediation": "Edit the NGINX configuration file (e.g., /etc/nginx/nginx.conf) to include or update the following directive:\n    error_log  /var/log/nginx/error_log.log  info;\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-3.4",
+    "description": "Ensure log files are rotated to prevent excessive disk usage.",
+    "severity": "Medium",
+    "status": "Insufficient data to conclude",
+    "found_value": [
+      "/etc/logrotate.d/nginx not found"
+    ],
+    "remediation": "Modify the log rotation configuration to match the recommended settings:\n    sed -i \"s/daily/weekly/\" /etc/logrotate.d/nginx\n    sed -i \"s/rotate [0-9]\\\\+/rotate 13/\" /etc/logrotate.d/nginx\nThis ensures logs are rotated weekly and retained for 13 rotations before removal.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-4.1.3",
+    "description": "Ensure private key permissions are restricted.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "All files under /etc/nginx are owned by root:root"
+    ],
+    "remediation": "Run the following command to remove excessive permissions from private key files:\n    find /etc/nginx/ -name '*.key' -exec chmod u-wx,go-rwx {} +\nReplace '/etc/nginx/' with the directory containing your key files if different.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-4.1.4",
+    "description": "Ensure only modern TLS protocols (TLSv1.2 and TLSv1.3) are used.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Insecure protocol enabled → ssl_protocols tlsv1 tlsv1.1 tlsv1.2 tlsv1.3"
+    ],
+    "remediation": "Update your NGINX configuration to include only modern TLS versions.\nFor web servers:\n    sed -i \"s/ssl_protocols[^;]*;/ssl_protocols TLSv1.2 TLSv1.3;/\" /etc/nginx/nginx.conf\n\nFor proxies:\n    sed -i \"s/proxy_ssl_protocols[^;]*;/proxy_ssl_protocols TLSv1.2 TLSv1.3;/\" /etc/nginx/nginx.conf\n\nIf not already configured, manually add these directives:\n    server {\n        ssl_protocols TLSv1.2 TLSv1.3;\n    }\n\n    location / {\n        proxy_ssl_protocols TLSv1.2 TLSv1.3;\n    }\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-4.1.6",
+    "description": "Ensure custom Diffie-Hellman parameters are used with at least 2048 bits.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "ssl_dhparam=none (expected {'path': '/etc/nginx/ssl/dhparam.pem', 'min_bits': 2048, 'mode_max': '400'})"
+    ],
+    "remediation": "Generate strong DHE (Ephemeral Diffie-Hellman) parameters and configure NGINX to use them:\n    mkdir -p /etc/nginx/ssl\n    openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048\n    chmod 400 /etc/nginx/ssl/dhparam.pem\n\nThen, add or update the following directive in your NGINX configuration:\n    ssl_dhparam /etc/nginx/ssl/dhparam.pem;\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-4.1.7",
+    "description": "Ensure Online Certificate Status Protocol (OCSP) stapling is enabled.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "Both ssl_stapling and ssl_stapling_verify are enabled."
+    ],
+    "remediation": "Step 1: Verify that your NGINX server can connect to your Certificate Authority’s OCSP server:\n    curl -I \"https://<your-ca-ocsp-server>\"\n\nStep 2: Enable OCSP stapling and verification in your NGINX configuration:\n    server {\n        ssl_stapling on;\n        ssl_stapling_verify on;\n    }\n\nEnsure these directives are present in all HTTPS-enabled server blocks.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-4.1.8",
+    "description": "Ensure HTTP Strict Transport Security (HSTS) is enabled with a minimum max-age of six months.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "add_header=none (expected strict-transport-security \"max-age=15768000;\" always)"
+    ],
+    "remediation": "Add or update the following directive within your HTTPS server block:\n    server {\n        add_header Strict-Transport-Security \"max-age=15768000;\" always;\n    }\n\nThis ensures browsers will only connect to your site using HTTPS for a minimum of six months.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-4.1.9",
+    "description": "Ensure upstream server traffic is authenticated with a client certificate to establish mutual authentication between the client and server.",
+    "severity": "High",
+    "status": "Insufficient data to conclude",
+    "found_value": [
+      "No proxy_ssl_certificate or proxy_ssl_certificate_key directives found."
+    ],
+    "remediation": "Configure client certificate authentication in the location block: proxy_ssl_certificate /etc/ssl/certs/client.crt; proxy_ssl_certificate_key /etc/ssl/private/client.key; and ensure the certificate and key are valid."
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-5.2.1",
+    "description": "Ensure timeout values for reading the client header and body are set correctly.",
+    "severity": "Medium",
+    "status": "Insufficient data to conclude",
+    "found_value": [
+      "No client_header_timeout or client_body_timeout directives found."
+    ],
+    "remediation": "In your NGINX configuration (within the 'http' or 'server' block), set the following directives to 10 seconds or less:\n    client_header_timeout 10;\n    client_body_timeout 10;\n\nExample configuration:\n    http {\n        client_header_timeout 10;\n        client_body_timeout 10;\n    }\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-5.2.2",
+    "description": "Ensure the maximum request body size is set correctly using the client_max_body_size directive.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "client_max_body_size=none (expected 100k)"
+    ],
+    "remediation": "In your NGINX configuration (within the 'http' or 'server' block), set an appropriate maximum request body size.\nThe following example sets the limit to 100 kilobytes:\n    client_max_body_size 100K;\n\nExample:\n    http {\n        client_max_body_size 100K;\n    }\n\nAdjust the value based on your application's requirements.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-5.2.3",
+    "description": "Ensure the maximum buffer size for URIs is defined using the large_client_header_buffers directive.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "large_client_header_buffers=none (expected 2 1k)"
+    ],
+    "remediation": "In your NGINX configuration (within the 'http' or 'server' block), add or update the following directive:\n    large_client_header_buffers 2 1k;\n\nExample:\n    http {\n        large_client_header_buffers 2 1k;\n    }\n\nAdjust the number and size of buffers based on application needs while keeping security in mind.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-5.3.1",
+    "description": "Ensure the X-Frame-Options header is configured and enabled to mitigate clickjacking attacks.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "add_header=none (expected x-frame-options \"sameorigin\" always)"
+    ],
+    "remediation": "Add or update the following directive within your NGINX 'server' or 'location' blocks to enable X-Frame-Options:\n    add_header X-Frame-Options \"SAMEORIGIN\" always;\n\nAdjust the policy based on organizational requirements:\n    SAMEORIGIN  – allows framing from the same site only.\n    DENY        – disallows framing completely.\n    ALLOW-FROM  – allows framing from a specific trusted URL.\n"
+  },
+  {
+    "rule_id": "CIS-NGINX-2.1.0-5.3.2",
+    "description": "Ensure the X-Content-Type-Options header is configured and enabled to prevent MIME type sniffing.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "add_header=none (expected x-content-type-options \"nosniff\" always)"
+    ],
+    "remediation": "Add or update the following directive in every 'server' block within your NGINX configuration:\n    add_header X-Content-Type-Options \"nosniff\" always;\n\nExample:\n    server {\n        add_header X-Content-Type-Options \"nosniff\" always;\n    }\n"
+  }
+]

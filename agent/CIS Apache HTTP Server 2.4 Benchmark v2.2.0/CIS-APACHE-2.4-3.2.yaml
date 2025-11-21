@@ -1,0 +1,21 @@
+ruleId: CIS-APACHE-2.4-3.2
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Apache user account is assigned an invalid shell to prevent interactive login access."
+severity: "High"
+type: "system_check"
+target:
+  file: "/etc/passwd"
+  user: "apache"
+  field: "shell"
+assertion:
+  condition: "in"
+  value:
+    - "/sbin/nologin"
+    - "/bin/false"
+    - "/dev/null"
+rationale: "The Apache service account should not be able to log in interactively. Assigning a nologin or invalid shell prevents the account from being used to gain shell access to the system, reducing the attack surface."
+remediation: |
+  Change the Apache user account shell to an invalid shell:
+      # chsh -s /sbin/nologin apache
+  Alternatively, edit /etc/passwd directly and ensure the Apache entry appears as follows:
+      apache:x:48:48:Apache:/var/www:/sbin/nologin

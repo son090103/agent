@@ -1,0 +1,19 @@
+ruleId: CIS-NGINX-2.1.0-2.3.2
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure access to NGINX directories and files is restricted."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/etc/nginx"
+  dir_mode_max: "755"
+  file_mode_max: "660"
+assertion:
+  condition: "permissions_restrictive"
+  value:
+    directories: "755"
+    files: "660"
+rationale: "Restricting permissions on NGINX configuration directories and files enforces the principle of least privilege. This prevents unauthorized users from viewing or modifying critical configuration data."
+remediation: |
+  Run the following commands to set appropriate restrictive permissions:
+      find /etc/nginx -type d -exec chmod go-w {} +
+      find /etc/nginx -type f -exec chmod ug-x,o-rwx {} +

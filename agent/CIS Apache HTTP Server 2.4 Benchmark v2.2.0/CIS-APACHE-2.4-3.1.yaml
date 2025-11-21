@@ -1,0 +1,27 @@
+ruleId: CIS-APACHE-2.4-3.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Apache web server runs as a non-root user to minimize privilege escalation risks."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directives:
+    - "User"
+    - "Group"
+assertion:
+  condition: "not_equals_any"
+  value:
+    - "root"
+    - "daemon"
+    - "nobody"
+rationale: "Running Apache worker processes as an unprivileged user reduces the risk of privilege escalation and limits the impact of a compromise. Using the default 'root', 'daemon', or 'nobody' users is insecure since they may be shared by other services."
+remediation: |
+  Perform the following actions:
+  1. Create a dedicated system account for Apache if it does not already exist:
+      # groupadd -r apache
+      # useradd -r -g apache -d /var/www -s /sbin/nologin apache
+  2. Configure the Apache user and group in httpd.conf or relevant configuration files:
+      User apache
+      Group apache
+  3. Restart Apache for changes to take effect:
+      # systemctl restart apache2

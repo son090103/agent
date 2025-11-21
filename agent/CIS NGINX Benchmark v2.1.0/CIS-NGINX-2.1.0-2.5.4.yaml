@@ -1,0 +1,17 @@
+ruleId: CIS-NGINX-2.1.0-2.5.4
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the NGINX reverse proxy does not enable information disclosure by configuring headers to avoid leaking backend server details."
+severity: "Medium"
+type: "config_check"
+target:
+  config_path: "{config_path}"
+assertion:
+  directive: "proxy_set_header"
+  condition: "not_contains"
+  value: "Server"
+assertion2:
+  directive: "proxy_pass"
+  condition: "exists_and_not_contains"
+  value: "http://"
+rationale: "A reverse proxy that discloses backend server details (e.g., via Server headers or direct proxy_pass URLs) can expose internal infrastructure to attackers. Proper configuration prevents this leakage."
+remediation: "Configure the nginx reverse proxy to avoid disclosing backend details, for example: proxy_set_header Server \"Custom-Web-Server\"; and use internal naming or variables for proxy_pass, e.g., proxy_pass http://backend;"

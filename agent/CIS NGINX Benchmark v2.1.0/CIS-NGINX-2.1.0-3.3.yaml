@@ -1,0 +1,17 @@
+ruleId: CIS-NGINX-2.1.0-3.3
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure error logging is enabled and set to the info logging level."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+  directive: "error_log"
+assertion:
+  condition: "contains"
+  value: "info"
+rationale: "Enabling error logging at the 'info' level ensures that all application and system errors are recorded, which aids in detecting attacks, diagnosing issues, and performing forensic analysis. Logging at this level provides detailed visibility without excessive noise."
+remediation: |
+  Edit the NGINX configuration file (e.g., /etc/nginx/nginx.conf) to include or update the following directive:
+      error_log  /var/log/nginx/error_log.log  info;

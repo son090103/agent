@@ -1,0 +1,25 @@
+ruleId: CIS-NGINX-2.1.0-4.1.8
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure HTTP Strict Transport Security (HSTS) is enabled with a minimum max-age of six months."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "add_header"
+assertion:
+  condition: "contains"
+  value: 'Strict-Transport-Security "max-age=15768000;" always'
+rationale: |
+  HTTP Strict Transport Security (HSTS) enforces HTTPS communication between clients and the server.
+  By setting a long max-age (at least six months), browsers are instructed to only access the site via HTTPS,
+  preventing downgrade attacks and ensuring all future connections remain encrypted.
+remediation: |
+  Add or update the following directive within your HTTPS server block:
+      server {
+          add_header Strict-Transport-Security "max-age=15768000;" always;
+      }
+
+  This ensures browsers will only connect to your site using HTTPS for a minimum of six months.

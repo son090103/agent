@@ -1,0 +1,37 @@
+ruleId: CIS-APACHE-2.4-7.4
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the TLSv1.0 and TLSv1.1 protocols are disabled using the SSLProtocol directive, allowing only TLSv1.2 and TLSv1.3."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/ssl.conf"
+  directive: "SSLProtocol"
+assertion:
+  condition: "equals"
+  value: "TLSv1.2 TLSv1.3"
+rationale: "TLSv1.0 and TLSv1.1 are outdated and vulnerable to several cryptographic attacks, including BEAST and lack of AEAD support. Enabling only TLSv1.2 and TLSv1.3 ensures stronger encryption, integrity, and compatibility with modern clients as required by NIST SP 800-52r2."
+remediation: |
+  Perform the following steps to disable weak TLS protocols:
+
+  1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf in conf.d).
+  2. Locate or add the `SSLProtocol` directive and configure it to allow only TLSv1.2 and TLSv1.3:
+         SSLProtocol TLSv1.2 TLSv1.3
+
+     Alternatively, the following syntax is also acceptable:
+         SSLProtocol +TLSv1.2 +TLSv1.3
+
+  3. Verify that TLSv1.3 is supported by your OpenSSL version:
+         $ openssl version
+     Ensure it is 1.1.1 or higher.
+
+  4. Test the Apache configuration syntax before applying changes:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  5. Restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2
+
+  6. Optionally, validate protocol support using OpenSSL:
+         $ openssl s_client -connect yourdomain.com:443 -tls1_2
+         $ openssl s_client -connect yourdomain.com:443 -tls1_3
+     Both should succeed, while TLSv1.0 and TLSv1.1 should fail.

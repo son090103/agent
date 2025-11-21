@@ -1,0 +1,18 @@
+ruleId: CIS-NGINX-2.1.0-2.3.1
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure NGINX directories and files are owned by root."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/etc/nginx"
+  owner: "root"
+  group: "root"
+assertion:
+  condition: "ownership_equals"
+  value:
+    owner: "root"
+    group: "root"
+rationale: "Restricting ownership of NGINX configuration directories and files to the root user and group prevents unauthorized modification, maintaining integrity and security of configuration data."
+remediation: |
+  Run the following command to set ownership and group ownership to root:
+      chown -R root:root /etc/nginx

@@ -1,0 +1,40 @@
+ruleId: CIS-APACHE-2.4-5.7
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure only required HTTP request methods (GET, POST, OPTIONS) are allowed using <LimitExcept> or AllowMethods directives."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive_block: "<Directory /var/www/html>"
+  directives:
+    - "<LimitExcept>"
+    - "AllowMethods"
+assertion:
+  condition: "only_allows"
+  value:
+    - "GET"
+    - "POST"
+    - "OPTIONS"
+rationale: "Limiting the HTTP request methods to GET, POST, and OPTIONS reduces attack surface by disabling rarely used and potentially dangerous methods such as PUT, DELETE, and CONNECT. This enforces the security principle of minimal features and prevents unauthorized modification of web resources."
+remediation: |
+  Implement one of the following configurations to restrict HTTP methods:
+
+  **Method 1: Using <LimitExcept>**
+      <Directory "/var/www/html">
+          <LimitExcept GET POST OPTIONS>
+              Require all denied
+          </LimitExcept>
+      </Directory>
+
+  **Method 2: Using AllowMethods module**
+      LoadModule allowmethods_module modules/mod_allowmethods.so
+      <Directory "/var/www/html">
+          AllowMethods GET POST OPTIONS
+      </Directory>
+
+  If using RewriteEngine as an alternative global safeguard:
+      RewriteEngine on
+      RewriteCond %{REQUEST_METHOD} ^(PUT|DELETE|TRACE|CONNECT)$ [NC]
+      RewriteRule .* - [F]
+
+  Apply similar directives to all other directories and locations outside the OS root directory as needed.

@@ -1,0 +1,25 @@
+ruleId: CIS-APACHE-2.4-5.10
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure access to any files beginning with .ht is restricted using the FilesMatch directive."
+severity: "High"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "FilesMatch"
+assertion:
+  condition: "contains"
+  value: '<FilesMatch "^\\.ht">'
+rationale: "Files beginning with .ht such as .htaccess, .htpasswd, and .htgroup can expose sensitive information or override security configurations. Restricting access to these files helps prevent unauthorized access and strengthens security."
+remediation: |
+  Perform the following steps to restrict access to .ht* files:
+  1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).
+  2. Add the following directive at the server-level configuration:
+         <FilesMatch "^\.ht">
+             Require all denied
+         </FilesMatch>
+  3. Alternatively, you may use the legacy syntax:
+         <FilesMatch "^\.ht">
+             Deny from all
+         </FilesMatch>
+  4. Save the configuration and restart Apache to apply the changes:
+         $ sudo systemctl restart apache2

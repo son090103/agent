@@ -1,0 +1,24 @@
+ruleId: CIS-APACHE-2.4-2.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the WebDAV modules (mod_dav, mod_dav_fs) are disabled to reduce attack surface and prevent unauthorized file access."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directives:
+    - "LoadModule dav_module modules/mod_dav.so"
+    - "LoadModule dav_fs_module modules/mod_dav_fs.so"
+assertion:
+  condition: "not_contains"
+  value:
+    - "dav_module"
+    - "dav_fs_module"
+rationale: "Disabling WebDAV modules improves the web server's security posture by minimizing unnecessary functionality and reducing potential attack vectors."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache without including mod_dav or mod_dav_fs in the --enable-modules options:
+      $ cd $DOWNLOAD_HTTPD
+      $ ./configure
+  • For dynamically loaded modules, comment out or remove the following directives in httpd.conf or related configuration files:
+      ##LoadModule dav_module modules/mod_dav.so
+      ##LoadModule dav_fs_module modules/mod_dav_fs.so

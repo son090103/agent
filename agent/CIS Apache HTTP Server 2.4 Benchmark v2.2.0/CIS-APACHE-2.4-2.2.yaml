@@ -1,0 +1,20 @@
+ruleId: CIS-APACHE-2.4-2.2
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Log Config module is enabled to support flexible client request logging."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "mods-enabled/log_config.load"
+  directive: "LoadModule"
+  module_name: "log_config_module"
+assertion:
+  condition: "contains"
+  value: "log_config_module"
+rationale: "Logging is critical for monitoring usage and potential abuse of the web server. The log_config module is required to configure web server logging using the LogFormat directive."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache without using the --disable-log-config option:
+    $ cd $DOWNLOAD_HTTPD
+    $ ./configure
+  • For dynamically loaded modules, ensure the following directive exists and is not commented out in the Apache configuration:
+    LoadModule log_config_module modules/mod_log_config.so

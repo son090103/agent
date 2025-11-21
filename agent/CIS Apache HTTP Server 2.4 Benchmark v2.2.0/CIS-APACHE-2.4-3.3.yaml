@@ -1,0 +1,18 @@
+ruleId: CIS-APACHE-2.4-3.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Apache user account is locked to prevent direct or password-based logins."
+severity: "High"
+type: "system_check"
+target:
+  file: "/etc/shadow"
+  user: "apache"
+  field: "password_status"
+assertion:
+  condition: "starts_with"
+  value: "!"
+rationale: "Locking the Apache user account ensures that no one can log in or switch to the account using a password. This reduces the risk of unauthorized access or privilege escalation."
+remediation: |
+  Lock the Apache account to disable password-based login:
+      # passwd -l apache
+  The command should produce output similar to:
+      passwd: password expiry information changed.

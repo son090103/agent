@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-3.12
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Apache group used to run the server does not have write access to the DocumentRoot directories and files."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/var/www/html"
+  recursive: true
+  restricted_group: "www-data"
+assertion:
+  condition: "no_group_write"
+rationale: "Preventing the Apache runtime group from having write access to the DocumentRoot mitigates risks from web application vulnerabilities that could lead to unauthorized file uploads or command execution. Only authorized development or deployment groups should be allowed to modify web content."
+remediation: |
+  Remove group write access for the Apache runtime group on the DocumentRoot directories and files:
+      # GRP=$(grep '^Group' $APACHE_PREFIX/conf/httpd.conf | awk '{print $2}')
+      # find -L $DOCROOT -group $GRP -perm /g=w -print | xargs chmod g-w
+  For example, on most systems:
+      # find -L /var/www/html -group www-data -perm /g=w -print | xargs chmod g-w
+  Ensure that only authorized content management or deployment groups have controlled write access as needed.

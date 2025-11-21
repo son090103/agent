@@ -1,0 +1,38 @@
+ruleId: CIS-APACHE-2.4-6.4
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure Apache log storage and rotation are configured correctly to retain logs for at least 13 weeks and prevent disk exhaustion."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "/etc/logrotate.d/apache2"
+  directive: "rotate"
+assertion:
+  condition: "greater_or_equal"
+  value: "13"
+rationale: "Improper log storage and rotation can result in denial of service if the root partition becomes full or if logs are overwritten too soon. Retaining at least 13 weeks of logs enables effective forensic investigations and compliance with auditing requirements."
+remediation: |
+  Perform one of the following configurations to ensure proper log rotation and retention:
+
+  a) **Using Linux logrotate utility:**
+     1. Edit or create the Apache log rotation configuration file at:
+            /etc/logrotate.d/apache2
+     2. Configure it to match your Apache log files and retain logs for at least 13 weeks:
+            /var/log/apache2/*log {
+                weekly
+                rotate 13
+                missingok
+                notifempty
+                sharedscripts
+                postrotate
+                    /bin/kill -HUP `cat /var/run/apache2.pid 2>/dev/null` 2>/dev/null || true
+                endscript
+            }
+
+  b) **Using Apache piped logging (rotatelogs):**
+     1. Modify the CustomLog directive in apache2.conf to use rotatelogs:
+            CustomLog "|/usr/bin/rotatelogs -l /var/log/apache2/access_log.%Y.%m.%d 86400" combined
+     2. Ensure the rotation interval and naming convention allow for at least 13 weeks of log retention.
+     3. Apply similar configurations for each VirtualHost that uses separate log files.
+
+  4. Save changes and restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2

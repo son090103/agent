@@ -1,0 +1,39 @@
+ruleId: CIS-APACHE-2.4-7.5
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure weak SSL/TLS ciphers are disabled and strong cipher suites are enforced using the SSLCipherSuite and SSLHonorCipherOrder directives."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/ssl.conf"
+  directives:
+    - "SSLCipherSuite"
+    - "SSLHonorCipherOrder"
+assertion:
+  condition: "contains_all"
+  value:
+    - "SSLHonorCipherOrder On"
+    - "SSLCipherSuite EECDH:EDH:!NULL:!SSLv2:!RC4:!aNULL:!3DES:!IDEA"
+rationale: "Weak ciphers such as RC4, NULL, and 3DES allow attackers to decrypt or tamper with encrypted sessions. Enforcing strong cipher suites ensures confidentiality and integrity of TLS communications and mitigates downgrade and man-in-the-middle attacks."
+remediation: |
+  Perform the following steps to disable weak SSL/TLS ciphers and enforce strong encryption:
+
+  1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf under conf.d).
+
+  2. Locate or add the following directives to enforce strong cipher order and disable weak ciphers:
+         SSLHonorCipherOrder On
+         SSLCipherSuite EECDH:EDH:!NULL:!SSLv2:!RC4:!aNULL:!3DES:!IDEA
+
+  3. Ensure these directives are applied at the server level and in every SSL-enabled VirtualHost configuration.
+
+  4. Test Apache configuration syntax before applying:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  5. Restart Apache to apply changes:
+         $ sudo systemctl restart apache2
+
+  6. Verify the configuration using `sslscan` or Qualys SSL Labs:
+         $ sslscan yourdomain.com
+     Ensure that weak ciphers (NULL, RC4, 3DES, IDEA) are **not** listed as supported.
+
+  **Note:** Avoid adding `!SSLv3` unless required, as it disables all SSLv3-compatible ciphers, including those used by TLS protocols.

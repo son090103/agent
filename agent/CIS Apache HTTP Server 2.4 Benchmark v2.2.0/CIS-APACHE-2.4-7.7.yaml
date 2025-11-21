@@ -1,0 +1,31 @@
+ruleId: CIS-APACHE-2.4-7.7
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure SSL/TLS compression is disabled using the SSLCompression directive."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/ssl.conf"
+  directive: "SSLCompression"
+assertion:
+  condition: "equals"
+  value: "off"
+rationale: "Enabling SSL/TLS compression can expose encrypted communications to the CRIME attack, allowing attackers to recover sensitive session information such as authentication cookies. Disabling compression mitigates this risk and is the secure default in Apache 2.4.3 and later."
+remediation: |
+  Perform the following steps to ensure SSL/TLS compression is disabled:
+
+  1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf under conf.d).
+  2. Locate or add the SSLCompression directive and set it to off:
+         SSLCompression off
+
+  3. If the directive is not present, no action is required for Apache version 2.4.3 or later, as compression is disabled by default.
+
+  4. Test the Apache configuration syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  5. Restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2
+
+  6. Optionally, verify compression is disabled using OpenSSL:
+         $ openssl s_client -connect yourdomain.com:443 -tlsextdebug | grep -i compression
+     The output should show: “Compression: NONE”

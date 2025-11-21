@@ -1,0 +1,25 @@
+ruleId: CIS-APACHE-2.4-3.5
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure all Apache directories and files are assigned to the root group, except for the web document root if updates are managed by a specific group."
+severity: "Medium"
+type: "file_permission_check"
+target:
+  path: "/etc/apache2"
+  recursive: true
+  group: "root"
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "equals"
+  value: "root"
+rationale: "Setting the group ownership of Apache directories and files to root (or equivalent) helps prevent unauthorized modification of critical server components. The only exception should be the document root directory, which may require a specific group for controlled content updates."
+remediation: |
+  Set group ownership of Apache directories and files to root:
+      # chgrp -R root $APACHE_PREFIX
+  For example, on most systems:
+      # chgrp -R root /etc/apache2
+      # chgrp -R root /usr/lib/apache2
+      # chgrp -R root /var/log/apache2
+  Exclude web content directories if they are managed by another authorized group:
+      # chgrp -R webupdate /var/www/html

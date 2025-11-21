@@ -1,0 +1,18 @@
+ruleId: CIS-NGINX-2.1.0-4.1.3
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure private key permissions are restricted."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/etc/nginx"
+  file_pattern: "*.key"
+  mode_max: "400"
+assertion:
+  condition: "permissions_restrictive"
+  value:
+    files: "400"
+rationale: "Restricting private key file permissions to 400 ensures that only the file owner can read it. This prevents unauthorized users from accessing sensitive private keys, which could be used to decrypt secure traffic or impersonate the server."
+remediation: |
+  Run the following command to remove excessive permissions from private key files:
+      find /etc/nginx/ -name '*.key' -exec chmod u-wx,go-rwx {} +
+  Replace '/etc/nginx/' with the directory containing your key files if different.

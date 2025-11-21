@@ -1,0 +1,31 @@
+ruleId: CIS-NGINX-2.1.0-2.4.2
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure requests for unknown host names are rejected."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "server_name"
+  expected_behavior:
+    default_server_block: "return 404;"
+assertion:
+  condition: "host_rejection_configured"
+  value:
+    has_default_block: true
+    has_defined_server_names: true
+rationale: "Defining explicit server_name values and rejecting requests for unknown host headers mitigates host header injection attacks, which could otherwise allow redirection to rogue servers or credential theft."
+remediation: |
+  Ensure your NGINX configuration includes a default server block to reject unknown hostnames:
+      server {
+          return 404;
+      }
+
+  Then confirm that each server block explicitly defines the server_name directive, for example:
+      server {
+          listen       443;
+          server_name  example.com;
+          ...
+      }

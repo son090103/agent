@@ -1,0 +1,28 @@
+ruleId: CIS-APACHE-2.4-3.10
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the ScoreBoardFile directory is secure, owned by root, and not writable by other users."
+severity: "High"
+type: "file_permission_check"
+target:
+  directive: "ScoreBoardFile"
+  file: "httpd.conf"
+  expected_owner: "root"
+  expected_group: "root"
+  disallow_other_access: true
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "secure_directory"
+rationale: "If the ScoreBoardFile is placed in a writable directory, other users could create or modify the file, causing denial of service or interfering with Apache's inter-process communication. Ensuring it is owned by root and not world-writable prevents such tampering."
+remediation: |
+  Follow these steps to secure the ScoreBoardFile directory:
+    1. Check if the ScoreBoardFile directive is specified in any Apache configuration files.
+       If it is not present, no action is required.
+    2. Identify the directory used (default is $APACHE_PREFIX/logs).
+    3. Ensure the directory is not located within the web document root.
+    4. Set ownership and group to root:
+        # chown root:root /usr/local/apache2/logs
+    5. Restrict permissions so that only root can write to it:
+        # chmod o-w /usr/local/apache2/logs
+    6. Verify that the directory resides on a local filesystem and not an NFS mount.

@@ -1,0 +1,20 @@
+ruleId: CIS-APACHE-2.4-5.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Options directive for the OS root directory (<Directory />) is set to 'None' to enforce minimal privileges."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive_block: "<Directory />"
+  directive: "Options"
+assertion:
+  condition: "equals"
+  value: "None"
+rationale: "The Options directive controls which server features are available in a given directory. Setting 'Options None' for the OS root directory ensures a minimal privilege policy, reducing the risk of enabling unnecessary or dangerous features such as CGI execution or symbolic link following."
+remediation: |
+  Edit the Apache configuration to restrict all options for the OS root directory.
+  Add or modify the <Directory /> block to contain the following:
+      <Directory />
+          Options None
+      </Directory>
+  This enforces a secure default baseline at the root level; specific subdirectories can enable required options explicitly.

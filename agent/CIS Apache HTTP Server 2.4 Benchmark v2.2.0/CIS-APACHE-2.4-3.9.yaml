@@ -1,0 +1,25 @@
+ruleId: CIS-APACHE-2.4-3.9
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Apache PidFile directory is secure, owned by root, and not writable by other users."
+severity: "High"
+type: "file_permission_check"
+target:
+  directive: "PidFile"
+  file: "httpd.conf"
+  expected_owner: "root"
+  expected_group: "root"
+  disallow_other_access: true
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "secure_directory"
+rationale: "The PidFile holds the server's process ID, which is critical for managing and signaling the Apache process. If the directory containing the PID file is writable by others or resides within the document root, attackers could prevent the server from starting or manipulate its behavior."
+remediation: |
+  Follow these steps to secure the PidFile directory:
+    1. Identify the directory used by the PidFile directive (default: $APACHE_PREFIX/logs).
+    2. Ensure it is not located within the web document root.
+    3. Set ownership and group to root:
+        # chown root:root /usr/local/apache2/logs
+    4. Restrict permissions so that only root can write to it:
+        # chmod o-w /usr/local/apache2/logs

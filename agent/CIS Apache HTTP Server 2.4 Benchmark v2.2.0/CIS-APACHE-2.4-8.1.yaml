@@ -1,0 +1,35 @@
+ruleId: CIS-APACHE-2.4-8.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the ServerTokens directive is set to 'Prod' or 'ProductOnly' to minimize server information exposure."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "ServerTokens"
+assertion:
+  condition: "in"
+  value:
+    - "Prod"
+    - "ProductOnly"
+rationale: "Providing detailed version information in HTTP response headers helps attackers identify vulnerable software components. Setting ServerTokens to 'Prod' or 'ProductOnly' ensures that only minimal information (e.g., 'Server: Apache') is disclosed, reducing the risk of targeted attacks."
+remediation: |
+  Perform the following steps to configure the ServerTokens directive securely:
+
+  1. Open the main Apache configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).
+
+  2. Locate or add the ServerTokens directive and set it to one of the following:
+         ServerTokens Prod
+     or
+         ServerTokens ProductOnly
+
+  3. Save the configuration and verify syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  4. Restart Apache to apply the changes:
+         $ sudo systemctl restart apache2
+
+  5. Verify the header information:
+         $ curl -I http://yourdomain.com | grep -i server
+     Expected output:
+         Server: Apache

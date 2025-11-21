@@ -1,0 +1,32 @@
+ruleId: CIS-APACHE-2.4-7.8
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure medium strength SSL/TLS ciphers such as 3DES and IDEA are disabled using the SSLCipherSuite directive."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/ssl.conf"
+  directive: "SSLCipherSuite"
+assertion:
+  condition: "contains"
+  value: "EECDH:EDH:!NULL:!SSLv2:!RC4:!aNULL:!3DES:!IDEA"
+rationale: "Medium-strength ciphers like 3DES and IDEA are vulnerable to attacks such as SWEET32 (CVE-2016-2183). Disabling these ciphers helps ensure strong encryption and mitigates known cryptographic weaknesses in TLS sessions."
+remediation: |
+  Perform the following steps to disable medium-strength SSL/TLS ciphers:
+
+  1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf under conf.d).
+  2. Locate or add the following directives at the server level and in all SSL-enabled VirtualHost configurations:
+         SSLHonorCipherOrder On
+         SSLCipherSuite EECDH:EDH:!NULL:!SSLv2:!RC4:!aNULL:!3DES:!IDEA
+
+  3. Test the Apache configuration syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  4. Restart Apache to apply changes:
+         $ sudo systemctl restart apache2
+
+  5. Verify that 3DES and IDEA ciphers are disabled using sslscan:
+         $ sslscan --no-colour yourdomain.com | egrep 'IDEA|DES'
+     No accepted ciphers should appear in the output.
+
+  6. Optionally, use Qualys SSL Labs (https://www.ssllabs.com/ssltest/) to confirm that only strong ciphers (TLSv1.2/TLSv1.3) are accepted.

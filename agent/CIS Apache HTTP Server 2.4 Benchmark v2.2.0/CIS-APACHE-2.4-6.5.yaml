@@ -1,0 +1,36 @@
+ruleId: CIS-APACHE-2.4-6.5
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure all applicable Apache patches are applied within one month of release."
+severity: "High"
+type: "package_check"
+target:
+  package: "apache2"
+  source: "vendor_or_source_build"
+assertion:
+  condition: "up_to_date"
+  value: "within_30_days"
+rationale: "Regularly applying Apache security patches ensures known vulnerabilities are mitigated promptly. Delayed patching increases the risk of exploitation and system compromise."
+remediation: |
+  Perform one of the following actions based on your installation method:
+
+  **If Apache is installed via system package manager:**
+  1. Check for available updates from your distribution vendor:
+         $ sudo apt update
+         $ sudo apt list --upgradable | grep apache2
+  2. Apply the latest patches and security updates:
+         $ sudo apt install --only-upgrade apache2
+  3. Review the Apache release notes and confirm that updates include recent security fixes.
+
+  **If Apache is built from source:**
+  1. Visit the official Apache security advisories:
+         https://httpd.apache.org/security/vulnerabilities_24.html
+  2. Download the latest stable version and security patches from:
+         https://www.apache.org/dist/httpd/patches/
+  3. Rebuild and install Apache with the same configuration options:
+         $ ./configure --enable-mods-shared=all
+         $ make && sudo make install
+  4. Test the new version in a staging environment before deploying to production.
+  5. Establish a policy to apply security patches within 30 days of release.
+
+  Finally, restart Apache to complete the update process:
+         $ sudo systemctl restart apache2

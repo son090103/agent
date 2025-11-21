@@ -1,0 +1,15 @@
+ruleId: CIS-NGINX-2.1.0-2.2.3
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the NGINX service account has an invalid shell."
+severity: "High"
+type: "account_check"
+target:
+  user: "nginx"
+  shell: "/sbin/nologin"
+assertion:
+  condition: "equals"
+  value: "/sbin/nologin"
+rationale: "The NGINX service account should not have interactive login access. Assigning an invalid shell such as /sbin/nologin prevents attackers from using this account to gain shell access if it is compromised."
+remediation: |
+  Change the login shell for the nginx account to /sbin/nologin by running:
+      usermod -s /sbin/nologin nginx

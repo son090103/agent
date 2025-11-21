@@ -1,0 +1,37 @@
+ruleId: CIS-APACHE-2.4-7.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the server's private key is stored securely with proper ownership and permissions."
+severity: "High"
+type: "file_permission_check"
+target:
+  file: "/etc/ssl/private/example.com.key"
+  owner: "root"
+  group: "root"
+  mode: "0400"
+assertion:
+  condition: "equals"
+  value: "secure"
+rationale: "If the server's private key is exposed, attackers could decrypt SSL/TLS communications and impersonate the server. Ensuring the key file has correct ownership and restrictive permissions mitigates this risk."
+remediation: |
+  Perform the following steps to ensure the server’s private key is properly protected:
+
+  1. Identify all private key files referenced in Apache configuration:
+         sudo grep -R "SSLCertificateKeyFile" /etc/apache2/
+
+  2. Verify that each private key file is stored separately from the public certificate:
+         SSLCertificateFile /etc/ssl/certs/example.com.crt
+         SSLCertificateKeyFile /etc/ssl/private/example.com.key
+
+  3. Adjust ownership and permissions for the private key file:
+         sudo chown root:root /etc/ssl/private/example.com.key
+         sudo chmod 400 /etc/ssl/private/example.com.key
+
+  4. Ensure the file is not world-readable or writable. Only root should have read access.
+
+  5. (Optional) If encrypted private keys are used, configure Apache to request the passphrase at startup or use a secure key retrieval mechanism:
+         SSLPassPhraseDialog builtin
+     or use an external secure key provider script:
+         SSLPassPhraseDialog exec:/path/to/secure-script.sh
+
+  6. Restart Apache to apply changes:
+         sudo systemctl restart apache2

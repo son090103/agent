@@ -1,0 +1,21 @@
+ruleId: CIS-NGINX-2.1.0-2.3.3
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the NGINX process ID (PID) file is secured."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/var/run/nginx.pid"
+  owner: "root"
+  group: "root"
+  mode_max: "644"
+assertion:
+  condition: "ownership_and_permission"
+  value:
+    owner: "root"
+    group: "root"
+    mode: "644"
+rationale: "The NGINX PID file stores the main process ID of the web server. Ensuring it is owned by root and writable only by root prevents unauthorized modification, which could cause service disruption or denial of service."
+remediation: |
+  Run the following commands to secure the NGINX PID file:
+      chown root:root /var/run/nginx.pid
+      chmod u-x,go-wx /var/run/nginx.pid

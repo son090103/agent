@@ -1,0 +1,30 @@
+ruleId: CIS-NGINX-2.1.0-4.1.6
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure custom Diffie-Hellman parameters are used with at least 2048 bits."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "ssl_dhparam"
+  expected_file: "/etc/nginx/ssl/dhparam.pem"
+assertion:
+  condition: "file_exists_and_secure"
+  value:
+    path: "/etc/nginx/ssl/dhparam.pem"
+    min_bits: 2048
+    mode_max: "400"
+rationale: |
+  Using custom Diffie-Hellman parameters of at least 2048 bits strengthens Perfect Forward Secrecy (PFS)
+  and protects against attacks targeting weak default parameters. Custom-generated parameters ensure
+  that encryption keys are unique and resistant to compromise.
+remediation: |
+  Generate strong DHE (Ephemeral Diffie-Hellman) parameters and configure NGINX to use them:
+      mkdir -p /etc/nginx/ssl
+      openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+      chmod 400 /etc/nginx/ssl/dhparam.pem
+
+  Then, add or update the following directive in your NGINX configuration:
+      ssl_dhparam /etc/nginx/ssl/dhparam.pem;

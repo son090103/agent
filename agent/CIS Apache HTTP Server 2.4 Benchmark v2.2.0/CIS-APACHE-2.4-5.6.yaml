@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-5.6
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the default CGI script 'test-cgi' is removed from all configured cgi-bin directories."
+severity: "High"
+type: "file_check"
+target:
+  paths:
+    - "/usr/lib/cgi-bin/test-cgi"
+    - "/usr/local/apache2/cgi-bin/test-cgi"
+    - "/var/www/cgi-bin/test-cgi"
+assertion:
+  condition: "not_exists"
+rationale: "Default CGI scripts such as 'test-cgi' disclose sensitive environment variables and system information. Removing these scripts prevents attackers from exploiting test scripts to gather configuration data or probe the web server environment."
+remediation: |
+  Remove the 'test-cgi' script from all cgi-bin directories configured in Apache:
+      # rm -f /usr/lib/cgi-bin/test-cgi
+      # rm -f /usr/local/apache2/cgi-bin/test-cgi
+      # rm -f /var/www/cgi-bin/test-cgi
+  If additional CGI directories are configured using ScriptAlias, ScriptAliasMatch, or ScriptInterpreterSource directives, verify and remove any instances of 'test-cgi' found within those directories.

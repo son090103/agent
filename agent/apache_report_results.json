@@ -1,0 +1,522 @@
+[
+  {
+    "rule_id": "CIS-APACHE-2.4-2.2",
+    "description": "Ensure the Log Config module is enabled to support flexible client request logging.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache without using the --disable-log-config option:\n  $ cd $DOWNLOAD_HTTPD\n  $ ./configure\n• For dynamically loaded modules, ensure the following directive exists and is not commented out in the Apache configuration:\n  LoadModule log_config_module modules/mod_log_config.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.3",
+    "description": "Ensure the WebDAV modules (mod_dav, mod_dav_fs) are disabled to reduce attack surface and prevent unauthorized file access.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule dav_module /usr/lib/apache2/modules/mod_dav.so",
+      "LoadModule dav_fs_module /usr/lib/apache2/modules/mod_dav_fs.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache without including mod_dav or mod_dav_fs in the --enable-modules options:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure\n• For dynamically loaded modules, comment out or remove the following directives in httpd.conf or related configuration files:\n    ##LoadModule dav_module modules/mod_dav.so\n    ##LoadModule dav_fs_module modules/mod_dav_fs.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.4",
+    "description": "Ensure the Status module (mod_status) is disabled to prevent information disclosure about server performance.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule status_module /usr/lib/apache2/modules/mod_status.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache with the --disable-status option:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure --disable-status\n• For dynamically loaded modules, comment out or remove the following directive in httpd.conf or other Apache configuration files:\n    ##LoadModule status_module modules/mod_status.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.5",
+    "description": "Ensure the Autoindex module (mod_autoindex) is disabled to prevent directory content disclosure.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule autoindex_module /usr/lib/apache2/modules/mod_autoindex.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache with the --disable-autoindex option:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure --disable-autoindex\n• For dynamically loaded modules, comment out or remove the following directive in httpd.conf or related configuration files:\n    ##LoadModule autoindex_module modules/mod_autoindex.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.6",
+    "description": "Ensure all Proxy modules are disabled if the server is not intended to function as a proxy.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so",
+      "LoadModule proxy_ajp_module /usr/lib/apache2/modules/mod_proxy_ajp.so",
+      "LoadModule proxy_balancer_module /usr/lib/apache2/modules/mod_proxy_balancer.so",
+      "LoadModule proxy_connect_module /usr/lib/apache2/modules/mod_proxy_connect.so",
+      "LoadModule proxy_express_module /usr/lib/apache2/modules/mod_proxy_express.so",
+      "LoadModule proxy_fcgi_module /usr/lib/apache2/modules/mod_proxy_fcgi.so",
+      "LoadModule proxy_fdpass_module /usr/lib/apache2/modules/mod_proxy_fdpass.so",
+      "LoadModule proxy_ftp_module /usr/lib/apache2/modules/mod_proxy_ftp.so",
+      "LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so",
+      "LoadModule proxy_scgi_module /usr/lib/apache2/modules/mod_proxy_scgi.so",
+      "LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache without including mod_proxy and related modules:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure\n• For dynamically loaded modules, comment out or remove the following directives in httpd.conf or associated configuration files:\n    ##LoadModule proxy_module modules/mod_proxy.so\n    ##LoadModule proxy_connect_module modules/mod_proxy_connect.so\n    ##LoadModule proxy_ftp_module modules/mod_proxy_ftp.so\n    ##LoadModule proxy_http_module modules/mod_proxy_http.so\n    ##LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so\n    ##LoadModule proxy_scgi_module modules/mod_proxy_scgi.so\n    ##LoadModule proxy_ajp_module modules/mod_proxy_ajp.so\n    ##LoadModule proxy_balancer_module modules/mod_proxy_balancer.so\n    ##LoadModule proxy_express_module modules/mod_proxy_express.so\n    ##LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so\n    ##LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.7",
+    "description": "Ensure the User Directories module (mod_userdir) is disabled to prevent access to user home directories via URLs.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule userdir_module /usr/lib/apache2/modules/mod_userdir.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache with the --disable-userdir option:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure --disable-userdir\n• For dynamically loaded modules, comment out or remove the following directive in httpd.conf or related configuration files:\n    ##LoadModule userdir_module modules/mod_userdir.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.8",
+    "description": "Ensure the Info module (mod_info) is disabled to prevent disclosure of sensitive configuration details via /server-info.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule info_module /usr/lib/apache2/modules/mod_info.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache without including mod_info in the --enable-modules option:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure\n• For dynamically loaded modules, comment out or remove the following directive in httpd.conf or related configuration files:\n    ##LoadModule info_module modules/mod_info.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-2.9",
+    "description": "Ensure the Basic and Digest authentication modules (mod_auth_basic, mod_auth_digest) are disabled to prevent use of outdated authentication mechanisms.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "LoadModule auth_basic_module /usr/lib/apache2/modules/mod_auth_basic.so",
+      "LoadModule auth_digest_module /usr/lib/apache2/modules/mod_auth_digest.so"
+    ],
+    "remediation": "Perform one of the following actions:\n• For source builds with static modules, recompile Apache without including mod_auth_basic or mod_auth_digest:\n    $ cd $DOWNLOAD_HTTPD\n    $ ./configure\n• For dynamically loaded modules, comment out or remove the following directives in httpd.conf or related configuration files:\n    ##LoadModule auth_basic_module modules/mod_auth_basic.so\n    ##LoadModule auth_digest_module modules/mod_auth_digest.so"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.1",
+    "description": "Ensure the Apache web server runs as a non-root user to minimize privilege escalation risks.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "User ${APACHE_RUN_USER}",
+      "Group ${APACHE_RUN_GROUP}",
+      "LogFormat \"%v:%p %h %l %u %t \\\"%r\\\" %>s %O \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" vhost_combined",
+      "LogFormat \"%h %l %u %t \\\"%r\\\" %>s %O \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined",
+      "LogFormat \"%{User-agent}i\" agent"
+    ],
+    "remediation": "Perform the following actions:\n1. Create a dedicated system account for Apache if it does not already exist:\n    # groupadd -r apache\n    # useradd -r -g apache -d /var/www -s /sbin/nologin apache\n2. Configure the Apache user and group in httpd.conf or relevant configuration files:\n    User apache\n    Group apache\n3. Restart Apache for changes to take effect:\n    # systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.10",
+    "description": "Ensure the ScoreBoardFile directory is secure, owned by root, and not writable by other users.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Follow these steps to secure the ScoreBoardFile directory:\n  1. Check if the ScoreBoardFile directive is specified in any Apache configuration files.\n     If it is not present, no action is required.\n  2. Identify the directory used (default is $APACHE_PREFIX/logs).\n  3. Ensure the directory is not located within the web document root.\n  4. Set ownership and group to root:\n      # chown root:root /usr/local/apache2/logs\n  5. Restrict permissions so that only root can write to it:\n      # chmod o-w /usr/local/apache2/logs\n  6. Verify that the directory resides on a local filesystem and not an NFS mount."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.11",
+    "description": "Ensure group write permissions on Apache directories and files are properly restricted to prevent unauthorized modifications.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "group_writable=0"
+    ],
+    "remediation": "Remove group write permissions from all Apache directories and files:\n    # find -L $APACHE_PREFIX ! -type l -perm /g=w -exec chmod g-w {} \\;\nFor example, on most systems:\n    # find -L /etc/apache2 ! -type l -perm /g=w -exec chmod g-w {} \\;\n    # find -L /usr/lib/apache2 ! -type l -perm /g=w -exec chmod g-w {} \\;\n    # find -L /var/log/apache2 ! -type l -perm /g=w -exec chmod g-w {} \\;\nExclude web content directories that require controlled group write access:\n    # chmod -R g+w /var/www/html"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.12",
+    "description": "Ensure the Apache group used to run the server does not have write access to the DocumentRoot directories and files.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "group_writable=0"
+    ],
+    "remediation": "Remove group write access for the Apache runtime group on the DocumentRoot directories and files:\n    # GRP=$(grep '^Group' $APACHE_PREFIX/conf/httpd.conf | awk '{print $2}')\n    # find -L $DOCROOT -group $GRP -perm /g=w -print | xargs chmod g-w\nFor example, on most systems:\n    # find -L /var/www/html -group www-data -perm /g=w -print | xargs chmod g-w\nEnsure that only authorized content management or deployment groups have controlled write access as needed."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.2",
+    "description": "Ensure the Apache user account is assigned an invalid shell to prevent interactive login access.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "User 'apache' not found or password_status missing."
+    ],
+    "remediation": "Change the Apache user account shell to an invalid shell:\n    # chsh -s /sbin/nologin apache\nAlternatively, edit /etc/passwd directly and ensure the Apache entry appears as follows:\n    apache:x:48:48:Apache:/var/www:/sbin/nologin\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.3",
+    "description": "Ensure the Apache user account is locked to prevent direct or password-based logins.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "apache account not locked (password_status=*)"
+    ],
+    "remediation": "Lock the Apache account to disable password-based login:\n    # passwd -l apache\nThe command should produce output similar to:\n    passwd: password expiry information changed."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.4",
+    "description": "Ensure all Apache directories and files are owned by the root user.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Set ownership of all Apache directories and files to root:\n    # chown -R root $APACHE_PREFIX\nFor example, on most systems:\n    # chown -R root /etc/apache2\n    # chown -R root /usr/lib/apache2\n    # chown -R root /var/log/apache2"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.5",
+    "description": "Ensure all Apache directories and files are assigned to the root group, except for the web document root if updates are managed by a specific group.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Set group ownership of Apache directories and files to root:\n    # chgrp -R root $APACHE_PREFIX\nFor example, on most systems:\n    # chgrp -R root /etc/apache2\n    # chgrp -R root /usr/lib/apache2\n    # chgrp -R root /var/log/apache2\nExclude web content directories if they are managed by another authorized group:\n    # chgrp -R webupdate /var/www/html"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.6",
+    "description": "Ensure that Apache directories and files do not grant write permissions to others.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Remove write permissions for others on all Apache directories and files:\n    # chmod -R o-w $APACHE_PREFIX\nFor example, on most systems:\n    # chmod -R o-w /etc/apache2\n    # chmod -R o-w /usr/lib/apache2\n    # chmod -R o-w /var/log/apache2\nExclude web content directories that require controlled write access for updates:\n    # chmod -R g+w /var/www/html"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.7",
+    "description": "Ensure the CoreDumpDirectory is owned by root, assigned to the Apache group, and not accessible by other users.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Either remove the CoreDumpDirectory directive from all Apache configuration files, or ensure the configured directory meets the following:\n  • It is not located within the web document root (e.g., $APACHE_PREFIX/htdocs)\n  • It is owned by root and belongs to the Apache group:\n      # chown root:apache /var/log/httpd\n  • It has no read, write, or execute permissions for other users:\n      # chmod o-rwx /var/log/httpd"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.8",
+    "description": "Ensure the Apache lock file directory is secure, owned by root, and not writable by other users.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Follow these steps to secure the lock file directory:\n  1. Identify the directory used for the lock file (default is $APACHE_PREFIX/logs).\n  2. Ensure it is not located within the web document root.\n  3. Set ownership and group to root:\n      # chown root:root /usr/local/apache2/logs\n  4. Restrict permissions so it is only writable by root:\n      # chmod o-w /usr/local/apache2/logs\n  5. Verify the directory resides on a local filesystem, not an NFS mount."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-3.9",
+    "description": "Ensure the Apache PidFile directory is secure, owned by root, and not writable by other users.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Follow these steps to secure the PidFile directory:\n  1. Identify the directory used by the PidFile directive (default: $APACHE_PREFIX/logs).\n  2. Ensure it is not located within the web document root.\n  3. Set ownership and group to root:\n      # chown root:root /usr/local/apache2/logs\n  4. Restrict permissions so that only root can write to it:\n      # chmod o-w /usr/local/apache2/logs"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-4.1",
+    "description": "Ensure access to the operating system root directory is denied by default using a <Directory /> configuration block.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: []"
+    ],
+    "remediation": "Add or modify the root <Directory> element in the Apache configuration file to include the following directive:\n    <Directory />\n        Require all denied\n    </Directory>\nRemove any deprecated 'Order', 'Deny', or 'Allow' directives from the same block.\nExample configuration:\n    <Directory />\n        Require all denied\n    </Directory>\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-4.3",
+    "description": "Ensure the AllowOverride directive is set to 'None' for the OS root directory to prevent use of .htaccess files.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['AllowOverride']"
+    ],
+    "remediation": "Edit the Apache configuration to disable .htaccess overrides for the OS root directory.\nEnsure the <Directory /> block contains the following directive:\n    <Directory />\n        AllowOverride None\n    </Directory>\nAlso, remove any AllowOverrideList directives found within this or related directory blocks."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-4.4",
+    "description": "Ensure the AllowOverride directive is set to 'None' globally to disable the use of .htaccess files in all directories.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['AllowOverride']"
+    ],
+    "remediation": "Edit all Apache configuration files (httpd.conf and included configurations) to disable .htaccess overrides globally.\nPerform the following:\n    1. Search for any AllowOverride directives:\n        # grep -i AllowOverride $APACHE_PREFIX/conf/httpd.conf\n    2. Set all occurrences to:\n        AllowOverride None\n    3. Remove any AllowOverrideList directives found anywhere in the configuration.\nExample:\n    <Directory /var/www/>\n        AllowOverride None\n    </Directory>"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.1",
+    "description": "Ensure the Options directive for the OS root directory (<Directory />) is set to 'None' to enforce minimal privileges.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['Options']"
+    ],
+    "remediation": "Edit the Apache configuration to restrict all options for the OS root directory.\nAdd or modify the <Directory /> block to contain the following:\n    <Directory />\n        Options None\n    </Directory>\nThis enforces a secure default baseline at the root level; specific subdirectories can enable required options explicitly."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.10",
+    "description": "Ensure access to any files beginning with .ht is restricted using the FilesMatch directive.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['FilesMatch']"
+    ],
+    "remediation": "Perform the following steps to restrict access to .ht* files:\n1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).\n2. Add the following directive at the server-level configuration:\n       <FilesMatch \"^\\.ht\">\n           Require all denied\n       </FilesMatch>\n3. Alternatively, you may use the legacy syntax:\n       <FilesMatch \"^\\.ht\">\n           Deny from all\n       </FilesMatch>\n4. Save the configuration and restart Apache to apply the changes:\n       $ sudo systemctl restart apache2"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.11",
+    "description": "Ensure access to .git directories is restricted using the DirectoryMatch directive.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['DirectoryMatch']"
+    ],
+    "remediation": "Perform the following steps to restrict access to .git directories:\n1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).\n2. Add the following directive at the server-level configuration:\n       <DirectoryMatch \"/\\.git\">\n           Require all denied\n       </DirectoryMatch>\n3. Alternatively, you may use the legacy syntax:\n       <DirectoryMatch \"/\\.git\">\n           Deny from all\n       </DirectoryMatch>\n4. Save the configuration and restart Apache to apply the changes:\n       $ sudo systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.12",
+    "description": "Ensure access to .svn directories is restricted using the DirectoryMatch directive.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['DirectoryMatch']"
+    ],
+    "remediation": "Perform the following steps to restrict access to .svn directories:\n1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).\n2. Add the following directive at the server-level configuration:\n       <DirectoryMatch \"/\\.svn\">\n           Require all denied\n       </DirectoryMatch>\n3. Alternatively, you may use the legacy syntax:\n       <DirectoryMatch \"/\\.svn\">\n           Deny from all\n       </DirectoryMatch>\n4. Save the configuration and restart Apache to apply the changes:\n       $ sudo systemctl restart apache2"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.2",
+    "description": "Ensure the Options directive for the web root directory (<Directory /var/www/html>) is set to 'None' or 'MultiViews' only.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['Options']"
+    ],
+    "remediation": "Edit the Apache configuration to restrict the Options directive for the web root directory.\nLocate or add the <Directory> block corresponding to the DocumentRoot (for example, /var/www/html) and configure it as follows:\n    <Directory \"/var/www/html\">\n        Options None\n    </Directory>\nIf content negotiation across multiple languages is required, you may instead use:\n    <Directory \"/var/www/html\">\n        Options MultiViews\n    </Directory>\nRemove any other options such as Indexes, FollowSymLinks, Includes, or ExecCGI."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.3",
+    "description": "Ensure the Options directives for all non-root and non-document directories are minimized and do not include insecure settings such as 'Includes'.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['Options']"
+    ],
+    "remediation": "Review all <Directory> blocks in Apache configuration files (httpd.conf and included configs) and remove insecure or unnecessary Options.\nSet only the minimal options required. Example recommended configurations:\n\n    <Directory \"/var/www/cgi-bin\">\n        Options ExecCGI\n    </Directory>\n\n    <Directory \"/var/www/multilang\">\n        Options MultiViews\n    </Directory>\n\n    <Directory \"/var/www/html\">\n        Options None\n    </Directory>\n\nAvoid enabling:\n    - Includes (or IncludesNOEXEC unless absolutely required)\n    - Indexes (automatic directory listings)\n    - FollowSymLinks (use SymLinksIfOwnerMatch if required)"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.4",
+    "description": "Ensure all default Apache HTML content, manuals, and example handlers are removed or disabled in production environments.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['DirectoryIndex', '<Location /server-status>', '<Location /server-info>', '<Location /perl-status>', 'Include conf.d/welcome.conf']"
+    ],
+    "remediation": "Perform the following to remove or disable all default content and handlers:\n  1. Remove or comment out any configuration referencing the Apache welcome or default index pages:\n      # Comment out or disable welcome.conf if present\n      ## Include conf.d/welcome.conf\n  2. Remove the Apache user manual package or related configuration:\n      # yum erase httpd-manual\n  3. Disable the server-status handler if configured:\n      ## <Location /server-status>\n      ##     SetHandler server-status\n      ##     Require all denied\n      ## </Location>\n  4. Disable the server-info handler if configured:\n      ## <Location /server-info>\n      ##     SetHandler server-info\n      ##     Require all denied\n      ## </Location>\n  5. Remove or comment out any other handler configurations such as perl-status:\n      ## <Location /perl-status>\n      ##     SetHandler perl-script\n      ##     PerlResponseHandler Apache2::Status\n      ##     Require all denied\n      ## </Location>\n  6. Delete or move default sample files from the DocumentRoot:\n      # rm -f /var/www/html/index.html /var/www/html/welcome.html\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.5",
+    "description": "Ensure the default CGI script 'printenv' is removed from all configured cgi-bin directories.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "No matching file(s) among 195 scanned."
+    ],
+    "remediation": "Remove the 'printenv' script from all cgi-bin directories configured in Apache:\n    # rm -f /usr/lib/cgi-bin/printenv\n    # rm -f /usr/local/apache2/cgi-bin/printenv\n    # rm -f /var/www/cgi-bin/printenv\nIf additional CGI directories are defined using ScriptAlias or ScriptAliasMatch directives, verify and remove any instances of 'printenv' within those paths.\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.6",
+    "description": "Ensure the default CGI script 'test-cgi' is removed from all configured cgi-bin directories.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "No matching file(s) among 195 scanned."
+    ],
+    "remediation": "Remove the 'test-cgi' script from all cgi-bin directories configured in Apache:\n    # rm -f /usr/lib/cgi-bin/test-cgi\n    # rm -f /usr/local/apache2/cgi-bin/test-cgi\n    # rm -f /var/www/cgi-bin/test-cgi\nIf additional CGI directories are configured using ScriptAlias, ScriptAliasMatch, or ScriptInterpreterSource directives, verify and remove any instances of 'test-cgi' found within those directories."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.7",
+    "description": "Ensure only required HTTP request methods (GET, POST, OPTIONS) are allowed using <LimitExcept> or AllowMethods directives.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['<LimitExcept>', 'AllowMethods']"
+    ],
+    "remediation": "Implement one of the following configurations to restrict HTTP methods:\n\n**Method 1: Using <LimitExcept>**\n    <Directory \"/var/www/html\">\n        <LimitExcept GET POST OPTIONS>\n            Require all denied\n        </LimitExcept>\n    </Directory>\n\n**Method 2: Using AllowMethods module**\n    LoadModule allowmethods_module modules/mod_allowmethods.so\n    <Directory \"/var/www/html\">\n        AllowMethods GET POST OPTIONS\n    </Directory>\n\nIf using RewriteEngine as an alternative global safeguard:\n    RewriteEngine on\n    RewriteCond %{REQUEST_METHOD} ^(PUT|DELETE|TRACE|CONNECT)$ [NC]\n    RewriteRule .* - [F]\n\nApply similar directives to all other directories and locations outside the OS root directory as needed."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.8",
+    "description": "Ensure the HTTP TRACE request method is disabled using the TraceEnable directive.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "TraceEnable Off"
+    ],
+    "remediation": "Perform the following steps to disable the HTTP TRACE method:\n1. Locate the main Apache configuration file (e.g., httpd.conf or apache2.conf).\n2. Add or update the following directive at the server-level configuration:\n   TraceEnable off\n3. Restart Apache to apply the change:\n   $ sudo systemctl restart apache2"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-5.9",
+    "description": "Ensure old HTTP protocol versions (HTTP/1.0 and earlier) are disallowed by using mod_rewrite or mod_security rules.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['RewriteCond']"
+    ],
+    "remediation": "Perform the following steps to disallow old HTTP protocol versions:\n1. Ensure the mod_rewrite module is enabled:\n   - For static builds:\n       ./configure --enable-rewrite\n   - For dynamic loading, add this directive:\n       LoadModule rewrite_module modules/mod_rewrite.so\n2. Edit the main Apache configuration file (e.g., httpd.conf or apache2.conf) and add the following rules:\n       RewriteEngine On\n       RewriteCond %{THE_REQUEST} !(HTTP/1\\.1|HTTP/2\\.0)$\n       RewriteRule .* - [F]\n3. To ensure these rules are inherited by virtual hosts, include the following directives in each VirtualHost section:\n       RewriteEngine On\n       RewriteOptions Inherit\n4. Restart Apache to apply the configuration:\n       $ sudo systemctl restart apache2"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-6.1",
+    "description": "Ensure the ErrorLog filename and LogLevel severity are configured correctly.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "LogLevel warn"
+    ],
+    "remediation": "Perform the following steps to configure the ErrorLog filename and severity level correctly:\n1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).\n2. Add or modify the following directive to set the appropriate log level:\n       LogLevel notice core:info\n3. Ensure the ErrorLog directive points to a valid log file or syslog facility:\n       ErrorLog \"logs/error_log\"\n4. If multiple virtual hosts exist, add a dedicated ErrorLog directive within each <VirtualHost> section so that each site maintains separate error logs.\n5. Save the configuration and restart Apache to apply the changes:\n       $ sudo systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-6.3",
+    "description": "Ensure the server access log is configured correctly using the LogFormat and CustomLog directives.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "CustomLog ${APACHE_LOG_DIR}/other_vhosts_access.log vhost_combined",
+      "CustomLog ${APACHE_LOG_DIR}/access.log combined",
+      "CustomLog ${APACHE_LOG_DIR}/access.log combined",
+      "CustomLog ${APACHE_LOG_DIR}/access.log combined"
+    ],
+    "remediation": "Perform the following steps to configure the server access log correctly:\n1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).\n2. Add or modify the following LogFormat directive to define the 'combined' format:\n       LogFormat \"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-agent}i\\\"\" combined\n3. Add or modify the following CustomLog directive to use the combined format and store logs in the proper location:\n       CustomLog log/access_log combined\n4. For virtual hosts with separate owners or administrators, ensure each has its own CustomLog directive:\n       <VirtualHost *:80>\n           CustomLog logs/site1_access_log combined\n       </VirtualHost>\n5. Save the configuration and restart Apache to apply the changes:\n       $ sudo systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-6.4",
+    "description": "Ensure Apache log storage and rotation are configured correctly to retain logs for at least 13 weeks and prevent disk exhaustion.",
+    "severity": "Medium",
+    "status": "FAIL",
+    "found_value": [
+      "logrotate daily rotate=14 (~2.0 weeks) < 13 weeks"
+    ],
+    "remediation": "Perform one of the following configurations to ensure proper log rotation and retention:\n\na) **Using Linux logrotate utility:**\n   1. Edit or create the Apache log rotation configuration file at:\n          /etc/logrotate.d/apache2\n   2. Configure it to match your Apache log files and retain logs for at least 13 weeks:\n          /var/log/apache2/*log {\n              weekly\n              rotate 13\n              missingok\n              notifempty\n              sharedscripts\n              postrotate\n                  /bin/kill -HUP `cat /var/run/apache2.pid 2>/dev/null` 2>/dev/null || true\n              endscript\n          }\n\nb) **Using Apache piped logging (rotatelogs):**\n   1. Modify the CustomLog directive in apache2.conf to use rotatelogs:\n          CustomLog \"|/usr/bin/rotatelogs -l /var/log/apache2/access_log.%Y.%m.%d 86400\" combined\n   2. Ensure the rotation interval and naming convention allow for at least 13 weeks of log retention.\n   3. Apply similar configurations for each VirtualHost that uses separate log files.\n\n4. Save changes and restart Apache to apply the configuration:\n       $ sudo systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-6.5",
+    "description": "Ensure all applicable Apache patches are applied within one month of release.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Package 'apache2' not found"
+    ],
+    "remediation": "Perform one of the following actions based on your installation method:\n\n**If Apache is installed via system package manager:**\n1. Check for available updates from your distribution vendor:\n       $ sudo apt update\n       $ sudo apt list --upgradable | grep apache2\n2. Apply the latest patches and security updates:\n       $ sudo apt install --only-upgrade apache2\n3. Review the Apache release notes and confirm that updates include recent security fixes.\n\n**If Apache is built from source:**\n1. Visit the official Apache security advisories:\n       https://httpd.apache.org/security/vulnerabilities_24.html\n2. Download the latest stable version and security patches from:\n       https://www.apache.org/dist/httpd/patches/\n3. Rebuild and install Apache with the same configuration options:\n       $ ./configure --enable-mods-shared=all\n       $ make && sudo make install\n4. Test the new version in a staging environment before deploying to production.\n5. Establish a policy to apply security patches within 30 days of release.\n\nFinally, restart Apache to complete the update process:\n       $ sudo systemctl restart apache2"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.1",
+    "description": "Ensure the mod_ssl and/or mod_nss module is installed and enabled to provide SSL/TLS support for secure communications.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "Modules found: ssl_module"
+    ],
+    "remediation": "Perform one of the following actions to ensure SSL/TLS support is available:\n\n**For systems using package-based installations (e.g., Debian/Ubuntu, RHEL/CentOS):**\n1. Install the SSL/TLS module if not already present:\n       # Debian/Ubuntu\n       sudo apt install libapache2-mod-ssl\n\n       # Red Hat/CentOS\n       sudo yum install mod_ssl\n       sudo yum install mod_nss  # optional alternative\n2. Enable the SSL module and restart Apache:\n       sudo a2enmod ssl\n       sudo systemctl restart apache2\n\n**For source-based Apache installations:**\n1. Rebuild Apache with SSL support enabled:\n       ./configure --with-included-apr --with-ssl=$OPENSSL_DIR --enable-ssl\n       make && sudo make install\n2. Verify that either ssl_module or nss_module is loaded:\n       httpd -M | egrep 'ssl_module|nss_module'\n3. Restart Apache to activate the changes:\n       sudo systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.2",
+    "description": "Ensure a valid, trusted SSL/TLS certificate signed by a recognized Certificate Authority (CA) is installed and configured.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem",
+      "SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key"
+    ],
+    "remediation": "Perform the following steps to install and configure a valid, trusted SSL/TLS certificate:\n\n1. **Generate a private key** (recommended size: 2048 bits):\n       sudo mkdir -p /etc/ssl/private\n       cd /etc/ssl/private\n       sudo openssl genrsa -aes128 2048 > example.com.key\n\n2. **Create a Certificate Signing Request (CSR)** ensuring the Common Name (CN) matches your web server hostname:\n       sudo openssl req -new -key example.com.key -out example.com.csr\n\n3. **Submit the CSR** to a trusted Certificate Authority (CA) to obtain a signed certificate.\n   - Ensure the CA uses a strong hash algorithm (SHA-256 or higher).\n   - Avoid weak algorithms such as MD5 or SHA-1.\n\n4. **Install the signed certificate** and any required intermediate CA certificates:\n       sudo cp example.com.crt /etc/ssl/certs/\n       sudo cp intermediate-ca.crt /etc/ssl/certs/\n\n5. **Update your Apache SSL configuration** (typically in `/etc/apache2/sites-available/default-ssl.conf`):\n       SSLCertificateFile /etc/ssl/certs/example.com.crt\n       SSLCertificateKeyFile /etc/ssl/private/example.com.key\n       SSLCertificateChainFile /etc/ssl/certs/intermediate-ca.crt\n\n   For Apache 2.4.8 and newer, you may concatenate intermediate certificates into the server certificate file instead of using `SSLCertificateChainFile`.\n\n6. **Ensure proper file permissions**:\n       sudo chmod 600 /etc/ssl/private/example.com.key\n       sudo chmod 644 /etc/ssl/certs/example.com.crt\n\n7. **Restart Apache** to apply changes:\n       sudo a2enmod ssl\n       sudo systemctl restart apache2\n\n8. **Verify certificate validity**:\n       openssl verify -CAfile /etc/ssl/certs/ca-bundle.crt -purpose sslserver /etc/ssl/certs/example.com.crt\n       # The output should return: OK\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.3",
+    "description": "Ensure the server's private key is stored securely with proper ownership and permissions.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "202/202 (ratio=1.00)"
+    ],
+    "remediation": "Perform the following steps to ensure the server’s private key is properly protected:\n\n1. Identify all private key files referenced in Apache configuration:\n       sudo grep -R \"SSLCertificateKeyFile\" /etc/apache2/\n\n2. Verify that each private key file is stored separately from the public certificate:\n       SSLCertificateFile /etc/ssl/certs/example.com.crt\n       SSLCertificateKeyFile /etc/ssl/private/example.com.key\n\n3. Adjust ownership and permissions for the private key file:\n       sudo chown root:root /etc/ssl/private/example.com.key\n       sudo chmod 400 /etc/ssl/private/example.com.key\n\n4. Ensure the file is not world-readable or writable. Only root should have read access.\n\n5. (Optional) If encrypted private keys are used, configure Apache to request the passphrase at startup or use a secure key retrieval mechanism:\n       SSLPassPhraseDialog builtin\n   or use an external secure key provider script:\n       SSLPassPhraseDialog exec:/path/to/secure-script.sh\n\n6. Restart Apache to apply changes:\n       sudo systemctl restart apache2\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.4",
+    "description": "Ensure the TLSv1.0 and TLSv1.1 protocols are disabled using the SSLProtocol directive, allowing only TLSv1.2 and TLSv1.3.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "SSLProtocol all -SSLv3"
+    ],
+    "remediation": "Perform the following steps to disable weak TLS protocols:\n\n1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf in conf.d).\n2. Locate or add the `SSLProtocol` directive and configure it to allow only TLSv1.2 and TLSv1.3:\n       SSLProtocol TLSv1.2 TLSv1.3\n\n   Alternatively, the following syntax is also acceptable:\n       SSLProtocol +TLSv1.2 +TLSv1.3\n\n3. Verify that TLSv1.3 is supported by your OpenSSL version:\n       $ openssl version\n   Ensure it is 1.1.1 or higher.\n\n4. Test the Apache configuration syntax before applying changes:\n       $ sudo apachectl configtest\n       Syntax OK\n\n5. Restart Apache to apply the configuration:\n       $ sudo systemctl restart apache2\n\n6. Optionally, validate protocol support using OpenSSL:\n       $ openssl s_client -connect yourdomain.com:443 -tls1_2\n       $ openssl s_client -connect yourdomain.com:443 -tls1_3\n   Both should succeed, while TLSv1.0 and TLSv1.1 should fail."
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.5",
+    "description": "Ensure weak SSL/TLS ciphers are disabled and strong cipher suites are enforced using the SSLCipherSuite and SSLHonorCipherOrder directives.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "SSLCipherSuite HIGH:!aNULL"
+    ],
+    "remediation": "Perform the following steps to disable weak SSL/TLS ciphers and enforce strong encryption:\n\n1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf under conf.d).\n\n2. Locate or add the following directives to enforce strong cipher order and disable weak ciphers:\n       SSLHonorCipherOrder On\n       SSLCipherSuite EECDH:EDH:!NULL:!SSLv2:!RC4:!aNULL:!3DES:!IDEA\n\n3. Ensure these directives are applied at the server level and in every SSL-enabled VirtualHost configuration.\n\n4. Test Apache configuration syntax before applying:\n       $ sudo apachectl configtest\n       Syntax OK\n\n5. Restart Apache to apply changes:\n       $ sudo systemctl restart apache2\n\n6. Verify the configuration using `sslscan` or Qualys SSL Labs:\n       $ sslscan yourdomain.com\n   Ensure that weak ciphers (NULL, RC4, 3DES, IDEA) are **not** listed as supported.\n\n**Note:** Avoid adding `!SSLv3` unless required, as it disables all SSLv3-compatible ciphers, including those used by TLS protocols.\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.6",
+    "description": "Ensure insecure SSL renegotiation is disabled using the SSLInsecureRenegotiation directive.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['SSLInsecureRenegotiation']"
+    ],
+    "remediation": "Perform the following steps to disable insecure SSL/TLS renegotiation:\n\n1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or equivalent).\n2. Locate or add the SSLInsecureRenegotiation directive and set it to off:\n       SSLInsecureRenegotiation off\n\n3. If the directive is not present, no further action is required, as insecure renegotiation is disabled by default.\n\n4. Test the Apache configuration syntax:\n       $ sudo apachectl configtest\n       Syntax OK\n\n5. Restart Apache to apply the configuration:\n       $ sudo systemctl restart apache2\n\n6. Optionally, verify the OpenSSL version supports secure renegotiation (0.9.8m or later):\n       $ openssl version\n   and confirm that renegotiation attacks are not possible using SSL testing tools such as:\n       $ sslscan yourdomain.com | grep -i renegotiation\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.7",
+    "description": "Ensure SSL/TLS compression is disabled using the SSLCompression directive.",
+    "severity": "High",
+    "status": "FAIL",
+    "found_value": [
+      "Directive(s) not found in config: ['SSLCompression']"
+    ],
+    "remediation": "Perform the following steps to ensure SSL/TLS compression is disabled:\n\n1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf under conf.d).\n2. Locate or add the SSLCompression directive and set it to off:\n       SSLCompression off\n\n3. If the directive is not present, no action is required for Apache version 2.4.3 or later, as compression is disabled by default.\n\n4. Test the Apache configuration syntax:\n       $ sudo apachectl configtest\n       Syntax OK\n\n5. Restart Apache to apply the configuration:\n       $ sudo systemctl restart apache2\n\n6. Optionally, verify compression is disabled using OpenSSL:\n       $ openssl s_client -connect yourdomain.com:443 -tlsextdebug | grep -i compression\n   The output should show: “Compression: NONE”\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.8",
+    "description": "Ensure medium strength SSL/TLS ciphers such as 3DES and IDEA are disabled using the SSLCipherSuite directive.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "SSLCipherSuite HIGH:!aNULL"
+    ],
+    "remediation": "Perform the following steps to disable medium-strength SSL/TLS ciphers:\n\n1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or ssl.conf under conf.d).\n2. Locate or add the following directives at the server level and in all SSL-enabled VirtualHost configurations:\n       SSLHonorCipherOrder On\n       SSLCipherSuite EECDH:EDH:!NULL:!SSLv2:!RC4:!aNULL:!3DES:!IDEA\n\n3. Test the Apache configuration syntax:\n       $ sudo apachectl configtest\n       Syntax OK\n\n4. Restart Apache to apply changes:\n       $ sudo systemctl restart apache2\n\n5. Verify that 3DES and IDEA ciphers are disabled using sslscan:\n       $ sslscan --no-colour yourdomain.com | egrep 'IDEA|DES'\n   No accepted ciphers should appear in the output.\n\n6. Optionally, use Qualys SSL Labs (https://www.ssllabs.com/ssltest/) to confirm that only strong ciphers (TLSv1.2/TLSv1.3) are accepted.\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-7.9",
+    "description": "Ensure all web content is accessed via HTTPS by redirecting HTTP requests to HTTPS.",
+    "severity": "High",
+    "status": "PASS",
+    "found_value": [
+      "Redirect permanent / https://www.google.com"
+    ],
+    "remediation": "Perform the following steps to ensure all web content is accessed securely via HTTPS:\n\n1. **Move all web content** to a TLS-enabled VirtualHost configuration (port 443).\n\n2. **Open the default HTTP VirtualHost configuration** (e.g., /etc/apache2/sites-available/000-default.conf).\n\n3. **Add a redirect rule** to permanently redirect all HTTP traffic to HTTPS:\n       <VirtualHost *:80>\n           ServerName www.example.com\n           Redirect permanent / https://www.example.com/\n       </VirtualHost>\n\n4. **Ensure HTTPS is enabled** and configured properly in the corresponding SSL VirtualHost:\n       <VirtualHost *:443>\n           ServerName www.example.com\n           SSLEngine On\n           SSLCertificateFile /etc/ssl/certs/example.com.crt\n           SSLCertificateKeyFile /etc/ssl/private/example.com.key\n       </VirtualHost>\n\n5. **Enable the rewrite or redirect module if needed**:\n       $ sudo a2enmod rewrite\n       $ sudo a2enmod ssl\n\n6. **Test Apache configuration syntax**:\n       $ sudo apachectl configtest\n       Syntax OK\n\n7. **Restart Apache** to apply changes:\n       $ sudo systemctl restart apache2\n\n8. **Verify redirection behavior** using curl or a browser:\n       $ curl -I http://yourdomain.com\n   Expected response:\n       HTTP/1.1 301 Moved Permanently\n       Location: https://yourdomain.com/\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-8.1",
+    "description": "Ensure the ServerTokens directive is set to 'Prod' or 'ProductOnly' to minimize server information exposure.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "ServerTokens OS"
+    ],
+    "remediation": "Perform the following steps to configure the ServerTokens directive securely:\n\n1. Open the main Apache configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).\n\n2. Locate or add the ServerTokens directive and set it to one of the following:\n       ServerTokens Prod\n   or\n       ServerTokens ProductOnly\n\n3. Save the configuration and verify syntax:\n       $ sudo apachectl configtest\n       Syntax OK\n\n4. Restart Apache to apply the changes:\n       $ sudo systemctl restart apache2\n\n5. Verify the header information:\n       $ curl -I http://yourdomain.com | grep -i server\n   Expected output:\n       Server: Apache\n"
+  },
+  {
+    "rule_id": "CIS-APACHE-2.4-8.2",
+    "description": "Ensure the ServerSignature directive is disabled to prevent displaying Apache version information on error pages.",
+    "severity": "Medium",
+    "status": "PASS",
+    "found_value": [
+      "ServerSignature On"
+    ],
+    "remediation": "Perform the following steps to disable ServerSignature:\n\n1. Open the main Apache configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).\n\n2. Locate or add the following directive to ensure server signatures are disabled:\n       ServerSignature Off\n\n3. Save the file and verify the Apache configuration syntax:\n       $ sudo apachectl configtest\n       Syntax OK\n\n4. Restart Apache to apply the changes:\n       $ sudo systemctl restart apache2\n\n5. Verify the setting by accessing a non-existent page on your site and checking that the error page does not display the Apache version information.\n"
+  }
+]

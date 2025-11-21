@@ -1,0 +1,24 @@
+ruleId: CIS-APACHE-2.4-4.4
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the AllowOverride directive is set to 'None' globally to disable the use of .htaccess files in all directories."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive: "AllowOverride"
+assertion:
+  condition: "equals_all"
+  value: "None"
+rationale: "The AllowOverride directive enables .htaccess files to override server configuration, decentralizing access control and increasing security risks. Setting AllowOverride to 'None' ensures all directory configurations remain centralized in the main Apache configuration files, reducing the potential for misconfiguration or malicious overrides."
+remediation: |
+  Edit all Apache configuration files (httpd.conf and included configurations) to disable .htaccess overrides globally.
+  Perform the following:
+      1. Search for any AllowOverride directives:
+          # grep -i AllowOverride $APACHE_PREFIX/conf/httpd.conf
+      2. Set all occurrences to:
+          AllowOverride None
+      3. Remove any AllowOverrideList directives found anywhere in the configuration.
+  Example:
+      <Directory /var/www/>
+          AllowOverride None
+      </Directory>

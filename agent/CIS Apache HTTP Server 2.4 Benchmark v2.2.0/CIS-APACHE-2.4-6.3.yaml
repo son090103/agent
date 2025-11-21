@@ -1,0 +1,25 @@
+ruleId: CIS-APACHE-2.4-6.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the server access log is configured correctly using the LogFormat and CustomLog directives."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "CustomLog"
+assertion:
+  condition: "contains"
+  value: 'CustomLog log/access_log combined'
+rationale: "Access logs are essential for monitoring normal and abnormal behavior, supporting incident investigations, and detecting potential attacks. Without proper access logging, administrators cannot identify unauthorized activities or confirm whether attacks were successful."
+remediation: |
+  Perform the following steps to configure the server access log correctly:
+  1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).
+  2. Add or modify the following LogFormat directive to define the 'combined' format:
+         LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined
+  3. Add or modify the following CustomLog directive to use the combined format and store logs in the proper location:
+         CustomLog log/access_log combined
+  4. For virtual hosts with separate owners or administrators, ensure each has its own CustomLog directive:
+         <VirtualHost *:80>
+             CustomLog logs/site1_access_log combined
+         </VirtualHost>
+  5. Save the configuration and restart Apache to apply the changes:
+         $ sudo systemctl restart apache2

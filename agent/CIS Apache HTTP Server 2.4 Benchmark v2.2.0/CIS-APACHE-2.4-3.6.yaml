@@ -1,0 +1,23 @@
+ruleId: CIS-APACHE-2.4-3.6
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure that Apache directories and files do not grant write permissions to others."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/etc/apache2"
+  recursive: true
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "no_other_write"
+rationale: "Restricting write access for others prevents unauthorized modification of Apache configuration, binaries, and web content, reducing the risk of tampering or malicious injection."
+remediation: |
+  Remove write permissions for others on all Apache directories and files:
+      # chmod -R o-w $APACHE_PREFIX
+  For example, on most systems:
+      # chmod -R o-w /etc/apache2
+      # chmod -R o-w /usr/lib/apache2
+      # chmod -R o-w /var/log/apache2
+  Exclude web content directories that require controlled write access for updates:
+      # chmod -R g+w /var/www/html

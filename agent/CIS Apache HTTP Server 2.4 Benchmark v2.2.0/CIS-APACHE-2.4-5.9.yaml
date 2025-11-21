@@ -1,0 +1,28 @@
+ruleId: CIS-APACHE-2.4-5.9
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure old HTTP protocol versions (HTTP/1.0 and earlier) are disallowed by using mod_rewrite or mod_security rules."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "RewriteCond"
+assertion:
+  condition: "contains"
+  value: "%{THE_REQUEST} !(HTTP/1\\.1|HTTP/2\\.0)$"
+rationale: "Many malicious scanners and enumeration tools send abnormal HTTP versions to probe web servers. Denying requests that use outdated HTTP protocol versions helps prevent these reconnaissance attacks."
+remediation: |
+  Perform the following steps to disallow old HTTP protocol versions:
+  1. Ensure the mod_rewrite module is enabled:
+     - For static builds:
+         ./configure --enable-rewrite
+     - For dynamic loading, add this directive:
+         LoadModule rewrite_module modules/mod_rewrite.so
+  2. Edit the main Apache configuration file (e.g., httpd.conf or apache2.conf) and add the following rules:
+         RewriteEngine On
+         RewriteCond %{THE_REQUEST} !(HTTP/1\.1|HTTP/2\.0)$
+         RewriteRule .* - [F]
+  3. To ensure these rules are inherited by virtual hosts, include the following directives in each VirtualHost section:
+         RewriteEngine On
+         RewriteOptions Inherit
+  4. Restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2
