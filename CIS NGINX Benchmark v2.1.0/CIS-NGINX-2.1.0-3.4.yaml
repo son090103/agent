@@ -1,0 +1,21 @@
+ruleId: CIS-NGINX-2.1.0-3.4
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure log files are rotated to prevent excessive disk usage."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "/etc/logrotate.d/nginx"
+  directives:
+    - "weekly"
+    - "rotate 13"
+assertion:
+  condition: "contains_all"
+  value:
+    - "weekly"
+    - "rotate 13"
+rationale: "Proper log rotation ensures that NGINX log files do not consume excessive disk space, preventing potential denial of service due to disk exhaustion. Regular rotation and compression maintain system stability and preserve logging availability."
+remediation: |
+  Modify the log rotation configuration to match the recommended settings:
+      sed -i "s/daily/weekly/" /etc/logrotate.d/nginx
+      sed -i "s/rotate [0-9]\\+/rotate 13/" /etc/logrotate.d/nginx
+  This ensures logs are rotated weekly and retained for 13 rotations before removal.

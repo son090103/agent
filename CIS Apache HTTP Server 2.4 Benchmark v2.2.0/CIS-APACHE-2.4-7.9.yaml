@@ -1,0 +1,49 @@
+ruleId: CIS-APACHE-2.4-7.9
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure all web content is accessed via HTTPS by redirecting HTTP requests to HTTPS."
+severity: "High"
+type: "config_check"
+target:
+  file: "sites-available/000-default.conf"
+  directive: "Redirect"
+assertion:
+  condition: "contains"
+  value: "Redirect permanent / https://"
+rationale: "Serving web content over unencrypted HTTP allows attackers to perform man-in-the-middle, spoofing, or content modification attacks. Redirecting all HTTP traffic to HTTPS ensures that communication between clients and the web server is authenticated, encrypted, and protected from tampering."
+remediation: |
+  Perform the following steps to ensure all web content is accessed securely via HTTPS:
+
+  1. **Move all web content** to a TLS-enabled VirtualHost configuration (port 443).
+
+  2. **Open the default HTTP VirtualHost configuration** (e.g., /etc/apache2/sites-available/000-default.conf).
+
+  3. **Add a redirect rule** to permanently redirect all HTTP traffic to HTTPS:
+         <VirtualHost *:80>
+             ServerName www.example.com
+             Redirect permanent / https://www.example.com/
+         </VirtualHost>
+
+  4. **Ensure HTTPS is enabled** and configured properly in the corresponding SSL VirtualHost:
+         <VirtualHost *:443>
+             ServerName www.example.com
+             SSLEngine On
+             SSLCertificateFile /etc/ssl/certs/example.com.crt
+             SSLCertificateKeyFile /etc/ssl/private/example.com.key
+         </VirtualHost>
+
+  5. **Enable the rewrite or redirect module if needed**:
+         $ sudo a2enmod rewrite
+         $ sudo a2enmod ssl
+
+  6. **Test Apache configuration syntax**:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  7. **Restart Apache** to apply changes:
+         $ sudo systemctl restart apache2
+
+  8. **Verify redirection behavior** using curl or a browser:
+         $ curl -I http://yourdomain.com
+     Expected response:
+         HTTP/1.1 301 Moved Permanently
+         Location: https://yourdomain.com/

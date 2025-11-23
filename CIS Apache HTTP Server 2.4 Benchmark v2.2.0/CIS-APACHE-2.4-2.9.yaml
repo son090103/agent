@@ -1,0 +1,24 @@
+ruleId: CIS-APACHE-2.4-2.9
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Basic and Digest authentication modules (mod_auth_basic, mod_auth_digest) are disabled to prevent use of outdated authentication mechanisms."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directives:
+    - "LoadModule auth_basic_module modules/mod_auth_basic.so"
+    - "LoadModule auth_digest_module modules/mod_auth_digest.so"
+assertion:
+  condition: "not_contains_any"
+  value:
+    - "auth_basic_module"
+    - "auth_digest_module"
+rationale: "HTTP Basic and Digest authentication are outdated and insecure. They transmit credentials with each request, can be easily decoded, and provide no proper session management or logout capability. Disabling these modules prevents exposure of user credentials and reduces the web server's attack surface."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache without including mod_auth_basic or mod_auth_digest:
+      $ cd $DOWNLOAD_HTTPD
+      $ ./configure
+  • For dynamically loaded modules, comment out or remove the following directives in httpd.conf or related configuration files:
+      ##LoadModule auth_basic_module modules/mod_auth_basic.so
+      ##LoadModule auth_digest_module modules/mod_auth_digest.so

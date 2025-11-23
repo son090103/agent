@@ -1,0 +1,34 @@
+ruleId: CIS-NGINX-2.1.0-4.1.7
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure Online Certificate Status Protocol (OCSP) stapling is enabled."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directives:
+    - "ssl_stapling"
+    - "ssl_stapling_verify"
+assertion:
+  condition: "contains_all"
+  value:
+    - "ssl_stapling on"
+    - "ssl_stapling_verify on"
+rationale: |
+  OCSP stapling improves both security and performance by allowing the NGINX server
+  to provide clients with up-to-date certificate revocation information directly.
+  This reduces dependency on external Certificate Authority OCSP servers and mitigates
+  risks associated with compromised certificates being used undetected.
+remediation: |
+  Step 1: Verify that your NGINX server can connect to your Certificate Authority’s OCSP server:
+      curl -I "https://<your-ca-ocsp-server>"
+
+  Step 2: Enable OCSP stapling and verification in your NGINX configuration:
+      server {
+          ssl_stapling on;
+          ssl_stapling_verify on;
+      }
+
+  Ensure these directives are present in all HTTPS-enabled server blocks.

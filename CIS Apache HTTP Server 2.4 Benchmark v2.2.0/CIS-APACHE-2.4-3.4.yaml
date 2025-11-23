@@ -1,0 +1,20 @@
+ruleId: CIS-APACHE-2.4-3.4
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure all Apache directories and files are owned by the root user."
+severity: "High"
+type: "file_permission_check"
+target:
+  path: "/etc/apache2"
+  recursive: true
+  owner: "root"
+assertion:
+  condition: "equals"
+  value: "root"
+rationale: "Restricting ownership of Apache directories and files to the root user prevents unauthorized users or processes from modifying configuration and executable files, reducing the risk of tampering or privilege escalation."
+remediation: |
+  Set ownership of all Apache directories and files to root:
+      # chown -R root $APACHE_PREFIX
+  For example, on most systems:
+      # chown -R root /etc/apache2
+      # chown -R root /usr/lib/apache2
+      # chown -R root /var/log/apache2

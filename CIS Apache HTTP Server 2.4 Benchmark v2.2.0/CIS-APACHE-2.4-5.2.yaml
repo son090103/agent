@@ -1,0 +1,26 @@
+ruleId: CIS-APACHE-2.4-5.2
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Options directive for the web root directory (<Directory /var/www/html>) is set to 'None' or 'MultiViews' only."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive_block: "<Directory /var/www/html>"
+  directive: "Options"
+assertion:
+  condition: "in"
+  value:
+    - "None"
+    - "MultiViews"
+rationale: "Restricting the Options directive for the web root directory minimizes the attack surface by preventing execution of CGI scripts, symbolic link following, and automatic directory indexing. Only MultiViews may be used when required for content negotiation in multilingual environments."
+remediation: |
+  Edit the Apache configuration to restrict the Options directive for the web root directory.
+  Locate or add the <Directory> block corresponding to the DocumentRoot (for example, /var/www/html) and configure it as follows:
+      <Directory "/var/www/html">
+          Options None
+      </Directory>
+  If content negotiation across multiple languages is required, you may instead use:
+      <Directory "/var/www/html">
+          Options MultiViews
+      </Directory>
+  Remove any other options such as Indexes, FollowSymLinks, Includes, or ExecCGI.

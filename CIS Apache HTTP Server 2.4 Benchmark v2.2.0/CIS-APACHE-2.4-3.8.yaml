@@ -1,0 +1,26 @@
+ruleId: CIS-APACHE-2.4-3.8
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Apache lock file directory is secure, owned by root, and not writable by other users."
+severity: "High"
+type: "file_permission_check"
+target:
+  directive: "Mutex"
+  file: "httpd.conf"
+  expected_owner: "root"
+  expected_group: "root"
+  disallow_other_access: true
+  exclude_paths:
+    - "/var/www/html"
+    - "/usr/local/apache2/htdocs"
+assertion:
+  condition: "secure_directory"
+rationale: "If the lock file directory used by the Mutex directive is writable by others or located within the document root, attackers could create a denial of service condition by preemptively creating the lock file. Ensuring the directory is owned by root and not world-writable prevents this risk."
+remediation: |
+  Follow these steps to secure the lock file directory:
+    1. Identify the directory used for the lock file (default is $APACHE_PREFIX/logs).
+    2. Ensure it is not located within the web document root.
+    3. Set ownership and group to root:
+        # chown root:root /usr/local/apache2/logs
+    4. Restrict permissions so it is only writable by root:
+        # chmod o-w /usr/local/apache2/logs
+    5. Verify the directory resides on a local filesystem, not an NFS mount.

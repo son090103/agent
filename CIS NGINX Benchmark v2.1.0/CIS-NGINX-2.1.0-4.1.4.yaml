@@ -1,0 +1,39 @@
+ruleId: CIS-NGINX-2.1.0-4.1.4
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure only modern TLS protocols (TLSv1.2 and TLSv1.3) are used."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directives:
+    - "ssl_protocols"
+    - "proxy_ssl_protocols"
+assertion:
+  condition: "contains_only"
+  value:
+    - "TLSv1.2"
+    - "TLSv1.3"
+rationale: |
+  Enabling only modern TLS protocols ensures secure communication between clients and servers.
+  Older protocols like SSL 3.0, TLS 1.0, and TLS 1.1 contain known vulnerabilities such as POODLE and BEAST,
+  and are deprecated by industry standards including PCI DSS and NIST. 
+  TLS 1.2 and TLS 1.3 offer improved encryption, forward secrecy, and protection against known attacks.
+remediation: |
+  Update your NGINX configuration to include only modern TLS versions.
+  For web servers:
+      sed -i "s/ssl_protocols[^;]*;/ssl_protocols TLSv1.2 TLSv1.3;/" /etc/nginx/nginx.conf
+
+  For proxies:
+      sed -i "s/proxy_ssl_protocols[^;]*;/proxy_ssl_protocols TLSv1.2 TLSv1.3;/" /etc/nginx/nginx.conf
+
+  If not already configured, manually add these directives:
+      server {
+          ssl_protocols TLSv1.2 TLSv1.3;
+      }
+
+      location / {
+          proxy_ssl_protocols TLSv1.2 TLSv1.3;
+      }

@@ -1,0 +1,48 @@
+ruleId: CIS-APACHE-2.4-5.4
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure all default Apache HTML content, manuals, and example handlers are removed or disabled in production environments."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directives:
+    - "DirectoryIndex"
+    - "<Location /server-status>"
+    - "<Location /server-info>"
+    - "<Location /perl-status>"
+    - "Include conf.d/welcome.conf"
+assertion:
+  condition: "not_contains_any"
+  value:
+    - "index.html"
+    - "welcome.conf"
+    - "server-status"
+    - "server-info"
+    - "perl-status"
+    - "manual"
+rationale: "Default Apache content such as welcome pages, user manuals, and server status or information handlers can expose sensitive details and increase attack surface. Removing or disabling them prevents information leakage and reduces risk of exploitation."
+remediation: |
+  Perform the following to remove or disable all default content and handlers:
+    1. Remove or comment out any configuration referencing the Apache welcome or default index pages:
+        # Comment out or disable welcome.conf if present
+        ## Include conf.d/welcome.conf
+    2. Remove the Apache user manual package or related configuration:
+        # yum erase httpd-manual
+    3. Disable the server-status handler if configured:
+        ## <Location /server-status>
+        ##     SetHandler server-status
+        ##     Require all denied
+        ## </Location>
+    4. Disable the server-info handler if configured:
+        ## <Location /server-info>
+        ##     SetHandler server-info
+        ##     Require all denied
+        ## </Location>
+    5. Remove or comment out any other handler configurations such as perl-status:
+        ## <Location /perl-status>
+        ##     SetHandler perl-script
+        ##     PerlResponseHandler Apache2::Status
+        ##     Require all denied
+        ## </Location>
+    6. Delete or move default sample files from the DocumentRoot:
+        # rm -f /var/www/html/index.html /var/www/html/welcome.html

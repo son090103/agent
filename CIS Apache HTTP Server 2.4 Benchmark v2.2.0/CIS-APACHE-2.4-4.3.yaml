@@ -1,0 +1,20 @@
+ruleId: CIS-APACHE-2.4-4.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the AllowOverride directive is set to 'None' for the OS root directory to prevent use of .htaccess files."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive_block: "<Directory />"
+  directive: "AllowOverride"
+assertion:
+  condition: "equals"
+  value: "None"
+rationale: "The AllowOverride directive controls whether .htaccess files can override server configuration. Disabling .htaccess for the root directory prevents decentralized and potentially unsafe configuration changes, reducing the risk of unauthorized access control modifications or exposure through rogue .htaccess files."
+remediation: |
+  Edit the Apache configuration to disable .htaccess overrides for the OS root directory.
+  Ensure the <Directory /> block contains the following directive:
+      <Directory />
+          AllowOverride None
+      </Directory>
+  Also, remove any AllowOverrideList directives found within this or related directory blocks.

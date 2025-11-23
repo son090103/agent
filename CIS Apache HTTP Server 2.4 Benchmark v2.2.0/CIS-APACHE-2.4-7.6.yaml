@@ -1,0 +1,32 @@
+ruleId: CIS-APACHE-2.4-7.6
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure insecure SSL renegotiation is disabled using the SSLInsecureRenegotiation directive."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/ssl.conf"
+  directive: "SSLInsecureRenegotiation"
+assertion:
+  condition: "equals"
+  value: "off"
+rationale: "The SSL and TLS renegotiation vulnerability (CVE-2009-3555) allows a man-in-the-middle attacker to inject plaintext into encrypted sessions. Disabling insecure renegotiation prevents this attack vector and ensures only secure renegotiation is permitted."
+remediation: |
+  Perform the following steps to disable insecure SSL/TLS renegotiation:
+
+  1. Open the Apache SSL configuration file (e.g., /etc/apache2/mods-available/ssl.conf or equivalent).
+  2. Locate or add the SSLInsecureRenegotiation directive and set it to off:
+         SSLInsecureRenegotiation off
+
+  3. If the directive is not present, no further action is required, as insecure renegotiation is disabled by default.
+
+  4. Test the Apache configuration syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  5. Restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2
+
+  6. Optionally, verify the OpenSSL version supports secure renegotiation (0.9.8m or later):
+         $ openssl version
+     and confirm that renegotiation attacks are not possible using SSL testing tools such as:
+         $ sslscan yourdomain.com | grep -i renegotiation

@@ -1,0 +1,27 @@
+ruleId: CIS-NGINX-2.1.0-5.3.1
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the X-Frame-Options header is configured and enabled to mitigate clickjacking attacks."
+severity: "Medium"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "add_header"
+assertion:
+  condition: "contains"
+  value: 'X-Frame-Options "SAMEORIGIN" always'
+rationale: |
+  The X-Frame-Options header prevents web pages from being embedded in frames or iframes
+  from unauthorized domains, helping mitigate clickjacking attacks.
+  Setting this header to 'SAMEORIGIN' or 'DENY' ensures that only trusted origins can frame your content,
+  protecting users from malicious overlays or phishing attempts.
+remediation: |
+  Add or update the following directive within your NGINX 'server' or 'location' blocks to enable X-Frame-Options:
+      add_header X-Frame-Options "SAMEORIGIN" always;
+
+  Adjust the policy based on organizational requirements:
+      SAMEORIGIN  – allows framing from the same site only.
+      DENY        – disallows framing completely.
+      ALLOW-FROM  – allows framing from a specific trusted URL.

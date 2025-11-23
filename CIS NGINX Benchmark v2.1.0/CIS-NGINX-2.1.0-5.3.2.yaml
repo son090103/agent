@@ -1,0 +1,26 @@
+ruleId: CIS-NGINX-2.1.0-5.3.2
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the X-Content-Type-Options header is configured and enabled to prevent MIME type sniffing."
+severity: "Medium"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "add_header"
+assertion:
+  condition: "contains"
+  value: 'X-Content-Type-Options "nosniff" always'
+rationale: |
+  The X-Content-Type-Options header prevents user agents from interpreting files as a different MIME type
+  than what is specified in the Content-Type header. Setting this header to "nosniff" helps protect against
+  drive-by download attacks and reduces the risk of malicious content being executed unexpectedly by browsers.
+remediation: |
+  Add or update the following directive in every 'server' block within your NGINX configuration:
+      add_header X-Content-Type-Options "nosniff" always;
+
+  Example:
+      server {
+          add_header X-Content-Type-Options "nosniff" always;
+      }

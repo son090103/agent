@@ -1,0 +1,23 @@
+ruleId: CIS-APACHE-2.4-4.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure access to the operating system root directory is denied by default using a <Directory /> configuration block."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive_block: "<Directory />"
+  expected_directive: "Require"
+assertion:
+  condition: "equals"
+  value: "Require all denied"
+rationale: "By default, Apache may serve any file accessible through normal URL mapping. Denying access to the OS root directory enforces the security principle of least privilege and prevents accidental or unauthorized exposure of system files."
+remediation: |
+  Add or modify the root <Directory> element in the Apache configuration file to include the following directive:
+      <Directory />
+          Require all denied
+      </Directory>
+  Remove any deprecated 'Order', 'Deny', or 'Allow' directives from the same block.
+  Example configuration:
+      <Directory />
+          Require all denied
+      </Directory>

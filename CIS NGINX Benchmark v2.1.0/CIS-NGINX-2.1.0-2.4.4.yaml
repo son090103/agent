@@ -1,0 +1,20 @@
+ruleId: CIS-NGINX-2.1.0-2.4.4
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure send_timeout is set to 10 seconds or less, but not 0."
+severity: "Medium"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "send_timeout"
+assertion:
+  condition: "value_in_range"
+  value:
+    min: 1
+    max: 10
+rationale: "The send_timeout directive limits the time allowed to transmit a response between successive write operations. Setting it to 10 seconds or less helps mitigate slow HTTP DoS attacks that consume server resources."
+remediation: |
+  In your NGINX configuration (within the 'http' or 'server' block), add or update the send_timeout directive to 10 seconds or less, but not 0. For example:
+      send_timeout 10;

@@ -1,0 +1,28 @@
+ruleId: CIS-APACHE-2.4-8.2
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the ServerSignature directive is disabled to prevent displaying Apache version information on error pages."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "ServerSignature"
+assertion:
+  condition: "equals"
+  value: "Off"
+rationale: "When enabled, the ServerSignature directive appends the Apache version and module information to server-generated error pages. Disabling it prevents attackers from obtaining version details that could be used for targeted exploitation."
+remediation: |
+  Perform the following steps to disable ServerSignature:
+
+  1. Open the main Apache configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).
+
+  2. Locate or add the following directive to ensure server signatures are disabled:
+         ServerSignature Off
+
+  3. Save the file and verify the Apache configuration syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  4. Restart Apache to apply the changes:
+         $ sudo systemctl restart apache2
+
+  5. Verify the setting by accessing a non-existent page on your site and checking that the error page does not display the Apache version information.

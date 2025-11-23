@@ -1,0 +1,2028 @@
+{
+  "apache": {
+    "apache_root": "/etc/apache2",
+    "files_scanned": 195,
+    "files": [
+      "/etc/apache2/apache2.conf",
+      "/etc/apache2/conf-available/charset.conf",
+      "/etc/apache2/conf-available/javascript-common.conf",
+      "/etc/apache2/conf-available/localized-error-pages.conf",
+      "/etc/apache2/conf-available/other-vhosts-access-log.conf",
+      "/etc/apache2/conf-available/security.conf",
+      "/etc/apache2/conf-available/serve-cgi-bin.conf",
+      "/etc/apache2/conf-enabled/charset.conf",
+      "/etc/apache2/conf-enabled/javascript-common.conf",
+      "/etc/apache2/conf-enabled/localized-error-pages.conf",
+      "/etc/apache2/conf-enabled/other-vhosts-access-log.conf",
+      "/etc/apache2/conf-enabled/security.conf",
+      "/etc/apache2/conf-enabled/serve-cgi-bin.conf",
+      "/etc/apache2/envvars",
+      "/etc/apache2/mods-available/access_compat.load",
+      "/etc/apache2/mods-available/actions.conf",
+      "/etc/apache2/mods-available/actions.load",
+      "/etc/apache2/mods-available/alias.conf",
+      "/etc/apache2/mods-available/alias.load",
+      "/etc/apache2/mods-available/allowmethods.load",
+      "/etc/apache2/mods-available/asis.load",
+      "/etc/apache2/mods-available/auth_basic.load",
+      "/etc/apache2/mods-available/auth_digest.load",
+      "/etc/apache2/mods-available/auth_form.load",
+      "/etc/apache2/mods-available/authn_anon.load",
+      "/etc/apache2/mods-available/authn_core.load",
+      "/etc/apache2/mods-available/authn_dbd.load",
+      "/etc/apache2/mods-available/authn_dbm.load",
+      "/etc/apache2/mods-available/authn_file.load",
+      "/etc/apache2/mods-available/authn_socache.load",
+      "/etc/apache2/mods-available/authnz_fcgi.load",
+      "/etc/apache2/mods-available/authnz_ldap.load",
+      "/etc/apache2/mods-available/authz_core.load",
+      "/etc/apache2/mods-available/authz_dbd.load",
+      "/etc/apache2/mods-available/authz_dbm.load",
+      "/etc/apache2/mods-available/authz_groupfile.load",
+      "/etc/apache2/mods-available/authz_host.load",
+      "/etc/apache2/mods-available/authz_owner.load",
+      "/etc/apache2/mods-available/authz_user.load",
+      "/etc/apache2/mods-available/autoindex.conf",
+      "/etc/apache2/mods-available/autoindex.load",
+      "/etc/apache2/mods-available/brotli.load",
+      "/etc/apache2/mods-available/buffer.load",
+      "/etc/apache2/mods-available/cache.load",
+      "/etc/apache2/mods-available/cache_disk.conf",
+      "/etc/apache2/mods-available/cache_disk.load",
+      "/etc/apache2/mods-available/cache_socache.load",
+      "/etc/apache2/mods-available/cern_meta.load",
+      "/etc/apache2/mods-available/cgi.load",
+      "/etc/apache2/mods-available/cgid.conf",
+      "/etc/apache2/mods-available/cgid.load",
+      "/etc/apache2/mods-available/charset_lite.load",
+      "/etc/apache2/mods-available/data.load",
+      "/etc/apache2/mods-available/dav.load",
+      "/etc/apache2/mods-available/dav_fs.conf",
+      "/etc/apache2/mods-available/dav_fs.load",
+      "/etc/apache2/mods-available/dav_lock.load",
+      "/etc/apache2/mods-available/dbd.load",
+      "/etc/apache2/mods-available/deflate.conf",
+      "/etc/apache2/mods-available/deflate.load",
+      "/etc/apache2/mods-available/dialup.load",
+      "/etc/apache2/mods-available/dir.conf",
+      "/etc/apache2/mods-available/dir.load",
+      "/etc/apache2/mods-available/dump_io.load",
+      "/etc/apache2/mods-available/echo.load",
+      "/etc/apache2/mods-available/env.load",
+      "/etc/apache2/mods-available/expires.load",
+      "/etc/apache2/mods-available/ext_filter.load",
+      "/etc/apache2/mods-available/file_cache.load",
+      "/etc/apache2/mods-available/filter.load",
+      "/etc/apache2/mods-available/headers.load",
+      "/etc/apache2/mods-available/heartbeat.load",
+      "/etc/apache2/mods-available/heartmonitor.load",
+      "/etc/apache2/mods-available/http2.conf",
+      "/etc/apache2/mods-available/http2.load",
+      "/etc/apache2/mods-available/ident.load",
+      "/etc/apache2/mods-available/imagemap.load",
+      "/etc/apache2/mods-available/include.load",
+      "/etc/apache2/mods-available/info.conf",
+      "/etc/apache2/mods-available/info.load",
+      "/etc/apache2/mods-available/lbmethod_bybusyness.load",
+      "/etc/apache2/mods-available/lbmethod_byrequests.load",
+      "/etc/apache2/mods-available/lbmethod_bytraffic.load",
+      "/etc/apache2/mods-available/lbmethod_heartbeat.load",
+      "/etc/apache2/mods-available/ldap.conf",
+      "/etc/apache2/mods-available/ldap.load",
+      "/etc/apache2/mods-available/log_debug.load",
+      "/etc/apache2/mods-available/log_forensic.load",
+      "/etc/apache2/mods-available/lua.load",
+      "/etc/apache2/mods-available/macro.load",
+      "/etc/apache2/mods-available/md.load",
+      "/etc/apache2/mods-available/mime.conf",
+      "/etc/apache2/mods-available/mime.load",
+      "/etc/apache2/mods-available/mime_magic.conf",
+      "/etc/apache2/mods-available/mime_magic.load",
+      "/etc/apache2/mods-available/mpm_event.conf",
+      "/etc/apache2/mods-available/mpm_event.load",
+      "/etc/apache2/mods-available/mpm_prefork.conf",
+      "/etc/apache2/mods-available/mpm_prefork.load",
+      "/etc/apache2/mods-available/mpm_worker.conf",
+      "/etc/apache2/mods-available/mpm_worker.load",
+      "/etc/apache2/mods-available/negotiation.conf",
+      "/etc/apache2/mods-available/negotiation.load",
+      "/etc/apache2/mods-available/php8.2.conf",
+      "/etc/apache2/mods-available/php8.2.load",
+      "/etc/apache2/mods-available/proxy.conf",
+      "/etc/apache2/mods-available/proxy.load",
+      "/etc/apache2/mods-available/proxy_ajp.load",
+      "/etc/apache2/mods-available/proxy_balancer.conf",
+      "/etc/apache2/mods-available/proxy_balancer.load",
+      "/etc/apache2/mods-available/proxy_connect.load",
+      "/etc/apache2/mods-available/proxy_express.load",
+      "/etc/apache2/mods-available/proxy_fcgi.load",
+      "/etc/apache2/mods-available/proxy_fdpass.load",
+      "/etc/apache2/mods-available/proxy_ftp.conf",
+      "/etc/apache2/mods-available/proxy_ftp.load",
+      "/etc/apache2/mods-available/proxy_hcheck.load",
+      "/etc/apache2/mods-available/proxy_html.conf",
+      "/etc/apache2/mods-available/proxy_html.load",
+      "/etc/apache2/mods-available/proxy_http.load",
+      "/etc/apache2/mods-available/proxy_http2.load",
+      "/etc/apache2/mods-available/proxy_scgi.load",
+      "/etc/apache2/mods-available/proxy_uwsgi.load",
+      "/etc/apache2/mods-available/proxy_wstunnel.load",
+      "/etc/apache2/mods-available/ratelimit.load",
+      "/etc/apache2/mods-available/reflector.load",
+      "/etc/apache2/mods-available/remoteip.load",
+      "/etc/apache2/mods-available/reqtimeout.conf",
+      "/etc/apache2/mods-available/reqtimeout.load",
+      "/etc/apache2/mods-available/request.load",
+      "/etc/apache2/mods-available/rewrite.load",
+      "/etc/apache2/mods-available/sed.load",
+      "/etc/apache2/mods-available/session.load",
+      "/etc/apache2/mods-available/session_cookie.load",
+      "/etc/apache2/mods-available/session_crypto.load",
+      "/etc/apache2/mods-available/session_dbd.load",
+      "/etc/apache2/mods-available/setenvif.conf",
+      "/etc/apache2/mods-available/setenvif.load",
+      "/etc/apache2/mods-available/slotmem_plain.load",
+      "/etc/apache2/mods-available/slotmem_shm.load",
+      "/etc/apache2/mods-available/socache_dbm.load",
+      "/etc/apache2/mods-available/socache_memcache.load",
+      "/etc/apache2/mods-available/socache_redis.load",
+      "/etc/apache2/mods-available/socache_shmcb.load",
+      "/etc/apache2/mods-available/speling.load",
+      "/etc/apache2/mods-available/ssl.conf",
+      "/etc/apache2/mods-available/ssl.load",
+      "/etc/apache2/mods-available/status.conf",
+      "/etc/apache2/mods-available/status.load",
+      "/etc/apache2/mods-available/substitute.load",
+      "/etc/apache2/mods-available/suexec.load",
+      "/etc/apache2/mods-available/unique_id.load",
+      "/etc/apache2/mods-available/userdir.conf",
+      "/etc/apache2/mods-available/userdir.load",
+      "/etc/apache2/mods-available/usertrack.load",
+      "/etc/apache2/mods-available/vhost_alias.load",
+      "/etc/apache2/mods-available/xml2enc.load",
+      "/etc/apache2/mods-enabled/access_compat.load",
+      "/etc/apache2/mods-enabled/alias.conf",
+      "/etc/apache2/mods-enabled/alias.load",
+      "/etc/apache2/mods-enabled/auth_basic.load",
+      "/etc/apache2/mods-enabled/authn_core.load",
+      "/etc/apache2/mods-enabled/authn_file.load",
+      "/etc/apache2/mods-enabled/authz_core.load",
+      "/etc/apache2/mods-enabled/authz_host.load",
+      "/etc/apache2/mods-enabled/authz_user.load",
+      "/etc/apache2/mods-enabled/autoindex.conf",
+      "/etc/apache2/mods-enabled/autoindex.load",
+      "/etc/apache2/mods-enabled/deflate.conf",
+      "/etc/apache2/mods-enabled/deflate.load",
+      "/etc/apache2/mods-enabled/dir.conf",
+      "/etc/apache2/mods-enabled/dir.load",
+      "/etc/apache2/mods-enabled/env.load",
+      "/etc/apache2/mods-enabled/filter.load",
+      "/etc/apache2/mods-enabled/mime.conf",
+      "/etc/apache2/mods-enabled/mime.load",
+      "/etc/apache2/mods-enabled/mpm_prefork.conf",
+      "/etc/apache2/mods-enabled/mpm_prefork.load",
+      "/etc/apache2/mods-enabled/negotiation.conf",
+      "/etc/apache2/mods-enabled/negotiation.load",
+      "/etc/apache2/mods-enabled/php8.2.conf",
+      "/etc/apache2/mods-enabled/php8.2.load",
+      "/etc/apache2/mods-enabled/reqtimeout.conf",
+      "/etc/apache2/mods-enabled/reqtimeout.load",
+      "/etc/apache2/mods-enabled/setenvif.conf",
+      "/etc/apache2/mods-enabled/setenvif.load",
+      "/etc/apache2/mods-enabled/socache_shmcb.load",
+      "/etc/apache2/mods-enabled/ssl.conf",
+      "/etc/apache2/mods-enabled/ssl.load",
+      "/etc/apache2/mods-enabled/status.conf",
+      "/etc/apache2/mods-enabled/status.load",
+      "/etc/apache2/ports.conf",
+      "/etc/apache2/sites-available/000-default.conf",
+      "/etc/apache2/sites-available/default-ssl.conf",
+      "/etc/apache2/sites-enabled/000-default.conf"
+    ],
+    "modules": [
+      {
+        "name": "access_compat_module",
+        "path": "/usr/lib/apache2/modules/mod_access_compat.so",
+        "line": "LoadModule access_compat_module /usr/lib/apache2/modules/mod_access_compat.so"
+      },
+      {
+        "name": "actions_module",
+        "path": "/usr/lib/apache2/modules/mod_actions.so",
+        "line": "LoadModule actions_module /usr/lib/apache2/modules/mod_actions.so"
+      },
+      {
+        "name": "alias_module",
+        "path": "/usr/lib/apache2/modules/mod_alias.so",
+        "line": "LoadModule alias_module /usr/lib/apache2/modules/mod_alias.so"
+      },
+      {
+        "name": "allowmethods_module",
+        "path": "/usr/lib/apache2/modules/mod_allowmethods.so",
+        "line": "LoadModule allowmethods_module /usr/lib/apache2/modules/mod_allowmethods.so"
+      },
+      {
+        "name": "asis_module",
+        "path": "/usr/lib/apache2/modules/mod_asis.so",
+        "line": "LoadModule asis_module /usr/lib/apache2/modules/mod_asis.so"
+      },
+      {
+        "name": "auth_basic_module",
+        "path": "/usr/lib/apache2/modules/mod_auth_basic.so",
+        "line": "LoadModule auth_basic_module /usr/lib/apache2/modules/mod_auth_basic.so"
+      },
+      {
+        "name": "auth_digest_module",
+        "path": "/usr/lib/apache2/modules/mod_auth_digest.so",
+        "line": "LoadModule auth_digest_module /usr/lib/apache2/modules/mod_auth_digest.so"
+      },
+      {
+        "name": "auth_form_module",
+        "path": "/usr/lib/apache2/modules/mod_auth_form.so",
+        "line": "LoadModule auth_form_module /usr/lib/apache2/modules/mod_auth_form.so"
+      },
+      {
+        "name": "authn_anon_module",
+        "path": "/usr/lib/apache2/modules/mod_authn_anon.so",
+        "line": "LoadModule authn_anon_module /usr/lib/apache2/modules/mod_authn_anon.so"
+      },
+      {
+        "name": "authn_core_module",
+        "path": "/usr/lib/apache2/modules/mod_authn_core.so",
+        "line": "LoadModule authn_core_module /usr/lib/apache2/modules/mod_authn_core.so"
+      },
+      {
+        "name": "authn_dbd_module",
+        "path": "/usr/lib/apache2/modules/mod_authn_dbd.so",
+        "line": "LoadModule authn_dbd_module /usr/lib/apache2/modules/mod_authn_dbd.so"
+      },
+      {
+        "name": "authn_dbm_module",
+        "path": "/usr/lib/apache2/modules/mod_authn_dbm.so",
+        "line": "LoadModule authn_dbm_module /usr/lib/apache2/modules/mod_authn_dbm.so"
+      },
+      {
+        "name": "authn_file_module",
+        "path": "/usr/lib/apache2/modules/mod_authn_file.so",
+        "line": "LoadModule authn_file_module /usr/lib/apache2/modules/mod_authn_file.so"
+      },
+      {
+        "name": "authn_socache_module",
+        "path": "/usr/lib/apache2/modules/mod_authn_socache.so",
+        "line": "LoadModule authn_socache_module /usr/lib/apache2/modules/mod_authn_socache.so"
+      },
+      {
+        "name": "authnz_fcgi_module",
+        "path": "/usr/lib/apache2/modules/mod_authnz_fcgi.so",
+        "line": "LoadModule authnz_fcgi_module /usr/lib/apache2/modules/mod_authnz_fcgi.so"
+      },
+      {
+        "name": "authnz_ldap_module",
+        "path": "/usr/lib/apache2/modules/mod_authnz_ldap.so",
+        "line": "LoadModule authnz_ldap_module /usr/lib/apache2/modules/mod_authnz_ldap.so"
+      },
+      {
+        "name": "authz_core_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_core.so",
+        "line": "LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so"
+      },
+      {
+        "name": "authz_dbd_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_dbd.so",
+        "line": "LoadModule authz_dbd_module /usr/lib/apache2/modules/mod_authz_dbd.so"
+      },
+      {
+        "name": "authz_dbm_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_dbm.so",
+        "line": "LoadModule authz_dbm_module /usr/lib/apache2/modules/mod_authz_dbm.so"
+      },
+      {
+        "name": "authz_groupfile_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_groupfile.so",
+        "line": "LoadModule authz_groupfile_module /usr/lib/apache2/modules/mod_authz_groupfile.so"
+      },
+      {
+        "name": "authz_host_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_host.so",
+        "line": "LoadModule authz_host_module /usr/lib/apache2/modules/mod_authz_host.so"
+      },
+      {
+        "name": "authz_owner_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_owner.so",
+        "line": "LoadModule authz_owner_module /usr/lib/apache2/modules/mod_authz_owner.so"
+      },
+      {
+        "name": "authz_user_module",
+        "path": "/usr/lib/apache2/modules/mod_authz_user.so",
+        "line": "LoadModule authz_user_module /usr/lib/apache2/modules/mod_authz_user.so"
+      },
+      {
+        "name": "autoindex_module",
+        "path": "/usr/lib/apache2/modules/mod_autoindex.so",
+        "line": "LoadModule autoindex_module /usr/lib/apache2/modules/mod_autoindex.so"
+      },
+      {
+        "name": "brotli_module",
+        "path": "/usr/lib/apache2/modules/mod_brotli.so",
+        "line": "LoadModule brotli_module /usr/lib/apache2/modules/mod_brotli.so"
+      },
+      {
+        "name": "buffer_module",
+        "path": "/usr/lib/apache2/modules/mod_buffer.so",
+        "line": "LoadModule buffer_module /usr/lib/apache2/modules/mod_buffer.so"
+      },
+      {
+        "name": "cache_module",
+        "path": "/usr/lib/apache2/modules/mod_cache.so",
+        "line": "LoadModule cache_module /usr/lib/apache2/modules/mod_cache.so"
+      },
+      {
+        "name": "cache_disk_module",
+        "path": "/usr/lib/apache2/modules/mod_cache_disk.so",
+        "line": "LoadModule cache_disk_module /usr/lib/apache2/modules/mod_cache_disk.so"
+      },
+      {
+        "name": "cache_socache_module",
+        "path": "/usr/lib/apache2/modules/mod_cache_socache.so",
+        "line": "LoadModule cache_socache_module /usr/lib/apache2/modules/mod_cache_socache.so"
+      },
+      {
+        "name": "cern_meta_module",
+        "path": "/usr/lib/apache2/modules/mod_cern_meta.so",
+        "line": "LoadModule cern_meta_module /usr/lib/apache2/modules/mod_cern_meta.so"
+      },
+      {
+        "name": "cgi_module",
+        "path": "/usr/lib/apache2/modules/mod_cgi.so",
+        "line": "LoadModule cgi_module /usr/lib/apache2/modules/mod_cgi.so"
+      },
+      {
+        "name": "cgid_module",
+        "path": "/usr/lib/apache2/modules/mod_cgid.so",
+        "line": "LoadModule cgid_module /usr/lib/apache2/modules/mod_cgid.so"
+      },
+      {
+        "name": "charset_lite_module",
+        "path": "/usr/lib/apache2/modules/mod_charset_lite.so",
+        "line": "LoadModule charset_lite_module /usr/lib/apache2/modules/mod_charset_lite.so"
+      },
+      {
+        "name": "data_module",
+        "path": "/usr/lib/apache2/modules/mod_data.so",
+        "line": "LoadModule data_module /usr/lib/apache2/modules/mod_data.so"
+      },
+      {
+        "name": "dav_module",
+        "path": "/usr/lib/apache2/modules/mod_dav.so",
+        "line": "LoadModule dav_module /usr/lib/apache2/modules/mod_dav.so"
+      },
+      {
+        "name": "dav_fs_module",
+        "path": "/usr/lib/apache2/modules/mod_dav_fs.so",
+        "line": "LoadModule dav_fs_module /usr/lib/apache2/modules/mod_dav_fs.so"
+      },
+      {
+        "name": "dav_lock_module",
+        "path": "/usr/lib/apache2/modules/mod_dav_lock.so",
+        "line": "LoadModule dav_lock_module /usr/lib/apache2/modules/mod_dav_lock.so"
+      },
+      {
+        "name": "dbd_module",
+        "path": "/usr/lib/apache2/modules/mod_dbd.so",
+        "line": "LoadModule dbd_module /usr/lib/apache2/modules/mod_dbd.so"
+      },
+      {
+        "name": "deflate_module",
+        "path": "/usr/lib/apache2/modules/mod_deflate.so",
+        "line": "LoadModule deflate_module /usr/lib/apache2/modules/mod_deflate.so"
+      },
+      {
+        "name": "dialup_module",
+        "path": "/usr/lib/apache2/modules/mod_dialup.so",
+        "line": "LoadModule dialup_module /usr/lib/apache2/modules/mod_dialup.so"
+      },
+      {
+        "name": "dir_module",
+        "path": "/usr/lib/apache2/modules/mod_dir.so",
+        "line": "LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so"
+      },
+      {
+        "name": "dumpio_module",
+        "path": "/usr/lib/apache2/modules/mod_dumpio.so",
+        "line": "LoadModule dumpio_module /usr/lib/apache2/modules/mod_dumpio.so"
+      },
+      {
+        "name": "echo_module",
+        "path": "/usr/lib/apache2/modules/mod_echo.so",
+        "line": "LoadModule echo_module /usr/lib/apache2/modules/mod_echo.so"
+      },
+      {
+        "name": "env_module",
+        "path": "/usr/lib/apache2/modules/mod_env.so",
+        "line": "LoadModule env_module /usr/lib/apache2/modules/mod_env.so"
+      },
+      {
+        "name": "expires_module",
+        "path": "/usr/lib/apache2/modules/mod_expires.so",
+        "line": "LoadModule expires_module /usr/lib/apache2/modules/mod_expires.so"
+      },
+      {
+        "name": "ext_filter_module",
+        "path": "/usr/lib/apache2/modules/mod_ext_filter.so",
+        "line": "LoadModule ext_filter_module /usr/lib/apache2/modules/mod_ext_filter.so"
+      },
+      {
+        "name": "file_cache_module",
+        "path": "/usr/lib/apache2/modules/mod_file_cache.so",
+        "line": "LoadModule file_cache_module /usr/lib/apache2/modules/mod_file_cache.so"
+      },
+      {
+        "name": "filter_module",
+        "path": "/usr/lib/apache2/modules/mod_filter.so",
+        "line": "LoadModule filter_module /usr/lib/apache2/modules/mod_filter.so"
+      },
+      {
+        "name": "headers_module",
+        "path": "/usr/lib/apache2/modules/mod_headers.so",
+        "line": "LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so"
+      },
+      {
+        "name": "heartbeat_module",
+        "path": "/usr/lib/apache2/modules/mod_heartbeat.so",
+        "line": "LoadModule heartbeat_module /usr/lib/apache2/modules/mod_heartbeat.so"
+      },
+      {
+        "name": "heartmonitor_module",
+        "path": "/usr/lib/apache2/modules/mod_heartmonitor.so",
+        "line": "LoadModule heartmonitor_module /usr/lib/apache2/modules/mod_heartmonitor.so"
+      },
+      {
+        "name": "http2_module",
+        "path": "/usr/lib/apache2/modules/mod_http2.so",
+        "line": "LoadModule http2_module /usr/lib/apache2/modules/mod_http2.so"
+      },
+      {
+        "name": "ident_module",
+        "path": "/usr/lib/apache2/modules/mod_ident.so",
+        "line": "LoadModule ident_module /usr/lib/apache2/modules/mod_ident.so"
+      },
+      {
+        "name": "imagemap_module",
+        "path": "/usr/lib/apache2/modules/mod_imagemap.so",
+        "line": "LoadModule imagemap_module /usr/lib/apache2/modules/mod_imagemap.so"
+      },
+      {
+        "name": "include_module",
+        "path": "/usr/lib/apache2/modules/mod_include.so",
+        "line": "LoadModule include_module /usr/lib/apache2/modules/mod_include.so"
+      },
+      {
+        "name": "info_module",
+        "path": "/usr/lib/apache2/modules/mod_info.so",
+        "line": "LoadModule info_module /usr/lib/apache2/modules/mod_info.so"
+      },
+      {
+        "name": "lbmethod_bybusyness_module",
+        "path": "/usr/lib/apache2/modules/mod_lbmethod_bybusyness.so",
+        "line": "LoadModule lbmethod_bybusyness_module /usr/lib/apache2/modules/mod_lbmethod_bybusyness.so"
+      },
+      {
+        "name": "lbmethod_byrequests_module",
+        "path": "/usr/lib/apache2/modules/mod_lbmethod_byrequests.so",
+        "line": "LoadModule lbmethod_byrequests_module /usr/lib/apache2/modules/mod_lbmethod_byrequests.so"
+      },
+      {
+        "name": "lbmethod_bytraffic_module",
+        "path": "/usr/lib/apache2/modules/mod_lbmethod_bytraffic.so",
+        "line": "LoadModule lbmethod_bytraffic_module /usr/lib/apache2/modules/mod_lbmethod_bytraffic.so"
+      },
+      {
+        "name": "lbmethod_heartbeat_module",
+        "path": "/usr/lib/apache2/modules/mod_lbmethod_heartbeat.so",
+        "line": "LoadModule lbmethod_heartbeat_module /usr/lib/apache2/modules/mod_lbmethod_heartbeat.so"
+      },
+      {
+        "name": "ldap_module",
+        "path": "/usr/lib/apache2/modules/mod_ldap.so",
+        "line": "LoadModule ldap_module /usr/lib/apache2/modules/mod_ldap.so"
+      },
+      {
+        "name": "log_debug_module",
+        "path": "/usr/lib/apache2/modules/mod_log_debug.so",
+        "line": "LoadModule log_debug_module /usr/lib/apache2/modules/mod_log_debug.so"
+      },
+      {
+        "name": "log_forensic_module",
+        "path": "/usr/lib/apache2/modules/mod_log_forensic.so",
+        "line": "LoadModule log_forensic_module /usr/lib/apache2/modules/mod_log_forensic.so"
+      },
+      {
+        "name": "lua_module",
+        "path": "/usr/lib/apache2/modules/mod_lua.so",
+        "line": "LoadModule lua_module /usr/lib/apache2/modules/mod_lua.so"
+      },
+      {
+        "name": "macro_module",
+        "path": "/usr/lib/apache2/modules/mod_macro.so",
+        "line": "LoadModule macro_module /usr/lib/apache2/modules/mod_macro.so"
+      },
+      {
+        "name": "md_module",
+        "path": "/usr/lib/apache2/modules/mod_md.so",
+        "line": "LoadModule md_module /usr/lib/apache2/modules/mod_md.so"
+      },
+      {
+        "name": "mime_module",
+        "path": "/usr/lib/apache2/modules/mod_mime.so",
+        "line": "LoadModule mime_module /usr/lib/apache2/modules/mod_mime.so"
+      },
+      {
+        "name": "mime_magic_module",
+        "path": "/usr/lib/apache2/modules/mod_mime_magic.so",
+        "line": "LoadModule mime_magic_module /usr/lib/apache2/modules/mod_mime_magic.so"
+      },
+      {
+        "name": "mpm_event_module",
+        "path": "/usr/lib/apache2/modules/mod_mpm_event.so",
+        "line": "LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so"
+      },
+      {
+        "name": "mpm_prefork_module",
+        "path": "/usr/lib/apache2/modules/mod_mpm_prefork.so",
+        "line": "LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so"
+      },
+      {
+        "name": "mpm_worker_module",
+        "path": "/usr/lib/apache2/modules/mod_mpm_worker.so",
+        "line": "LoadModule mpm_worker_module /usr/lib/apache2/modules/mod_mpm_worker.so"
+      },
+      {
+        "name": "negotiation_module",
+        "path": "/usr/lib/apache2/modules/mod_negotiation.so",
+        "line": "LoadModule negotiation_module /usr/lib/apache2/modules/mod_negotiation.so"
+      },
+      {
+        "name": "php_module",
+        "path": "/usr/lib/apache2/modules/libphp8.2.so",
+        "line": "LoadModule php_module /usr/lib/apache2/modules/libphp8.2.so"
+      },
+      {
+        "name": "proxy_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy.so",
+        "line": "LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so"
+      },
+      {
+        "name": "proxy_ajp_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_ajp.so",
+        "line": "LoadModule proxy_ajp_module /usr/lib/apache2/modules/mod_proxy_ajp.so"
+      },
+      {
+        "name": "proxy_balancer_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_balancer.so",
+        "line": "LoadModule proxy_balancer_module /usr/lib/apache2/modules/mod_proxy_balancer.so"
+      },
+      {
+        "name": "proxy_connect_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_connect.so",
+        "line": "LoadModule proxy_connect_module /usr/lib/apache2/modules/mod_proxy_connect.so"
+      },
+      {
+        "name": "proxy_express_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_express.so",
+        "line": "LoadModule proxy_express_module /usr/lib/apache2/modules/mod_proxy_express.so"
+      },
+      {
+        "name": "proxy_fcgi_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_fcgi.so",
+        "line": "LoadModule proxy_fcgi_module /usr/lib/apache2/modules/mod_proxy_fcgi.so"
+      },
+      {
+        "name": "proxy_fdpass_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_fdpass.so",
+        "line": "LoadModule proxy_fdpass_module /usr/lib/apache2/modules/mod_proxy_fdpass.so"
+      },
+      {
+        "name": "proxy_ftp_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_ftp.so",
+        "line": "LoadModule proxy_ftp_module /usr/lib/apache2/modules/mod_proxy_ftp.so"
+      },
+      {
+        "name": "proxy_hcheck_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_hcheck.so",
+        "line": "LoadModule proxy_hcheck_module /usr/lib/apache2/modules/mod_proxy_hcheck.so"
+      },
+      {
+        "name": "proxy_html_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_html.so",
+        "line": "LoadModule proxy_html_module /usr/lib/apache2/modules/mod_proxy_html.so"
+      },
+      {
+        "name": "proxy_http_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_http.so",
+        "line": "LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so"
+      },
+      {
+        "name": "proxy_http2_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_http2.so",
+        "line": "LoadModule proxy_http2_module /usr/lib/apache2/modules/mod_proxy_http2.so"
+      },
+      {
+        "name": "proxy_scgi_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_scgi.so",
+        "line": "LoadModule proxy_scgi_module /usr/lib/apache2/modules/mod_proxy_scgi.so"
+      },
+      {
+        "name": "proxy_uwsgi_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_uwsgi.so",
+        "line": "LoadModule proxy_uwsgi_module /usr/lib/apache2/modules/mod_proxy_uwsgi.so"
+      },
+      {
+        "name": "proxy_wstunnel_module",
+        "path": "/usr/lib/apache2/modules/mod_proxy_wstunnel.so",
+        "line": "LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so"
+      },
+      {
+        "name": "ratelimit_module",
+        "path": "/usr/lib/apache2/modules/mod_ratelimit.so",
+        "line": "LoadModule ratelimit_module /usr/lib/apache2/modules/mod_ratelimit.so"
+      },
+      {
+        "name": "reflector_module",
+        "path": "/usr/lib/apache2/modules/mod_reflector.so",
+        "line": "LoadModule reflector_module /usr/lib/apache2/modules/mod_reflector.so"
+      },
+      {
+        "name": "remoteip_module",
+        "path": "/usr/lib/apache2/modules/mod_remoteip.so",
+        "line": "LoadModule remoteip_module /usr/lib/apache2/modules/mod_remoteip.so"
+      },
+      {
+        "name": "reqtimeout_module",
+        "path": "/usr/lib/apache2/modules/mod_reqtimeout.so",
+        "line": "LoadModule reqtimeout_module /usr/lib/apache2/modules/mod_reqtimeout.so"
+      },
+      {
+        "name": "request_module",
+        "path": "/usr/lib/apache2/modules/mod_request.so",
+        "line": "LoadModule request_module /usr/lib/apache2/modules/mod_request.so"
+      },
+      {
+        "name": "rewrite_module",
+        "path": "/usr/lib/apache2/modules/mod_rewrite.so",
+        "line": "LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so"
+      },
+      {
+        "name": "sed_module",
+        "path": "/usr/lib/apache2/modules/mod_sed.so",
+        "line": "LoadModule sed_module /usr/lib/apache2/modules/mod_sed.so"
+      },
+      {
+        "name": "session_module",
+        "path": "/usr/lib/apache2/modules/mod_session.so",
+        "line": "LoadModule session_module /usr/lib/apache2/modules/mod_session.so"
+      },
+      {
+        "name": "session_cookie_module",
+        "path": "/usr/lib/apache2/modules/mod_session_cookie.so",
+        "line": "LoadModule session_cookie_module /usr/lib/apache2/modules/mod_session_cookie.so"
+      },
+      {
+        "name": "session_crypto_module",
+        "path": "/usr/lib/apache2/modules/mod_session_crypto.so",
+        "line": "LoadModule session_crypto_module /usr/lib/apache2/modules/mod_session_crypto.so"
+      },
+      {
+        "name": "session_dbd_module",
+        "path": "/usr/lib/apache2/modules/mod_session_dbd.so",
+        "line": "LoadModule session_dbd_module /usr/lib/apache2/modules/mod_session_dbd.so"
+      },
+      {
+        "name": "setenvif_module",
+        "path": "/usr/lib/apache2/modules/mod_setenvif.so",
+        "line": "LoadModule setenvif_module /usr/lib/apache2/modules/mod_setenvif.so"
+      },
+      {
+        "name": "slotmem_plain_module",
+        "path": "/usr/lib/apache2/modules/mod_slotmem_plain.so",
+        "line": "LoadModule slotmem_plain_module /usr/lib/apache2/modules/mod_slotmem_plain.so"
+      },
+      {
+        "name": "slotmem_shm_module",
+        "path": "/usr/lib/apache2/modules/mod_slotmem_shm.so",
+        "line": "LoadModule slotmem_shm_module /usr/lib/apache2/modules/mod_slotmem_shm.so"
+      },
+      {
+        "name": "socache_dbm_module",
+        "path": "/usr/lib/apache2/modules/mod_socache_dbm.so",
+        "line": "LoadModule socache_dbm_module /usr/lib/apache2/modules/mod_socache_dbm.so"
+      },
+      {
+        "name": "socache_memcache_module",
+        "path": "/usr/lib/apache2/modules/mod_socache_memcache.so",
+        "line": "LoadModule socache_memcache_module /usr/lib/apache2/modules/mod_socache_memcache.so"
+      },
+      {
+        "name": "socache_redis_module",
+        "path": "/usr/lib/apache2/modules/mod_socache_redis.so",
+        "line": "LoadModule socache_redis_module /usr/lib/apache2/modules/mod_socache_redis.so"
+      },
+      {
+        "name": "socache_shmcb_module",
+        "path": "/usr/lib/apache2/modules/mod_socache_shmcb.so",
+        "line": "LoadModule socache_shmcb_module /usr/lib/apache2/modules/mod_socache_shmcb.so"
+      },
+      {
+        "name": "speling_module",
+        "path": "/usr/lib/apache2/modules/mod_speling.so",
+        "line": "LoadModule speling_module /usr/lib/apache2/modules/mod_speling.so"
+      },
+      {
+        "name": "ssl_module",
+        "path": "/usr/lib/apache2/modules/mod_ssl.so",
+        "line": "LoadModule ssl_module /usr/lib/apache2/modules/mod_ssl.so"
+      },
+      {
+        "name": "status_module",
+        "path": "/usr/lib/apache2/modules/mod_status.so",
+        "line": "LoadModule status_module /usr/lib/apache2/modules/mod_status.so"
+      },
+      {
+        "name": "substitute_module",
+        "path": "/usr/lib/apache2/modules/mod_substitute.so",
+        "line": "LoadModule substitute_module /usr/lib/apache2/modules/mod_substitute.so"
+      },
+      {
+        "name": "suexec_module",
+        "path": "/usr/lib/apache2/modules/mod_suexec.so",
+        "line": "LoadModule suexec_module /usr/lib/apache2/modules/mod_suexec.so"
+      },
+      {
+        "name": "unique_id_module",
+        "path": "/usr/lib/apache2/modules/mod_unique_id.so",
+        "line": "LoadModule unique_id_module /usr/lib/apache2/modules/mod_unique_id.so"
+      },
+      {
+        "name": "userdir_module",
+        "path": "/usr/lib/apache2/modules/mod_userdir.so",
+        "line": "LoadModule userdir_module /usr/lib/apache2/modules/mod_userdir.so"
+      },
+      {
+        "name": "usertrack_module",
+        "path": "/usr/lib/apache2/modules/mod_usertrack.so",
+        "line": "LoadModule usertrack_module /usr/lib/apache2/modules/mod_usertrack.so"
+      },
+      {
+        "name": "vhost_alias_module",
+        "path": "/usr/lib/apache2/modules/mod_vhost_alias.so",
+        "line": "LoadModule vhost_alias_module /usr/lib/apache2/modules/mod_vhost_alias.so"
+      },
+      {
+        "name": "xml2enc_module",
+        "path": "/usr/lib/apache2/modules/mod_xml2enc.so",
+        "line": "LoadModule xml2enc_module /usr/lib/apache2/modules/mod_xml2enc.so"
+      }
+    ],
+    "includes": [
+      "conf-enabled/*.conf",
+      "mods-enabled/*.conf",
+      "mods-enabled/*.load",
+      "ports.conf",
+      "sites-enabled/*.conf"
+    ],
+    "directives": {
+      "Timeout": "300",
+      "KeepAlive": "On",
+      "MaxKeepAliveRequests": "100",
+      "KeepAliveTimeout": "5",
+      "LogLevel": "warn",
+      "User": "${APACHE_RUN_USER}",
+      "Group": "${APACHE_RUN_GROUP}",
+      "ErrorLog": "${APACHE_LOG_DIR}/error.log",
+      "PidFile": "${APACHE_PID_FILE}",
+      "AccessFileName": ".htaccess",
+      "HostnameLookups": "Off",
+      "LogFormat": [
+        "\"%v:%p %h %l %u %t \\\"%r\\\" %>s %O \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" vhost_combined",
+        "\"%h %l %u %t \\\"%r\\\" %>s %O \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined",
+        "\"%h %l %u %t \\\"%r\\\" %>s %O\" common",
+        "\"%{Referer}i -> %U\" referer",
+        "\"%{User-agent}i\" agent"
+      ],
+      "CustomLog": [
+        "${APACHE_LOG_DIR}/other_vhosts_access.log vhost_combined",
+        "${APACHE_LOG_DIR}/access.log combined",
+        "${APACHE_LOG_DIR}/access.log combined",
+        "${APACHE_LOG_DIR}/access.log combined"
+      ],
+      "ServerTokens": "OS",
+      "ServerSignature": "On",
+      "TraceEnable": "Off",
+      "SSLProtocol": "all -SSLv3",
+      "SSLCipherSuite": "HIGH:!aNULL",
+      "DocumentRoot": "/var/www/html",
+      "SSLCertificateFile": "/etc/ssl/certs/ssl-cert-snakeoil.pem",
+      "SSLCertificateKeyFile": "/etc/ssl/private/ssl-cert-snakeoil.key"
+    },
+    "directory_blocks": [
+      {
+        "type": "Directory",
+        "path": "/",
+        "options": [
+          "FollowSymLinks"
+        ],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all denied"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share",
+        "options": [],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all granted"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/var/www/",
+        "options": [
+          "Indexes FollowSymLinks"
+        ],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all granted"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/srv/",
+        "options": [],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share/javascript/",
+        "options": [
+          "FollowSymLinks MultiViews"
+        ],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share/apache2/error",
+        "options": [],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/lib/cgi-bin",
+        "options": [
+          "+ExecCGI -MultiViews +SymLinksIfOwnerMatch"
+        ],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all granted"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share/javascript/",
+        "options": [
+          "FollowSymLinks MultiViews"
+        ],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share/apache2/error",
+        "options": [],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/lib/cgi-bin",
+        "options": [
+          "+ExecCGI -MultiViews +SymLinksIfOwnerMatch"
+        ],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all granted"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share/apache2/icons",
+        "options": [
+          "FollowSymlinks"
+        ],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all granted"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/home/*/public_html",
+        "options": [],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/home/*/public_html",
+        "options": [
+          "MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec"
+        ],
+        "allow_override": [
+          "FileInfo AuthConfig Limit Indexes"
+        ],
+        "require": [
+          "method GET POST OPTIONS"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/share/apache2/icons",
+        "options": [
+          "FollowSymlinks"
+        ],
+        "allow_override": [
+          "None"
+        ],
+        "require": [
+          "all granted"
+        ]
+      },
+      {
+        "type": "Directory",
+        "path": "/home/*/public_html",
+        "options": [],
+        "allow_override": [],
+        "require": []
+      },
+      {
+        "type": "Directory",
+        "path": "/usr/lib/cgi-bin",
+        "options": [],
+        "allow_override": [],
+        "require": []
+      }
+    ],
+    "filesmatch_blocks": [
+      {
+        "pattern": "^\\.ht",
+        "require": [
+          "all denied"
+        ],
+        "deny": []
+      },
+      {
+        "pattern": "\\.html$",
+        "require": [],
+        "deny": []
+      },
+      {
+        "pattern": ".+\\.ph(?:ar|p|tml)$",
+        "require": [],
+        "deny": []
+      },
+      {
+        "pattern": ".+\\.phps$",
+        "require": [
+          "all denied"
+        ],
+        "deny": []
+      },
+      {
+        "pattern": "^\\.ph(?:ar|p|ps|tml)$",
+        "require": [
+          "all denied"
+        ],
+        "deny": []
+      },
+      {
+        "pattern": ".+\\.ph(?:ar|p|tml)$",
+        "require": [],
+        "deny": []
+      },
+      {
+        "pattern": ".+\\.phps$",
+        "require": [
+          "all denied"
+        ],
+        "deny": []
+      },
+      {
+        "pattern": "^\\.ph(?:ar|p|ps|tml)$",
+        "require": [
+          "all denied"
+        ],
+        "deny": []
+      },
+      {
+        "pattern": "\\.(?:cgi|shtml|phtml|php)$",
+        "require": [],
+        "deny": []
+      }
+    ],
+    "directorymatch_blocks": [],
+    "locationmatch_blocks": [],
+    "envvars": {
+      "SUFFIX": "-${APACHE_CONFDIR",
+      "APACHE_RUN_USER": "www-data",
+      "APACHE_RUN_GROUP": "www-data",
+      "APACHE_PID_FILE": "/var/run/apache2$SUFFIX/apache2.pid",
+      "APACHE_RUN_DIR": "/var/run/apache2$SUFFIX",
+      "APACHE_LOCK_DIR": "/var/lock/apache2$SUFFIX",
+      "APACHE_LOG_DIR": "/var/log/apache2$SUFFIX",
+      "LANG": "C"
+    },
+    "document_roots": [
+      "/var/www/html"
+    ],
+    "runtime": {
+      "pid_files": [
+        "${APACHE_PID_FILE}",
+        "/var/run/apache2$SUFFIX/apache2.pid"
+      ],
+      "scoreboard_files": [],
+      "core_directories": [
+        "/var/run/apache2$SUFFIX"
+      ],
+      "lock_directories": [
+        "/var/lock/apache2$SUFFIX"
+      ],
+      "resolved": {
+        "pid_files": [
+          {
+            "path": "/var/run/apache2-${APACHE_CONFDIR/apache2.pid",
+            "exists": false
+          },
+          {
+            "path": "/var/run/apache2-${APACHE_CONFDIR/apache2.pid",
+            "exists": false
+          }
+        ],
+        "scoreboard_files": [],
+        "core_directories": [
+          {
+            "path": "/var/run/apache2-${APACHE_CONFDIR",
+            "exists": false
+          }
+        ],
+        "lock_directories": [
+          {
+            "path": "/var/lock/apache2-${APACHE_CONFDIR",
+            "exists": false
+          }
+        ]
+      }
+    },
+    "ssl": {
+      "certs": [
+        {
+          "path": "/etc/ssl/certs/ssl-cert-snakeoil.pem",
+          "exists": true,
+          "size": 1070,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o644",
+          "readable": true
+        }
+      ],
+      "keys": [
+        {
+          "path": "/etc/ssl/private/ssl-cert-snakeoil.key",
+          "exists": false,
+          "error": "[Errno 13] Permission denied: '/etc/ssl/private/ssl-cert-snakeoil.key'"
+        }
+      ]
+    },
+    "users": {
+      "apache_user_guess": "www-data",
+      "apache_user_passwd": {
+        "user": "www-data",
+        "uid": 33,
+        "gid": 33,
+        "gecos": "www-data",
+        "home": "/var/www",
+        "shell": "/usr/sbin/nologin"
+      },
+      "apache_user_shadow": {
+        "available": false
+      }
+    },
+    "permissions_summary": {
+      "total": 202,
+      "owned_by_root": 202,
+      "gid_root": 202,
+      "world_writable": 0,
+      "group_writable": 0
+    },
+    "extra_scans": {
+      "/var/www": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 1,
+          "sample": [
+            {
+              "name": "html",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            }
+          ]
+        }
+      },
+      "/var/log/apache2": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 4,
+          "mode": "0o750",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 7,
+          "sample": [
+            {
+              "name": "other_vhosts_access.log",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            },
+            {
+              "name": "error.log.1",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            },
+            {
+              "name": "error.log.2.gz",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            },
+            {
+              "name": "error.log.4.gz",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            },
+            {
+              "name": "error.log.3.gz",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            },
+            {
+              "name": "error.log",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            },
+            {
+              "name": "access.log",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 4,
+              "mode": "0o640"
+            }
+          ]
+        }
+      },
+      "/var/log/httpd": {
+        "exists": false,
+        "stat": {
+          "exists": false
+        },
+        "listing": null
+      },
+      "/var/run/apache2": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 80,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 2,
+          "sample": [
+            {
+              "name": "socks",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 33,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "apache2.pid",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            }
+          ]
+        }
+      },
+      "/var/run": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 960,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 46,
+          "sample": [
+            {
+              "name": "initramfs",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o700"
+            },
+            {
+              "name": "console-setup",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "udev",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "plymouth",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "lock",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o1777"
+            },
+            {
+              "name": "systemd",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "credentials",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "initctl",
+              "is_dir": false,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o600"
+            },
+            {
+              "name": "mount",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "tmpfiles.d",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "log",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "network",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "cryptsetup",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o700"
+            },
+            {
+              "name": "dbus",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "shm",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o1777"
+            },
+            {
+              "name": "sendsigs.omit.d",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "iodine",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "setrans",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "openvpn-client",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o710"
+            },
+            {
+              "name": "openvpn-server",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o710"
+            },
+            {
+              "name": "openvpn",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "postgresql",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 123,
+              "gid": 122,
+              "mode": "0o2775"
+            },
+            {
+              "name": "rpcbind",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 115,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "screen",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 43,
+              "mode": "0o1777"
+            },
+            {
+              "name": "speech-dispatcher",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 121,
+              "gid": 29,
+              "mode": "0o750"
+            },
+            {
+              "name": "sslh",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "sudo",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o711"
+            },
+            {
+              "name": "user",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "utmp",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 43,
+              "mode": "0o664"
+            },
+            {
+              "name": "rpc_pipefs",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o555"
+            },
+            {
+              "name": "docker.sock",
+              "is_dir": false,
+              "is_file": false,
+              "uid": 0,
+              "gid": 988,
+              "mode": "0o660"
+            },
+            {
+              "name": "pcscd",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "crond.pid",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "crond.reboot",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o0"
+            },
+            {
+              "name": "NetworkManager",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "sshd",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "apache2",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "lightdm.pid",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "lightdm",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o711"
+            },
+            {
+              "name": "sm-notify.pid",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o600"
+            }
+          ]
+        }
+      },
+      "/var/lock/apache2": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 40,
+          "owner": 33,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 0,
+          "sample": []
+        }
+      },
+      "/run/apache2": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 80,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 2,
+          "sample": [
+            {
+              "name": "socks",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 33,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "apache2.pid",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            }
+          ]
+        }
+      },
+      "/etc/ssl": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 6,
+          "sample": [
+            {
+              "name": "certs",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o755"
+            },
+            {
+              "name": "private",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 0,
+              "gid": 109,
+              "mode": "0o710"
+            },
+            {
+              "name": "openssl.cnf.original",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "openssl.cnf",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "kali.cnf",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "openssl.cnf.dpkg-new",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            }
+          ]
+        }
+      },
+      "/etc/pki/tls": {
+        "exists": false,
+        "stat": {
+          "exists": false
+        },
+        "listing": null
+      },
+      "/etc/logrotate.d": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 19,
+          "sample": [
+            {
+              "name": "sane-utils",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "nginx",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "alternatives",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "speech-dispatcher",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "postgresql-common",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "dpkg",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "openvas-scanner",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "apt",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "macchanger",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "redis-server",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "bootlog",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "ppp",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "mosquitto",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "stunnel4",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "gvmd",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "mariadb",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "btmp",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "apache2",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "wtmp",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            }
+          ]
+        }
+      },
+      "/home": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 1,
+          "sample": [
+            {
+              "name": "kali",
+              "is_dir": true,
+              "is_file": false,
+              "uid": 1000,
+              "gid": 1000,
+              "mode": "0o700"
+            }
+          ]
+        }
+      },
+      "/usr/lib/cgi-bin": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 0,
+          "sample": []
+        }
+      },
+      "/usr/local/apache2/cgi-bin": {
+        "exists": false,
+        "stat": {
+          "exists": false
+        },
+        "listing": null
+      },
+      "/var/www/cgi-bin": {
+        "exists": false,
+        "stat": {
+          "exists": false
+        },
+        "listing": null
+      },
+      "/var/www/html": {
+        "exists": true,
+        "stat": {
+          "exists": true,
+          "size": 4096,
+          "owner": 0,
+          "group": 0,
+          "mode": "0o755",
+          "readable": true
+        },
+        "listing": {
+          "exists": true,
+          "total_entries": 2,
+          "sample": [
+            {
+              "name": "index.html",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            },
+            {
+              "name": "index.nginx-debian.html",
+              "is_dir": false,
+              "is_file": true,
+              "uid": 0,
+              "gid": 0,
+              "mode": "0o644"
+            }
+          ]
+        }
+      }
+    },
+    "system_users": {
+      "error": "Permission denied reading /etc/shadow (run as root)"
+    },
+    "logrotate_apache": true,
+    "logrotate_rotate": 14,
+    "logrotate_schedule": "daily",
+    "apache_version": "2.4.58",
+    "apache_install_source": "vendor",
+    "ssl_conf_directives": {
+      "path": "/etc/apache2/mods-available/ssl.conf",
+      "directives": {
+        "SSLRandomSeed": "on",
+        "AddType": "on",
+        "SSLPassPhraseDialog": "on",
+        "SSLSessionCache": "on",
+        "SSLSessionCacheTimeout": "on",
+        "SSL": "off",
+        "Mutex": "off",
+        "SSLCipherSuite": "on",
+        "SSLHonorCipherOrder": "off",
+        "SSLProtocol": "on",
+        "SSLInsecureRenegotiation": "off",
+        "SSLStrictSNIVHostCheck": "off",
+        "SSLSessionTickets": "on"
+      },
+      "total": 13
+    },
+    "compliance_directives": {
+      "Redirect permanent": "not_found",
+      "CIS-APACHE-2.4-9.5": "RequestReadTimeout header=20-40,minrate=500",
+      "CIS-APACHE-2.4-9.6": "RequestReadTimeout body=10,minrate=500"
+    }
+  }
+}

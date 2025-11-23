@@ -1,0 +1,18 @@
+ruleId: CIS-NGINX-2.1.0-2.5.1
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure server_tokens directive is set to 'off'."
+severity: "Medium"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "server_tokens"
+assertion:
+  condition: "equals"
+  value: "off"
+rationale: "The server_tokens directive controls whether NGINX displays its version number in error pages and HTTP response headers. Disabling it helps prevent attackers from obtaining information about the server software and version, reducing reconnaissance opportunities."
+remediation: |
+  In your NGINX configuration (either in the 'http' block or within each 'server' block), set the directive as follows:
+      server_tokens off;

@@ -1,0 +1,25 @@
+ruleId: CIS-APACHE-2.4-5.12
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure access to .svn directories is restricted using the DirectoryMatch directive."
+severity: "High"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "DirectoryMatch"
+assertion:
+  condition: "contains"
+  value: '<DirectoryMatch "/\\.svn">'
+rationale: "SVN repository directories (.svn) may expose source code and configuration details if publicly accessible. Restricting access prevents unauthorized viewing or download of sensitive project files."
+remediation: |
+  Perform the following steps to restrict access to .svn directories:
+  1. Open the main Apache configuration file (e.g., httpd.conf or apache2.conf).
+  2. Add the following directive at the server-level configuration:
+         <DirectoryMatch "/\.svn">
+             Require all denied
+         </DirectoryMatch>
+  3. Alternatively, you may use the legacy syntax:
+         <DirectoryMatch "/\.svn">
+             Deny from all
+         </DirectoryMatch>
+  4. Save the configuration and restart Apache to apply the changes:
+         $ sudo systemctl restart apache2

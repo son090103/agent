@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-2.7
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the User Directories module (mod_userdir) is disabled to prevent access to user home directories via URLs."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive: "LoadModule userdir_module modules/mod_userdir.so"
+assertion:
+  condition: "not_contains"
+  value: "userdir_module"
+rationale: "When enabled, the mod_userdir module allows web access to user home directories (e.g., http://example.com/~user/). This may expose sensitive or unintended files, especially as new system accounts are added."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache with the --disable-userdir option:
+      $ cd $DOWNLOAD_HTTPD
+      $ ./configure --disable-userdir
+  • For dynamically loaded modules, comment out or remove the following directive in httpd.conf or related configuration files:
+      ##LoadModule userdir_module modules/mod_userdir.so

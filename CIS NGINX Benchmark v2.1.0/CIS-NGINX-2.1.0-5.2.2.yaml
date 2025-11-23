@@ -1,0 +1,30 @@
+ruleId: CIS-NGINX-2.1.0-5.2.2
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the maximum request body size is set correctly using the client_max_body_size directive."
+severity: "Medium"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "client_max_body_size"
+assertion:
+  condition: "value_at_most"
+  value: "100K"
+rationale: |
+  Setting a limit on the maximum request body size helps prevent buffer overflow attacks
+  and resource exhaustion caused by excessively large client requests.
+  The value should be configured to balance application needs and security — small enough to prevent abuse,
+  but large enough to allow legitimate requests.
+remediation: |
+  In your NGINX configuration (within the 'http' or 'server' block), set an appropriate maximum request body size.
+  The following example sets the limit to 100 kilobytes:
+      client_max_body_size 100K;
+
+  Example:
+      http {
+          client_max_body_size 100K;
+      }
+
+  Adjust the value based on your application's requirements.

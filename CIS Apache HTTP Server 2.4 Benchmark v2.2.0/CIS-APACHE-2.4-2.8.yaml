@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-2.8
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Info module (mod_info) is disabled to prevent disclosure of sensitive configuration details via /server-info."
+severity: "High"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive: "LoadModule info_module modules/mod_info.so"
+assertion:
+  condition: "not_contains"
+  value: "info_module"
+rationale: "The mod_info module exposes detailed configuration information, including system paths, usernames, and credentials. Disabling it prevents attackers from obtaining sensitive configuration data that could be used to exploit the server."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache without including mod_info in the --enable-modules option:
+      $ cd $DOWNLOAD_HTTPD
+      $ ./configure
+  • For dynamically loaded modules, comment out or remove the following directive in httpd.conf or related configuration files:
+      ##LoadModule info_module modules/mod_info.so

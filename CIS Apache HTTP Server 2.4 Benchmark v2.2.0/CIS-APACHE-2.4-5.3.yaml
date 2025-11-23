@@ -1,0 +1,36 @@
+ruleId: CIS-APACHE-2.4-5.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Options directives for all non-root and non-document directories are minimized and do not include insecure settings such as 'Includes'."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive_block: "<Directory>"
+  directive: "Options"
+assertion:
+  condition: "not_contains_any"
+  value:
+    - "Includes"
+    - "Indexes"
+    - "FollowSymLinks"
+rationale: "Restricting Apache Options to only what is necessary minimizes attack surfaces. Disabling unnecessary features such as Includes, Indexes, and FollowSymLinks prevents potential exploits like directory traversal, remote command execution, and unauthorized file exposure."
+remediation: |
+  Review all <Directory> blocks in Apache configuration files (httpd.conf and included configs) and remove insecure or unnecessary Options.
+  Set only the minimal options required. Example recommended configurations:
+  
+      <Directory "/var/www/cgi-bin">
+          Options ExecCGI
+      </Directory>
+
+      <Directory "/var/www/multilang">
+          Options MultiViews
+      </Directory>
+
+      <Directory "/var/www/html">
+          Options None
+      </Directory>
+
+  Avoid enabling:
+      - Includes (or IncludesNOEXEC unless absolutely required)
+      - Indexes (automatic directory listings)
+      - FollowSymLinks (use SymLinksIfOwnerMatch if required)

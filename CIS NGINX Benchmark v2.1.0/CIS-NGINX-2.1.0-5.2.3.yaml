@@ -1,0 +1,28 @@
+ruleId: CIS-NGINX-2.1.0-5.2.3
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the maximum buffer size for URIs is defined using the large_client_header_buffers directive."
+severity: "Medium"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "large_client_header_buffers"
+assertion:
+  condition: "equals"
+  value: "2 1k"
+rationale: |
+  Defining the large_client_header_buffers directive restricts the maximum size of URI headers,
+  reducing the risk of buffer overflow and denial of service attacks that exploit excessively long request headers or query strings.
+  Proper configuration of this directive ensures NGINX handles large request headers safely and efficiently.
+remediation: |
+  In your NGINX configuration (within the 'http' or 'server' block), add or update the following directive:
+      large_client_header_buffers 2 1k;
+
+  Example:
+      http {
+          large_client_header_buffers 2 1k;
+      }
+
+  Adjust the number and size of buffers based on application needs while keeping security in mind.

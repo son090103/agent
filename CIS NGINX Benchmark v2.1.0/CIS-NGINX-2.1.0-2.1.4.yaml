@@ -1,0 +1,28 @@
+ruleId: CIS-NGINX-2.1.0-2.1.4
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure the autoindex module is disabled to prevent directory listing."
+severity: "High"
+type: "config_check"
+target:
+  files:
+    - "/etc/nginx/nginx.conf"
+    - "/etc/nginx/conf.d/*.conf"
+    - "/etc/nginx/sites-enabled/*.conf"
+  directive: "autoindex"
+assertion:
+  condition: "equals"
+  value: "off"
+rationale: |
+  The autoindex module generates automatic directory listings for requests ending with a slash (/).
+  Allowing directory listings can reveal sensitive information such as file names, structure,
+  or paths, which can aid attackers in reconnaissance and exploitation.
+  Disabling autoindex helps protect against unauthorized disclosure of server contents.
+remediation: |
+  Step 1: Search for any autoindex directives in your NGINX configuration:
+      egrep -i '^\s*autoindex\s+' /etc/nginx/nginx.conf
+      egrep -i '^\s*autoindex\s+' /etc/nginx/conf.d/*
+
+  Step 2: Set the value of all autoindex directives to 'off' or remove them entirely. Example:
+      location / {
+          autoindex off;
+      }

@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-2.5
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Autoindex module (mod_autoindex) is disabled to prevent directory content disclosure."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "httpd.conf"
+  directive: "LoadModule autoindex_module modules/mod_autoindex.so"
+assertion:
+  condition: "not_contains"
+  value: "autoindex_module"
+rationale: "The mod_autoindex module generates directory listings that can reveal internal file structures, naming conventions, or sensitive files not intended for public access, aiding attackers in reconnaissance."
+remediation: |
+  Perform one of the following actions:
+  • For source builds with static modules, recompile Apache with the --disable-autoindex option:
+      $ cd $DOWNLOAD_HTTPD
+      $ ./configure --disable-autoindex
+  • For dynamically loaded modules, comment out or remove the following directive in httpd.conf or related configuration files:
+      ##LoadModule autoindex_module modules/mod_autoindex.so

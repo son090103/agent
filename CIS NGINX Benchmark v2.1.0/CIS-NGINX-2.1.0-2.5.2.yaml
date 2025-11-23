@@ -1,0 +1,24 @@
+ruleId: CIS-NGINX-2.1.0-2.5.2
+standard: "CIS NGINX Benchmark v2.1.0"
+description: "Ensure default error and index.html pages do not reference NGINX."
+severity: "Medium"
+type: "file_content_check"
+target:
+  files:
+    - "/usr/share/nginx/html/index.html"
+    - "/usr/share/nginx/html/50x.html"
+  disallowed_patterns:
+    - "nginx"
+    - "NGINX"
+assertion:
+  condition: "not_contains"
+  value:
+    - "nginx"
+    - "NGINX"
+rationale: "Default NGINX error and index pages reveal information about the server software, which can assist attackers in fingerprinting and exploiting known vulnerabilities. Removing or modifying these pages reduces information disclosure risks."
+remediation: |
+  Edit the following files and remove any references to 'nginx' or 'NGINX':
+      /usr/share/nginx/html/index.html
+      /usr/share/nginx/html/50x.html
+  Example command:
+      sed -i '/nginx/Id' /usr/share/nginx/html/index.html /usr/share/nginx/html/50x.html

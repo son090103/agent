@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-5.8
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the HTTP TRACE request method is disabled using the TraceEnable directive."
+severity: "High"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "TraceEnable"
+assertion:
+  condition: "equals"
+  value: "off"
+rationale: "The TRACE method can be exploited for cross-site tracing (XST) attacks, allowing attackers to steal credentials or sensitive data. Disabling TRACE mitigates this risk."
+remediation: |
+  Perform the following steps to disable the HTTP TRACE method:
+  1. Locate the main Apache configuration file (e.g., httpd.conf or apache2.conf).
+  2. Add or update the following directive at the server-level configuration:
+     TraceEnable off
+  3. Restart Apache to apply the change:
+     $ sudo systemctl restart apache2
