@@ -1,0 +1,19 @@
+ruleId: CIS-APACHE-2.4-9.5
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the RequestReadTimeout directive limits request header timeouts to 40 seconds or less to mitigate slow request DoS attacks."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/reqtimeout.conf"
+  directive: "RequestReadTimeout"
+assertion:
+  condition: "contains"
+  value: "header=20-40"
+rationale: "Slow HTTP attacks, such as Slowloris and slow POST, exploit prolonged request headers to exhaust server resources. Limiting header timeout to 40 seconds or less prevents connections from remaining idle and strengthens protection against application-layer Denial of Service (DoS) attacks."
+remediation: |
+  Perform the following steps to configure secure timeout limits for client request headers:
+
+  1. Ensure the mod_reqtimeout module is enabled:
+         sudo a2enmod reqtimeout
+
+  2. Open or create the configuration file (e.g., /etc/apache2/

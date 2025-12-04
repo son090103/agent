@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Auto Web Server Agent Runner (Dual Collector)
-
-- Phát hiện web servers (Apache, NGINX)
-- Tự động chạy apache_agent.collect() hoặc nginx_agent.collect()
-- Xuất file apache_report.json / nginx_report.json
-- Tạo combined_webserver_report_<timestamp>.json
-- Upload kết quả dạng mảng cho API backend
+Auto Web Server Agent Runner (Collector + Evaluator + Merger)
+- Detect Apache / NGINX
+- Collect configuration
+- Evaluate CIS rules
+- Return JSON payload đúng chuẩn backend
 """
 
 import subprocess
@@ -19,152 +17,172 @@ from datetime import datetime
 import argparse
 import requests
 
-# ----------------------------
-# Detect which servers are present
-# ----------------------------
-def detect_servers():
-    """Phát hiện Apache / NGINX đang cài hoặc chạy."""
-    found = []
+# ================================================
+# IMPORT RULE EVALUATORS
+# ================================================
+import check_file_apache
+import check_file_nginx
 
+# ================================================
+# Detect servers
+# ================================================
+def detect_servers():
+    found = []
     try:
-        ps_output = subprocess.getoutput("ps aux | grep -E 'apache2|httpd|nginx' | grep -v grep").lower()
+        ps_output = subprocess.getoutput(
+            "ps aux | grep -E 'apache2|httpd|nginx' | grep -v grep"
+        ).lower()
         if "apache2" in ps_output or "httpd" in ps_output:
             found.append("apache")
         if "nginx" in ps_output:
             found.append("nginx")
-    except Exception:
+    except:
         pass
 
-    # Nếu không có process, kiểm tra binary
+    # If no process found, check binary paths
     if not found:
-        if Path("/usr/sbin/apache2").exists() or Path("/usr/sbin/httpd").exists() or subprocess.getoutput("which apache2"):
+        if Path("/usr/sbin/apache2").exists() or Path("/usr/sbin/httpd").exists():
             found.append("apache")
-        if Path("/usr/sbin/nginx").exists() or subprocess.getoutput("which nginx"):
+        if Path("/usr/sbin/nginx").exists():
             found.append("nginx")
 
     return sorted(set(found))
 
-
-# ----------------------------
-# Run agent and return JSON
-# ----------------------------
+# ================================================
+# Run collector
+# ================================================
 def run_agent(server_type):
-    """Chạy agent tương ứng và trả về JSON."""
     agent_map = {
         "apache": "apache_agent",
-        "nginx": "nginx_agent"
+        "nginx": "nginx_agent",
     }
 
     try:
         agent_module = __import__(agent_map[server_type])
-        print(f"\n✅ Đang chạy {server_type.upper()} agent...")
+        print(f"\n✅ Running {server_type.upper()} collector...")
 
-        # Auto detect root path
-        if server_type == "apache":
-            POSSIBLE_PATHS = [
+        # detect root
+        paths = (
+            [
                 os.getenv("APACHE_ROOT"),
                 "/etc/apache2",
                 "/etc/httpd",
                 "/usr/local/apache2/conf",
-                "/usr/local/etc/apache2",
-                "/opt/apache2/conf",
             ]
-        elif server_type == "nginx":
-            POSSIBLE_PATHS = [
+            if server_type == "apache"
+            else [
                 os.getenv("NGINX_ROOT"),
                 "/etc/nginx",
                 "/usr/local/nginx/conf",
-                "/usr/local/etc/nginx",
-                "/opt/nginx/conf",
             ]
+        )
 
-        root = next((p for p in POSSIBLE_PATHS if p and Path(p).exists()), None)
+        root = next((p for p in paths if p and Path(p).exists()), None)
         if not root:
-            print(f"⚠️ Không tìm thấy thư mục cấu hình {server_type}.")
+            print(f"⚠️ Không tìm thấy root path cho {server_type}")
             return None
 
-        # Gọi collect()
-        result = agent_module.collect(root)
+        data = agent_module.collect(root)
 
-        # Lưu file JSON riêng
-        out_name = f"{server_type}_report.json"
-        with open(out_name, "w", encoding="utf-8") as f:
-            json.dump(result, f, indent=2, ensure_ascii=False)
-        print(f"💾 Đã lưu kết quả: {out_name}")
+        # save
+        fn = f"{server_type}_report.json"
+        with open(fn, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
 
-        return result
+        print(f"💾 Saved: {fn}")
+        return data
 
-    except ModuleNotFoundError:
-        print(f"❌ Không tìm thấy file {agent_map[server_type]}.py.")
     except Exception as e:
-        print(f"❌ Lỗi khi chạy {agent_map[server_type]}: {e}")
+        print(f"❌ Collector error for {server_type}: {e}")
+        return None
 
-    return None
+# ================================================
+# Summary
+# ================================================
+def make_summary(results):
+    return {
+        "total": len(results),
+        "passed": sum(1 for r in results if r["status"] == "PASS"),
+        "failed": sum(1 for r in results if r["status"] == "FAIL"),
+        "inconclusive": sum(1 for r in results if r["status"] == "NO_DATA"),
+    }
 
-
-# ----------------------------
-# MAIN ENTRY
-# ----------------------------
+# ================================================
+# MAIN
+# ================================================
 if __name__ == "__main__":
-
-    # CLI arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("--scan-id", required=True)
     parser.add_argument("--token", required=True)
     parser.add_argument("--upload-url", required=True)
     args = parser.parse_args()
 
-    print("🔍 Đang phát hiện web servers trên hệ thống...\n")
+    print("🔍 Detecting servers...")
     servers = detect_servers()
 
     if not servers:
-        print("⚠️ Không phát hiện Apache hoặc NGINX.")
+        print("⚠️ No server found!")
         sys.exit(1)
 
-    print(f"✅ Đã phát hiện: {', '.join(servers).upper()}")
+    print(f"✅ Detected: {servers}")
 
-    results = {}
-    for server in servers:
-        res = run_agent(server)
-        if res:
-            results[server] = res
+    collected = {}
+    evaluated = {}
 
-    # Tạo file tổng hợp local
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    combined_file = f"combined_webserver_report_{timestamp}.json"
-    with open(combined_file, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
+    # 1️⃣ COLLECT
+    for srv in servers:
+        data = run_agent(srv)
+        if data:
+            collected[srv] = data
 
-    print(f"\n📦 Đã tạo bản tổng hợp: {combined_file}")
+    # 2️⃣ EVALUATE
+    if "apache" in collected:
+        print("🚀 Evaluating Apache rules...")
+        apache_results = check_file_apache.evaluate_all(collected["apache"])
 
-    # Chuẩn hóa upload thành 1 mảng
-    upload_array = [
-        {
-            "type": srv,
-            "scan_id": args.scan_id,
-            "data": results[srv]
+        # normalize
+        for r in apache_results:
+            if r["status"] not in ["PASS", "FAIL"]:
+                r["status"] = "NO_DATA"
+
+        evaluated["apache"] = {
+            "summary": make_summary(apache_results),
+            "results": apache_results,
         }
-        for srv in results
-    ]
 
-    print("\n📡 Đang gửi kết quả về server...")
+    if "nginx" in collected:
+        print("🚀 Evaluating NGINX rules...")
+        nginx_results = check_file_nginx.evaluate_all(collected["nginx"])
 
+        for r in nginx_results:
+            if r["status"] not in ["PASS", "FAIL"]:
+                r["status"] = "NO_DATA"
+
+        evaluated["nginx"] = {
+            "summary": make_summary(nginx_results),
+            "results": nginx_results,
+        }
+
+    # 3️⃣ BUILD FINAL PAYLOAD (ĐÚNG YÊU CẦU BACKEND)
+    final_payload = {
+        "ok": True,
+        "scan_id": args.scan_id,
+        "data": evaluated,   # đã đúng format { apache:{..}, nginx:{..} }
+    }
+
+    print("📤 Final JSON ready to send:")
+    print(json.dumps(final_payload, indent=2, ensure_ascii=False))
+
+    # 4️⃣ UPLOAD
     try:
         response = requests.post(
             args.upload_url,
-            json=upload_array,
+            json=final_payload,
             headers={"Authorization": f"Bearer {args.token}"}
         )
-
-        if response.status_code == 200:
-            print("✅ Upload thành công!")
-        else:
-            print(f"❌ Upload thất bại: {response.status_code} - {response.text}")
+        print("📡 Upload status:", response.status_code, response.text)
 
     except Exception as e:
-        print(f"❌ Lỗi khi upload: {e}")
+        print("❌ Upload error:", e)
 
-    print("\n=== TÓM TẮT KẾT QUẢ ===")
-    for s, r in results.items():
-        total_files = len(r.get("files", [])) if isinstance(r, dict) else 0
-        print(f"- {s.upper()}: {total_files} file cấu hình → {s}_report.json")
+    print("🎉 DONE")

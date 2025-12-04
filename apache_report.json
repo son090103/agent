@@ -1174,7 +1174,7 @@
       },
       "listing": {
         "exists": true,
-        "total_entries": 8,
+        "total_entries": 12,
         "sample": [
           {
             "name": "other_vhosts_access.log",
@@ -1217,6 +1217,14 @@
             "mode": "0o640"
           },
           {
+            "name": "error.log.6.gz",
+            "is_dir": false,
+            "is_file": true,
+            "uid": 0,
+            "gid": 4,
+            "mode": "0o640"
+          },
+          {
             "name": "error.log",
             "is_dir": false,
             "is_file": true,
@@ -1226,6 +1234,30 @@
           },
           {
             "name": "error.log.5.gz",
+            "is_dir": false,
+            "is_file": true,
+            "uid": 0,
+            "gid": 4,
+            "mode": "0o640"
+          },
+          {
+            "name": "error.log.7.gz",
+            "is_dir": false,
+            "is_file": true,
+            "uid": 0,
+            "gid": 4,
+            "mode": "0o640"
+          },
+          {
+            "name": "error.log.9.gz",
+            "is_dir": false,
+            "is_file": true,
+            "uid": 0,
+            "gid": 4,
+            "mode": "0o640"
+          },
+          {
+            "name": "error.log.8.gz",
             "is_dir": false,
             "is_file": true,
             "uid": 0,
@@ -1287,7 +1319,7 @@
       "exists": true,
       "stat": {
         "exists": true,
-        "size": 980,
+        "size": 1000,
         "owner": 0,
         "group": 0,
         "mode": "0o755",
@@ -1295,7 +1327,7 @@
       },
       "listing": {
         "exists": true,
-        "total_entries": 47,
+        "total_entries": 48,
         "sample": [
           {
             "name": "udisks2",
@@ -1346,20 +1378,20 @@
             "mode": "0o644"
           },
           {
-            "name": "sm-notify.pid",
-            "is_dir": false,
-            "is_file": true,
-            "uid": 0,
-            "gid": 0,
-            "mode": "0o600"
-          },
-          {
             "name": "lightdm",
             "is_dir": true,
             "is_file": false,
             "uid": 0,
             "gid": 0,
             "mode": "0o711"
+          },
+          {
+            "name": "nginx.pid",
+            "is_dir": false,
+            "is_file": true,
+            "uid": 0,
+            "gid": 0,
+            "mode": "0o644"
           },
           {
             "name": "lightdm.pid",
@@ -1378,12 +1410,12 @@
             "mode": "0o755"
           },
           {
-            "name": "NetworkManager",
-            "is_dir": true,
-            "is_file": false,
+            "name": "sm-notify.pid",
+            "is_dir": false,
+            "is_file": true,
             "uid": 0,
             "gid": 0,
-            "mode": "0o755"
+            "mode": "0o600"
           },
           {
             "name": "VBoxDRMClient",
@@ -1392,6 +1424,14 @@
             "uid": 0,
             "gid": 0,
             "mode": "0o644"
+          },
+          {
+            "name": "NetworkManager",
+            "is_dir": true,
+            "is_file": false,
+            "uid": 0,
+            "gid": 0,
+            "mode": "0o755"
           },
           {
             "name": "crond.reboot",
@@ -1603,14 +1643,6 @@
           },
           {
             "name": "log",
-            "is_dir": true,
-            "is_file": false,
-            "uid": 0,
-            "gid": 0,
-            "mode": "0o755"
-          },
-          {
-            "name": "tmpfiles.d",
             "is_dir": true,
             "is_file": false,
             "uid": 0,

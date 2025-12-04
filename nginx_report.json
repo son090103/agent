@@ -393,6 +393,13 @@
         "exists": true,
         "entries": [
           {
+            "name": "error.log.1",
+            "dir": false,
+            "mode": "0o640",
+            "uid": 33,
+            "gid": 4
+          },
+          {
             "name": "error.log",
             "dir": false,
             "mode": "0o640",
@@ -401,6 +408,13 @@
           },
           {
             "name": "access.log",
+            "dir": false,
+            "mode": "0o640",
+            "uid": 33,
+            "gid": 4
+          },
+          {
+            "name": "access.log.1",
             "dir": false,
             "mode": "0o640",
             "uid": 33,
@@ -421,95 +435,137 @@
         "exists": true,
         "entries": [
           {
-            "name": "initramfs",
+            "name": "udisks2",
             "dir": true,
             "mode": "0o700",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "console-setup",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "udev",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "plymouth",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "lock",
-            "dir": true,
-            "mode": "0o1777",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "systemd",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "credentials",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "initctl",
+            "name": "agetty.reload",
             "dir": false,
             "mode": "0o600",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "mount",
-            "dir": true,
-            "mode": "0o755",
+            "name": "docker.pid",
+            "dir": false,
+            "mode": "0o644",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "tmpfiles.d",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "log",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "network",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "cryptsetup",
+            "name": "docker",
             "dir": true,
             "mode": "0o700",
             "uid": 0,
             "gid": 0
+          },
+          {
+            "name": "containerd",
+            "dir": true,
+            "mode": "0o711",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "sshd.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "lightdm",
+            "dir": true,
+            "mode": "0o711",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "nginx.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "lightdm.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "apache2",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "sm-notify.pid",
+            "dir": false,
+            "mode": "0o600",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "VBoxDRMClient",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "NetworkManager",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "crond.reboot",
+            "dir": false,
+            "mode": "0o0",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "crond.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "issue.d",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "ssh-unix-local",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "pcscd",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "docker.sock",
+            "dir": false,
+            "mode": "0o660",
+            "uid": 0,
+            "gid": 988
           },
           {
             "name": "dbus",
@@ -519,84 +575,14 @@
             "gid": 0
           },
           {
-            "name": "shm",
+            "name": "rpc_pipefs",
             "dir": true,
-            "mode": "0o1777",
+            "mode": "0o555",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "sendsigs.omit.d",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "iodine",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "setrans",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "openvpn-client",
-            "dir": true,
-            "mode": "0o710",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "openvpn-server",
-            "dir": true,
-            "mode": "0o710",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "openvpn",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "postgresql",
-            "dir": true,
-            "mode": "0o2775",
-            "uid": 123,
-            "gid": 122
-          },
-          {
-            "name": "rpcbind",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 115,
-            "gid": 0
-          },
-          {
-            "name": "screen",
-            "dir": true,
-            "mode": "0o1777",
-            "uid": 0,
-            "gid": 43
-          },
-          {
-            "name": "speech-dispatcher",
-            "dir": true,
-            "mode": "0o750",
-            "uid": 121,
-            "gid": 29
-          },
-          {
-            "name": "sslh",
+            "name": "user",
             "dir": true,
             "mode": "0o755",
             "uid": 0,
@@ -610,23 +596,51 @@
             "gid": 0
           },
           {
-            "name": "user",
+            "name": "sslh",
             "dir": true,
             "mode": "0o755",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "utmp",
-            "dir": false,
-            "mode": "0o664",
+            "name": "speech-dispatcher",
+            "dir": true,
+            "mode": "0o750",
+            "uid": 121,
+            "gid": 29
+          },
+          {
+            "name": "screen",
+            "dir": true,
+            "mode": "0o1777",
             "uid": 0,
             "gid": 43
           },
           {
-            "name": "rpc_pipefs",
+            "name": "rpcbind",
             "dir": true,
-            "mode": "0o555",
+            "mode": "0o755",
+            "uid": 115,
+            "gid": 0
+          },
+          {
+            "name": "postgresql",
+            "dir": true,
+            "mode": "0o2775",
+            "uid": 123,
+            "gid": 122
+          },
+          {
+            "name": "openvpn",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "openvpn-server",
+            "dir": true,
+            "mode": "0o710",
             "uid": 0,
             "gid": 0
           }
@@ -645,95 +659,137 @@
         "exists": true,
         "entries": [
           {
-            "name": "initramfs",
+            "name": "udisks2",
             "dir": true,
             "mode": "0o700",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "console-setup",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "udev",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "plymouth",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "lock",
-            "dir": true,
-            "mode": "0o1777",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "systemd",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "credentials",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "initctl",
+            "name": "agetty.reload",
             "dir": false,
             "mode": "0o600",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "mount",
-            "dir": true,
-            "mode": "0o755",
+            "name": "docker.pid",
+            "dir": false,
+            "mode": "0o644",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "tmpfiles.d",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "log",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "network",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "cryptsetup",
+            "name": "docker",
             "dir": true,
             "mode": "0o700",
             "uid": 0,
             "gid": 0
+          },
+          {
+            "name": "containerd",
+            "dir": true,
+            "mode": "0o711",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "sshd.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "lightdm",
+            "dir": true,
+            "mode": "0o711",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "nginx.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "lightdm.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "apache2",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "sm-notify.pid",
+            "dir": false,
+            "mode": "0o600",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "VBoxDRMClient",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "NetworkManager",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "crond.reboot",
+            "dir": false,
+            "mode": "0o0",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "crond.pid",
+            "dir": false,
+            "mode": "0o644",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "issue.d",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "ssh-unix-local",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "pcscd",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "docker.sock",
+            "dir": false,
+            "mode": "0o660",
+            "uid": 0,
+            "gid": 988
           },
           {
             "name": "dbus",
@@ -743,84 +799,14 @@
             "gid": 0
           },
           {
-            "name": "shm",
+            "name": "rpc_pipefs",
             "dir": true,
-            "mode": "0o1777",
+            "mode": "0o555",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "sendsigs.omit.d",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "iodine",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "setrans",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "openvpn-client",
-            "dir": true,
-            "mode": "0o710",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "openvpn-server",
-            "dir": true,
-            "mode": "0o710",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "openvpn",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 0,
-            "gid": 0
-          },
-          {
-            "name": "postgresql",
-            "dir": true,
-            "mode": "0o2775",
-            "uid": 123,
-            "gid": 122
-          },
-          {
-            "name": "rpcbind",
-            "dir": true,
-            "mode": "0o755",
-            "uid": 115,
-            "gid": 0
-          },
-          {
-            "name": "screen",
-            "dir": true,
-            "mode": "0o1777",
-            "uid": 0,
-            "gid": 43
-          },
-          {
-            "name": "speech-dispatcher",
-            "dir": true,
-            "mode": "0o750",
-            "uid": 121,
-            "gid": 29
-          },
-          {
-            "name": "sslh",
+            "name": "user",
             "dir": true,
             "mode": "0o755",
             "uid": 0,
@@ -834,23 +820,51 @@
             "gid": 0
           },
           {
-            "name": "user",
+            "name": "sslh",
             "dir": true,
             "mode": "0o755",
             "uid": 0,
             "gid": 0
           },
           {
-            "name": "utmp",
-            "dir": false,
-            "mode": "0o664",
+            "name": "speech-dispatcher",
+            "dir": true,
+            "mode": "0o750",
+            "uid": 121,
+            "gid": 29
+          },
+          {
+            "name": "screen",
+            "dir": true,
+            "mode": "0o1777",
             "uid": 0,
             "gid": 43
           },
           {
-            "name": "rpc_pipefs",
+            "name": "rpcbind",
             "dir": true,
-            "mode": "0o555",
+            "mode": "0o755",
+            "uid": 115,
+            "gid": 0
+          },
+          {
+            "name": "postgresql",
+            "dir": true,
+            "mode": "0o2775",
+            "uid": 123,
+            "gid": 122
+          },
+          {
+            "name": "openvpn",
+            "dir": true,
+            "mode": "0o755",
+            "uid": 0,
+            "gid": 0
+          },
+          {
+            "name": "openvpn-server",
+            "dir": true,
+            "mode": "0o710",
             "uid": 0,
             "gid": 0
           }

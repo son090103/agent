@@ -1,0 +1,33 @@
+ruleId: CIS-APACHE-2.4-9.3
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the MaxKeepAliveRequests directive is set to 100 or greater to balance performance and resource protection."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "MaxKeepAliveRequests"
+assertion:
+  condition: "greater_or_equal"
+  value: 100
+rationale: "Setting MaxKeepAliveRequests to 100 or more allows efficient reuse of persistent connections, improving performance while mitigating Denial of Service (DoS) risks associated with connection overload. A value below 100 can limit efficiency, whereas unlimited requests (0) may lead to resource exhaustion."
+remediation: |
+  Perform the following steps to configure MaxKeepAliveRequests securely:
+
+  1. Open the Apache main configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).
+
+  2. Locate or add the following directive to ensure at least 100 requests per persistent connection:
+         MaxKeepAliveRequests 100
+
+     You may choose a higher value (e.g., 200–500) based on server performance testing and workload.
+
+  3. Save the configuration and test syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  4. Restart Apache to apply the changes:
+         $ sudo systemctl restart apache2
+
+  5. Verify the configuration:
+         $ grep -R "MaxKeepAliveRequests" /etc/apache2/apache2.conf
+     Expected output should show:
+         MaxKeepAliveRequests 100

@@ -393,3 +393,38 @@ if __name__ == "__main__":
     with out_file.open("w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
     print(f"📄 Đã lưu kết quả toàn bộ tại: {out_file}")
+def evaluate_all(report_data):
+    """
+    Evaluate toàn bộ rule Apache CIS từ thư mục:
+    CIS Apache HTTP Server 2.4 Benchmark v2.2.0
+
+    → Dùng cho agent webserver_collector_auto.py
+    → Trả về: array of results [{rule_id, status, found_value, remediation}]
+    """
+
+    base_dir = Path(__file__).resolve().parent
+    rules_dir = base_dir / "CIS Apache HTTP Server 2.4 Benchmark v2.2.0"
+
+    if not rules_dir.exists():
+        raise FileNotFoundError(f"❌ Không tìm thấy thư mục rule: {rules_dir}")
+
+    yaml_files = sorted(rules_dir.glob("*.yaml"))
+    results = []
+
+    for f in yaml_files:
+        try:
+            rule = load_yaml_rule(f)
+            if not rule:
+                continue
+            res = evaluate_rule(report_data, rule)
+            results.append(res)
+        except Exception as e:
+            # fallback nếu lỗi rule
+            results.append({
+                "rule_id": f.name,
+                "status": "NO_DATA",
+                "found_value": [f"Rule error: {e}"],
+                "remediation": ""
+            })
+
+    return results
