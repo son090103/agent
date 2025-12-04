@@ -1,0 +1,33 @@
+ruleId: CIS-APACHE-2.4-9.2
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the KeepAlive directive is enabled to allow connection reuse and improve server performance."
+severity: "Medium"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "KeepAlive"
+assertion:
+  condition: "equals"
+  value: "On"
+rationale: "Enabling KeepAlive allows clients to reuse existing TCP connections for multiple requests, reducing resource overhead and improving responsiveness. It also strengthens the server’s ability to handle higher loads efficiently and mitigates certain Denial of Service (DoS) risks."
+remediation: |
+  Perform the following steps to ensure KeepAlive is enabled:
+
+  1. Open the Apache main configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).
+
+  2. Locate or add the following directive:
+         KeepAlive On
+
+     If the directive is not present, Apache defaults to enabling KeepAlive.
+
+  3. Save the file and verify the syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  4. Restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2
+
+  5. Verify the setting:
+         $ grep -R "KeepAlive" /etc/apache2/apache2.conf
+     Expected output should show:
+         KeepAlive On

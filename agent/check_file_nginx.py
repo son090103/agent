@@ -495,3 +495,60 @@ if __name__ == "__main__":
     with out_file.open("w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
     print(f"📄 Đã lưu kết quả toàn bộ tại: {out_file}")
+
+def load_rules_from_mongodb(rule_type="nginx"):
+    """
+    Load toàn bộ rule từ MongoDB theo type ('nginx')
+    """
+
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["secrulemap"]
+    collection = db["ruleconfigs"]   # đúng tên collection rule bạn đang dùng
+
+    rules = list(collection.find({"type": rule_type}))
+
+    # Xóa _id vì không cần khi evaluate
+    for r in rules:
+        r.pop("_id", None)
+
+    print(f"📥 Loaded {len(rules)} rules from MongoDB (type={rule_type})")
+
+    return rules
+def evaluate_nginx_all_rules_from_db(report_data):
+    """
+    Chạy TẤT CẢ rule NGINX lấy từ DB và return summary + results
+    """
+
+    print("🚀 Evaluating all NGINX rules from MongoDB...")
+
+    # ---- Load rules từ DB ----
+    rules = load_rules_from_mongodb("nginx")
+
+    results = []
+    for rule in rules:
+        try:
+            res = evaluate_rule(report_data, rule)
+            results.append(res)
+            print(f"✔ {rule.get('rule_id')} → {res['status']}")
+        except Exception as e:
+            print(f"❌ Error evaluating {rule.get('rule_id')}: {e}")
+            results.append({
+                "rule_id": rule.get("rule_id", "UNKNOWN"),
+                "status": "Error",
+                "found_value": [str(e)],
+                "remediation": rule.get("remediation", "")
+            })
+
+    # ---- Summary ----
+    summary = {
+        "total": len(results),
+        "passed": sum(1 for r in results if r["status"] == "PASS"),
+        "failed": sum(1 for r in results if r["status"] == "FAIL"),
+        "error": sum(1 for r in results if r["status"] == "Error"),
+        "inconclusive": sum(1 for r in results if "Insufficient" in r["status"]),
+    }
+
+    return {
+        "summary": summary,
+        "results": results
+    }

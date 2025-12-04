@@ -1,0 +1,38 @@
+ruleId: CIS-APACHE-2.4-9.6
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the RequestReadTimeout directive limits request body timeouts to 20 seconds or less to prevent Slow POST attacks."
+severity: "High"
+type: "config_check"
+target:
+  file: "mods-available/reqtimeout.conf"
+  directive: "RequestReadTimeout"
+assertion:
+  condition: "contains"
+  value: "body=20"
+rationale: "If the request body timeout is not configured properly, attackers can perform Slow POST or similar attacks to hold server connections open and exhaust resources. Setting the maximum body timeout to 20 seconds or less ensures Apache releases stalled connections quickly, mitigating application-layer DoS risks."
+remediation: |
+  Perform the following steps to configure secure timeout limits for the request body:
+
+  1. Ensure the mod_reqtimeout module is enabled:
+         sudo a2enmod reqtimeout
+
+  2. Open or create the configuration file (e.g., /etc/apache2/mods-available/reqtimeout.conf).
+
+  3. Add or modify the RequestReadTimeout directive to include a body timeout of 20 seconds or less:
+         LoadModule reqtimeout_module modules/mod_reqtimeout.so
+         RequestReadTimeout header=20-40,MinRate=500 body=20,MinRate=500
+
+     This configuration enforces:
+     • Header timeout: 20–40 seconds (with min 500 bytes/sec)
+     • Body timeout: maximum 20 seconds (with min 500 bytes/sec)
+
+  4. Save the file and test the Apache configuration syntax:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  5. Restart Apache to apply changes:
+         $ sudo systemctl restart apache2
+
+  6. Verify the module and directive are active:
+         $ apachectl -t -D DUMP_RUN_CFG | grep reqtimeout
+     Ensure the RequestReadTimeout directive is loaded and includes `body=20`.

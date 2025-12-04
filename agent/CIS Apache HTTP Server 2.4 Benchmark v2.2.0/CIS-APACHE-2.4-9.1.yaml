@@ -1,0 +1,31 @@
+ruleId: CIS-APACHE-2.4-9.1
+standard: "CIS Apache HTTP Server 2.4 Benchmark v2.0.0"
+description: "Ensure the Timeout directive is set to 10 seconds or less to mitigate potential Denial of Service (DoS) attacks."
+severity: "High"
+type: "config_check"
+target:
+  file: "apache2.conf"
+  directive: "Timeout"
+assertion:
+  condition: "less_or_equal"
+  value: 10
+rationale: "A lower Timeout value helps mitigate application-layer Denial of Service (DoS) attacks by freeing up server resources more quickly. By limiting how long the server waits for certain events, attackers have less opportunity to tie up resources with idle or slow connections."
+remediation: |
+  Perform the following steps to configure the Timeout directive securely:
+
+  1. Open the Apache main configuration file (e.g., /etc/apache2/apache2.conf or /etc/httpd/conf/httpd.conf).
+
+  2. Locate or add the Timeout directive and set its value to 10 or less:
+         Timeout 10
+
+  3. Save the file and check for syntax errors:
+         $ sudo apachectl configtest
+         Syntax OK
+
+  4. Restart Apache to apply the configuration:
+         $ sudo systemctl restart apache2
+
+  5. Verify the configuration:
+         $ grep -R "Timeout" /etc/apache2/apache2.conf
+     Expected output should show:
+         Timeout 10
